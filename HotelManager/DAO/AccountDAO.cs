@@ -58,6 +58,11 @@ namespace HotelManager.DAO
             string query = "USP_UpdatePassword @user , @hashPass)";
             return DataProvider.Instance.ExecuteNoneQuery(query, new object[] { user, hashPass }) > 0;
         }
+        public bool DeleteAccount(string userName)
+        {
+            string query = "USP_DeleteStaff @userName";
+            return DataProvider.Instance.ExecuteNoneQuery(query, new object[] { userName }) > 0;
+        }
         private AccountDAO() { }
 
     }

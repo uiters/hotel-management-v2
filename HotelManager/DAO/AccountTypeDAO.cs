@@ -16,11 +16,16 @@ namespace HotelManager.DAO
             string query = "exec USP_InsertStaffType @name";
             return DataProvider.Instance.ExecuteNoneQuery(query, new object[] { name }) > 0;
         }
-        public bool UpdateStaffType(AccountType staffType)
+        public bool UpdateStaffType(int id, string name)
         {
             string query = "EXEC USP_UpdateStaffType @id , @name";
-            return DataProvider.Instance.ExecuteNoneQuery(query, new object[] { staffType.Id, staffType.Name }) > 0;
+            return DataProvider.Instance.ExecuteNoneQuery(query, new object[] { id, name }) > 0;
         }
+        public bool UpdateStaffType(AccountType staffType)
+        {
+            return UpdateStaffType(staffType.Id, staffType.Name);
+        }
+
         public bool DeleteStaffType(int id)
         {
             string query = "Exec USP_DeleteStaffType @id";
@@ -31,6 +36,8 @@ namespace HotelManager.DAO
             string query = "select * from stafftype";
             return DataProvider.Instance.ExecuteQuery(query);
         }
+
+        private AccountTypeDAO() { }
         public static AccountTypeDAO Instance { get { if (instance == null) instance = new AccountTypeDAO(); return instance; }}
     }
 }

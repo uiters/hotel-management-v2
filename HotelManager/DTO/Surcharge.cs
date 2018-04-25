@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HotelManager.DTO
 {
-    class Surcharge
+    public class Surcharge
     {
         private string name;
         private float value;

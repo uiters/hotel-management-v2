@@ -150,19 +150,10 @@ BEGIN
 	WHERE ID = @id
 END
 GO
-alter PROC USP_DeleteStaffType
+ALTER PROC USP_DeleteStaffType
 @id INT
 AS
 BEGIN
-	DECLARE @count INT=0
-	SELECT @count = COUNT(*) FROM dbo.Staff WHERE IDStaffType = @id
-	IF (@count=0)
-	BEGIN
-		DELETE FROM dbo.StaffType 
-		WHERE ID = @id
-	END
-	ELSE
-	BEGIN
 		CREATE TABLE #temp(idBill INT, idStaff NVARCHAR(100))
 		INSERT INTO #temp(idBill, idStaff)
 		SELECT Bill.ID AS idBill, Bill.StaffSetUp AS idStaff
@@ -186,7 +177,6 @@ BEGIN
 		DELETE FROM dbo.StaffType
 		WHERE ID = @id
 		DROP TABLE #temp
-	END
 END
 -------------------------
 --Staff 
@@ -225,7 +215,34 @@ BEGIN
     password = @pass
 	WHERE username=@user
 END
-go
+GO
+CREATE PROC USP_DeleteStaff
+@username NVARCHAR(100)
+AS
+BEGIN
+	DECLARE @temp TABLE
+	(
+		id int
+	)
+	INSERT INTO @temp 
+		SELECT id 
+		FROM dbo.Bill INNER JOIN dbo.Staff ON Staff.UserName = Bill.StaffSetUp 
+		WHERE UserName = @username
+	DELETE FROM dbo.BillInfo
+	WHERE IDBill IN (SELECT * FROM @temp)
+	DELETE FROM dbo.Bill
+	WHERE ID IN (SELECT * FROM @temp)
+	DELETE FROM dbo.ReceiveRoomDetails
+	WHERE IDReceiveRoom IN (SELECT * FROM @temp)
+	DELETE FROM dbo.ReceiveRoom
+	WHERE ID IN (SELECT * FROM @temp)
+	DELETE FROM dbo.BookRoom
+	WHERE ID IN (SELECT * FROM @temp)
+	DELETE FROM dbo.Staff
+	WHERE UserName = @username
+	DELETE @temp
+END
+GO
 -------------------------
 --Service Type
 -------------------------
@@ -269,4 +286,46 @@ begin
 	idservicetype = @idservicetype,
 	price = @price
 	where id = @id
-end
+END
+go
+-------------------------
+--Status Room
+-------------------------
+CREATE PROC USP_InsertStatusRoom
+@name NVARCHAR(100)
+AS
+INSERT INTO statusroom(name) VALUES(@name)
+GO
+CREATE proc USP_UpdateStatusRoom
+@id INT, @name NVARCHAR(100)
+AS
+BEGIN
+	UPDATE dbo.StatusRoom
+	SET
+	name = @name
+	WHERE
+	id = @id
+END
+GO   
+
+-------------------------
+--Surcharge
+-------------------------
+CREATE PROC USP_InsertSurcharge
+@name NVARCHAR(200), @value FLOAT, @describe NVARCHAR(200)
+AS
+INSERT INTO surcharge(name, Value, Describe) VALUES(@name, @value, @describe)
+GO
+CREATE PROC USP_UpdateSurcharge
+@name NVARCHAR(200), @value float, @describe NVARCHAR(200)
+AS
+BEGIN
+UPDATE dbo.Surcharge
+	SET
+	Value = @value,
+	Describe = @describe
+	WHERE name = @name
+END
+GO
+
+

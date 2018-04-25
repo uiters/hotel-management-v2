@@ -73,6 +73,8 @@
     <Compile Include="DAO\AccountTypeDAO.cs" />
     <Compile Include="DAO\ServiceDAO.cs" />
     <Compile Include="DAO\ServiceTypeDAO.cs" />
+    <Compile Include="DAO\StatusRoomDAO.cs" />
+    <Compile Include="DAO\SurchargeDAO.cs" />
     <Compile Include="DTO\Account.cs" />
     <Compile Include="DTO\AccountType.cs" />
     <Compile Include="DTO\Bill.cs" />
