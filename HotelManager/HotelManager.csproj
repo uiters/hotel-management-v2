@@ -33,19 +33,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Bunifu_UI_v1.52">
-      <HintPath>..\..\..\UI for Visual Studio 2017\Bunifu_UI_v1.52.dll</HintPath>
+      <HintPath>I:\USB\Bunifu_UI_v1.52.dll</HintPath>
     </Reference>
     <Reference Include="MaterialSkin">
-      <HintPath>..\..\..\UI for Visual Studio 2017\MaterialSkin.0.2.1\lib\MaterialSkin.dll</HintPath>
+      <HintPath>D:\CSharp\HotelManager\HotelManager\bin\Debug\MaterialSkin.dll</HintPath>
     </Reference>
     <Reference Include="MetroFramework">
-      <HintPath>..\..\UI\MetroModernUI.1.4.0.0\lib\net\MetroFramework.dll</HintPath>
+      <HintPath>C:\Users\Ngoc Y\source\repos\crawlweb\crawlweb\bin\Release\MetroFramework.dll</HintPath>
     </Reference>
     <Reference Include="MetroFramework.Design">
-      <HintPath>..\..\UI\MetroModernUI.1.4.0.0\lib\net\MetroFramework.Design.dll</HintPath>
+      <HintPath>C:\Users\Ngoc Y\source\repos\crawlweb\crawlweb\bin\Release\MetroFramework.Design.dll</HintPath>
     </Reference>
     <Reference Include="MetroFramework.Fonts">
-      <HintPath>..\..\UI\MetroModernUI.1.4.0.0\lib\net\MetroFramework.Fonts.dll</HintPath>
+      <HintPath>C:\Users\Ngoc Y\source\repos\crawlweb\crawlweb\bin\Release\MetroFramework.Fonts.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
