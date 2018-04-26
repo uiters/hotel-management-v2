@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace HotelManager.DAO
 {
     public class StatusRoomDAO
@@ -24,8 +23,12 @@ namespace HotelManager.DAO
         {
             return UpdateStatusRoom(statusRoom.Id, statusRoom.Name);
         }
-
-
+        public bool DeleteStatusRoom(int id)
+        {
+            string query = "USP_DeleteStatusRoom @id";
+            return DataProvider.Instance.ExecuteNoneQuery(query, new object[] { id }) > 0;
+        }
+        
         private StatusRoomDAO() { }
         internal StatusRoomDAO Instance
         {

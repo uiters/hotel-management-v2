@@ -50,15 +50,3 @@ D:\CNPM\HotelManager\obj\Debug\HotelManager.csproj.GenerateResource.cache
 D:\CNPM\HotelManager\obj\Debug\HotelManager.csproj.CoreCompileInputs.cache
 D:\CNPM\HotelManager\obj\Debug\HotelManager.exe
 D:\CNPM\HotelManager\obj\Debug\HotelManager.pdb
-E:\HotelManager\HotelManager\obj\Debug\HotelManager.csprojResolveAssemblyReference.cache
-E:\HotelManager\HotelManager\obj\Debug\HotelManager.fAddCustomerInfo.resources
-E:\HotelManager\HotelManager\obj\Debug\HotelManager.fManager.resources
-E:\HotelManager\HotelManager\obj\Debug\HotelManager.fLogin.resources
-E:\HotelManager\HotelManager\obj\Debug\HotelManager.fBookRoom.resources
-E:\HotelManager\HotelManager\obj\Debug\HotelManager.fReceiveRoom.resources
-E:\HotelManager\HotelManager\obj\Debug\HotelManager.fUseService.resources
-E:\HotelManager\HotelManager\obj\Debug\HotelManager.Properties.Resources.resources
-E:\HotelManager\HotelManager\obj\Debug\HotelManager.csproj.GenerateResource.cache
-E:\HotelManager\HotelManager\obj\Debug\HotelManager.csproj.CoreCompileInputs.cache
-E:\HotelManager\HotelManager\obj\Debug\HotelManager.exe
-E:\HotelManager\HotelManager\obj\Debug\HotelManager.pdb

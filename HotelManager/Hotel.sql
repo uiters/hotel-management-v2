@@ -1,5 +1,7 @@
 create database Hotel
+GO
 use Hotel
+GO
 create table StaffType
 (
 ID int primary key identity,
@@ -11,7 +13,7 @@ create table Staff
 UserName nvarchar(100) primary key,
 DisplayName nvarchar(100) not null default N'No Name',
 PassWord nvarchar(100) not null,
-IDStaffType int foreign key references StaffType(ID) not null,
+IDStaffType int foreign key references StaffType(ID) ON DELETE CASCADE not null,
 DateOfBirth Date not null,
 Sex nvarchar(100) not null,
 Address nvarchar(200) not null,
@@ -28,7 +30,7 @@ go
 create table Customer
 (
 IDCard int primary key,
-IDCustomerType int foreign key references CustomerType(ID) not null,
+IDCustomerType int foreign key references CustomerType(ID) ON DELETE CASCADE not null,
 Name nvarchar(100) not null default N'No Name',
 DateOfBirth Date not null,
 Address nvarchar(200) not null,
@@ -55,30 +57,32 @@ create table Room
 (
 ID int primary key identity,
 Name nvarchar(100) not null default N'No Name',
-IDRoomType int foreign key references RoomType(ID) not null,
-IDStatusRoom int foreign key references StatusRoom(ID) not null
+IDRoomType int foreign key references RoomType(ID) ON DELETE CASCADE not null,
+IDStatusRoom int foreign key references StatusRoom(ID) ON DELETE CASCADE not null
 )
-go
+GO
 create table BookRoom
 (
 ID int primary key identity,
-IDCustomer int foreign key references Customer(IDCard) not null,
-IDRoomType int foreign key references RoomType(ID) not null,
+IDCustomer int foreign key references Customer(IDCard) ON DELETE CASCADE not null,
+IDRoomType int foreign key references RoomType(ID) ON DELETE CASCADE NOT null,
+DateBookRoom smalldatetime not null,
 DateCheckIn date not null,
 DateCheckOut date not null
 )
+GO
 create table ReceiveRoom
 (
-ID int foreign key references BookRoom(ID) not null,
-IDRoom int foreign key references Room(ID) not null,
+ID int foreign key references BookRoom(ID) NOT null,
+IDRoom int foreign key references Room(ID) NOT null,
 Amount int not null
 primary key (ID)
 )
 go
 create table ReceiveRoomDetails
 (
-IDReceiveRoom int foreign key references ReceiveRoom(ID) not null,
-IDCustomerOther int foreign key references Customer(IDCard) not null,
+IDReceiveRoom int foreign key references ReceiveRoom(ID)  ON DELETE CASCADE  NOT null,
+IDCustomerOther int foreign key references Customer(IDCard)  ON DELETE CASCADE  not null,
 primary key (IDReceiveRoom,IDCustomerOther)
 )
 go
@@ -92,14 +96,14 @@ create table Service
 (
 ID int primary key identity,
 Name nvarchar(200) not null default N'No Name',
-IDServiceType int foreign key references ServiceType(ID) not null,
+IDServiceType int foreign key references ServiceType(ID)  ON DELETE CASCADE  not null,
 Price int not null
 )
 go
 create table Bill
 (
-ID int foreign key references ReceiveRoom(ID) not null,
-StaffSetUp nvarchar(100) foreign key references Staff(UserName) not null,
+ID int foreign key references ReceiveRoom(ID) ON DELETE CASCADE not null,
+StaffSetUp nvarchar(100) foreign key references Staff(UserName) ON DELETE CASCADE  not null,
 DateOfCreate smalldatetime default getdate(),
 TotalPrice int not null,
 Discount int not null default 0,
@@ -109,8 +113,8 @@ primary key(ID)
 go
 create table BillInfo
 (
-IDService int foreign key references Service(ID) not null,
-IDBill int foreign key references Bill(ID) not null,
+IDService int foreign key references Service(ID)  ON DELETE CASCADE  not null,
+IDBill int foreign key references Bill(ID)  ON DELETE CASCADE  not null,
 Count int not null
 constraint PK_BillInfo primary key(IDService,IDBill)
 )
@@ -150,33 +154,12 @@ BEGIN
 	WHERE ID = @id
 END
 GO
-ALTER PROC USP_DeleteStaffType
+CREATE PROC USP_DeleteStaffType
 @id INT
 AS
 BEGIN
-		CREATE TABLE #temp(idBill INT, idStaff NVARCHAR(100))
-		INSERT INTO #temp(idBill, idStaff)
-		SELECT Bill.ID AS idBill, Bill.StaffSetUp AS idStaff
-		FROM 
-			Bill INNER JOIN Staff ON Bill.StaffSetUp = Staff.UserName
-			INNER JOIN StaffType ON StaffType.ID = Staff.IDStaffType
-		WHERE
-			StaffType.ID = @id
-		DELETE FROM dbo.BillInfo
-		WHERE IDBill IN (SELECT idbill FROM #temp)
-		DELETE FROM dbo.Bill
-		WHERE ID IN (SELECT idbill FROM #temp)
-		DELETE FROM dbo.ReceiveRoomDetails
-		WHERE IDReceiveRoom IN (SELECT idbill FROM #temp)
-		DELETE FROM dbo.ReceiveRoom
-		WHERE ID IN (SELECT idbill FROM #temp)
-		DELETE FROM dbo.BookRoom
-		WHERE ID IN (SELECT idbill FROM #temp)
-		DELETE FROM dbo.Staff
-		WHERE UserName IN (SELECT DISTINCT(idStaff) FROM #temp)
 		DELETE FROM dbo.StaffType
 		WHERE ID = @id
-		DROP TABLE #temp
 END
 -------------------------
 --Staff 
@@ -220,27 +203,8 @@ CREATE PROC USP_DeleteStaff
 @username NVARCHAR(100)
 AS
 BEGIN
-	DECLARE @temp TABLE
-	(
-		id int
-	)
-	INSERT INTO @temp 
-		SELECT id 
-		FROM dbo.Bill INNER JOIN dbo.Staff ON Staff.UserName = Bill.StaffSetUp 
-		WHERE UserName = @username
-	DELETE FROM dbo.BillInfo
-	WHERE IDBill IN (SELECT * FROM @temp)
-	DELETE FROM dbo.Bill
-	WHERE ID IN (SELECT * FROM @temp)
-	DELETE FROM dbo.ReceiveRoomDetails
-	WHERE IDReceiveRoom IN (SELECT * FROM @temp)
-	DELETE FROM dbo.ReceiveRoom
-	WHERE ID IN (SELECT * FROM @temp)
-	DELETE FROM dbo.BookRoom
-	WHERE ID IN (SELECT * FROM @temp)
 	DELETE FROM dbo.Staff
 	WHERE UserName = @username
-	DELETE @temp
 END
 GO
 -------------------------
@@ -264,6 +228,15 @@ BEGIN
     name = @name
 	WHERE id =@id
 END
+GO
+CREATE PROC USP_DeleteServiceType
+@id INT
+AS
+BEGIN
+	DELETE FROM dbo.ServiceType
+	WHERE id = @id
+END
+GO
 -------------------------
 --Service
 -------------------------
@@ -287,6 +260,14 @@ begin
 	price = @price
 	where id = @id
 END
+GO
+CREATE PROC USP_DeleteService
+@id INT
+AS
+BEGIN
+	DELETE FROM dbo.Service
+	WHERE ID  = @id
+END
 go
 -------------------------
 --Status Room
@@ -306,8 +287,15 @@ BEGIN
 	WHERE
 	id = @id
 END
-GO   
-
+GO
+CREATE PROC USP_DeleteStatusRoom
+@id INT
+AS
+BEGIN
+	DELETE FROM dbo.StatusRoom
+	WHERE ID = @id
+END
+go
 -------------------------
 --Surcharge
 -------------------------
@@ -325,6 +313,14 @@ UPDATE dbo.Surcharge
 	Value = @value,
 	Describe = @describe
 	WHERE name = @name
+END
+GO
+CREATE PROC USP_DeleteSurcharge
+@name NVARCHAR(200)
+AS
+BEGIN
+	DELETE FROM dbo.Surcharge
+	WHERE Name = @name
 END
 GO
 

@@ -61,7 +61,7 @@ namespace HotelManager
                 UpdateCustomer1(int.Parse(txbPhoneNumber.Text), txbAddress.Text, txbIDCard.Text);
             }
             Customer customer = GetIDCustomer(txbIDCard.Text);
-            listIDCustomer.Add(customer.Id);
+            //listIDCustomer.Add(customer.IdCard);
         }
         private void btnAddCustomer_Click(object sender, EventArgs e)
         {

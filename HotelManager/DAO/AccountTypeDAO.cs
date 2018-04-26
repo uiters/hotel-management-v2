@@ -25,12 +25,12 @@ namespace HotelManager.DAO
         {
             return UpdateStaffType(staffType.Id, staffType.Name);
         }
-
         public bool DeleteStaffType(int id)
         {
             string query = "Exec USP_DeleteStaffType @id";
             return DataProvider.Instance.ExecuteNoneQuery(query, new object[] { id }) > 0;
         }
+
         public DataTable LoadListStaffType()
         {
             string query = "select * from stafftype";

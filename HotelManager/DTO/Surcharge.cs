@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,12 @@ namespace HotelManager.DTO
             this.Name = name;
             this.Value = value;
             this.Describe = describe;
+        }
+        public Surcharge(DataRow row)
+        {
+            this.Value = (int)row["Value"];
+            this.Name = row["Name"].ToString();
+            this.Describe = (string)row["Describe"];
         }
 
         public string Name { get => name; set => name = value; }

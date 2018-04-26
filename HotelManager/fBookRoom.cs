@@ -42,7 +42,7 @@ namespace HotelManager
         }
         public void LoadListBookRoom()
         {
-           dataGridViewBookRoom.DataSource=BookRoomDAO.Instance.LoadListBookRoom();
+          // dataGridViewBookRoom.DataSource=BookRoomDAO.Instance.LoadListBookRoom();
 
  
         }
@@ -63,13 +63,13 @@ namespace HotelManager
             Room room = RoomDAO.Instance.ShowRoomInfo(id);
             txbRoomID.Text = room.Id.ToString();
             txbRoomName.Text = room.RoomName;
-            txbRoomTypeName.Text = room.RoomTypeName;
-            txbNote.Text = room.Note;
-            price = room.Price;
-            CultureInfo culture = new CultureInfo("vi-VN");
-            txbPrice.Text = room.Price.ToString("c",culture);
+            //txbRoomTypeName.Text = room.RoomTypeName;
+            //txbNote.Text = room.Note;
+            //price = room.Price;
+            //CultureInfo culture = new CultureInfo("vi-VN");
+            //txbPrice.Text = room.Price.ToString("c",culture);
            
-            txbAmountPeople.Text = room.CountPeople.ToString();
+            //txbAmountPeople.Text = room.CountPeople.ToString();
         }
 
 
@@ -88,7 +88,7 @@ namespace HotelManager
         }
         public bool InsertBookRoom(int idCustomer, int idRoom, DateTime DateOfSignUp, DateTime DateOfReceive, int countOfDay)
         {
-            return BookRoomDAO.Instance.InsertBookRoom(idCustomer,idRoom,DateOfSignUp,DateOfReceive,int.Parse(txbCountOfDay.Text));
+            return false; // BookRoomDAO.Instance.InsertBookRoom(idCustomer,idRoom,DateOfSignUp,DateOfReceive,int.Parse(txbCountOfDay.Text));
         }
 
         public bool UpdateCustomer1(int phoneNumber, string address, string idCard)
@@ -108,8 +108,8 @@ namespace HotelManager
             }
             Customer customer = GetIDCustomer(txbIDCard.Text);
             int idRoom = (cbRoom.SelectedItem as Room).Id;
-            InsertBookRoom(customer.Id,idRoom, DateTime.Parse(txbDateOfSignUp.Text), DatepickerDateOfReceive.Value,int.Parse(txbCountOfDay.Text));
-            idBookRoom = GetIDBookRoom(customer.Id,idRoom);
+            //InsertBookRoom(customer.Id,idRoom, DateTime.Parse(txbDateOfSignUp.Text), DatepickerDateOfReceive.Value,int.Parse(txbCountOfDay.Text));
+            //idBookRoom = GetIDBookRoom(customer.Id,idRoom);
         }
         public void LoadListCustomerType()
         {
@@ -149,7 +149,7 @@ namespace HotelManager
 
         public int GetIDBookRoom(int idCustomer, int idRoom)
         {
-            return BookRoomDAO.Instance.GetIDBookRoom(idCustomer, idRoom);
+            return 0; //BookRoomDAO.Instance.GetIDBookRoom(idCustomer, idRoom);
         }
         //public void LoadEmptyListRoom()
         //{

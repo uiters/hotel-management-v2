@@ -94,11 +94,11 @@ namespace HotelManager
             Room room = RoomDAO.Instance.ShowRoomInfo(id);
             txbRoomID.Text = room.Id.ToString();
             txbRoomName.Text = room.RoomName;
-            txbRoomTypeName.Text = room.RoomTypeName;
-            txbNote.Text = room.Note;
-            CultureInfo culture = new CultureInfo("vi-VN");
-            txbPrice.Text = room.Price.ToString("c", culture);
-            txbAmountPeople.Text = room.CountPeople.ToString();
+            //txbRoomTypeName.Text = room.RoomTypeName;
+            //txbNote.Text = room.Note;
+            //CultureInfo culture = new CultureInfo("vi-VN");
+            //txbPrice.Text = room.Price.ToString("c", culture);
+            //txbAmountPeople.Text = room.CountPeople.ToString();
            
         }
         public int GetIDRoomFromBookRoom(int IdBookRoom)
@@ -122,7 +122,7 @@ namespace HotelManager
         }
         public int GetCountDay(int id)
         {
-            return BookRoomDAO.Instance.GetCountDay(id);
+            return 0;// BookRoomDAO.Instance.GetCountDay(id);
         }
         public int GetIDCustomerType(int id)
         {
@@ -140,7 +140,7 @@ namespace HotelManager
         }
         public bool CheckIDBookRoomExists(int id)
         {
-            return BookRoomDAO.Instance.CheckIDBookRoomExists(id);
+            return true; // BookRoomDAO.Instance.CheckIDBookRoomExists(id);
         }
         
         public bool CheckIDCardExists(string idCard)
@@ -159,7 +159,7 @@ namespace HotelManager
         
         public bool InsertBookRoom(int idCustomer, int idRoom, DateTime DateOfSignUp, DateTime DateOfReceive, int countOfDay)
         {
-            return BookRoomDAO.Instance.InsertBookRoom(idCustomer, idRoom, DateOfSignUp, DateOfReceive, int.Parse(txbCountOfDay.Text));
+            return true;// BookRoomDAO.Instance.InsertBookRoom(idCustomer, idRoom, DateOfSignUp, DateOfReceive, int.Parse(txbCountOfDay.Text));
         }
         public bool UpdateCustomer1(int phoneNumber, string address, string idCard)
         {
@@ -202,14 +202,14 @@ namespace HotelManager
                 if (IDBookRoom == -1 && idBookRoom1 != -1)
                     idBookRoom = idBookRoom1;
                 
-                InsertReceiveRoom(idBookRoom, customer.Id, DateTime.Parse(txbDateOfReceive.Text), DateTime.Parse(txbDateOfPay.Text));
-                int idReceiveRoom = GetIDReceiveRoom(idBookRoom, customer.Id);
-                InsertReceiveRoomInfo(idReceiveRoom, customer.Id);// Insert cả thông tin của người đứng tên nhận phòng
-                if(listIDCustomer.Count!=0)
-                foreach (int item in listIDCustomer)
-                {
-                    InsertReceiveRoomInfo(idReceiveRoom, item);
-                }
+                //InsertReceiveRoom(idBookRoom, customer.Id, DateTime.Parse(txbDateOfReceive.Text), DateTime.Parse(txbDateOfPay.Text));
+                //int idReceiveRoom = GetIDReceiveRoom(idBookRoom, customer.Id);
+                //InsertReceiveRoomInfo(idReceiveRoom, customer.Id);// Insert cả thông tin của người đứng tên nhận phòng
+                //if(listIDCustomer.Count!=0)
+                //foreach (int item in listIDCustomer)
+                //{
+                //    InsertReceiveRoomInfo(idReceiveRoom, item);
+                //}
             }
         }
         private void txbIDBookRoom_KeyPress(object sender, KeyPressEventArgs e)

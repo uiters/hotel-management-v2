@@ -12,14 +12,16 @@ namespace HotelManager.DTO
         private int id;
         private int  idCustomer;
         private int idRoomType;
+        private DateTime dateBookRoom;
         private DateTime dateCheckIn;
         private DateTime dateCheckOut;
 
-        public BookRoom(int id, int idCustomer, int idRoomType, DateTime dateCheckIn, DateTime dateCheckOut)
+        public BookRoom(int id, int idCustomer, int idRoomType,DateTime dateBookRoom, DateTime dateCheckIn, DateTime dateCheckOut)
         {
             this.Id = id;
             this.IdCustomer = idCustomer;
             this.IdRoomType = idRoomType;
+            this.DateBookRoom = dateBookRoom;
             this.DateCheckIn = dateCheckIn;
             this.DateCheckOut = dateCheckOut;
         }
@@ -27,9 +29,10 @@ namespace HotelManager.DTO
         {
             this.Id = (int)row["id"];
             this.IdCustomer = (int)row["IDCustomer"];
-            this.idRoomType = (int)row["IDRoomType"];
-            dateCheckIn = (DateTime)row["DateCheckIn"];
-            dateCheckOut = (DateTime)row["DateCheckOut"];
+            this.IdRoomType = (int)row["IDRoomType"];
+            this.DateCheckIn = (DateTime)row["DateCheckIn"];
+            this.DateCheckOut = (DateTime)row["DateCheckOut"];
+            this.DateBookRoom = (DateTime)row["DateBookRoom"];
         }
 
         public int Id { get => id; set => id = value; }
@@ -38,5 +41,6 @@ namespace HotelManager.DTO
 
         public DateTime DateCheckIn { get => dateCheckIn; set => dateCheckIn = value; }
         public DateTime DateCheckOut { get => dateCheckOut; set => dateCheckOut = value; }
+        public DateTime DateBookRoom { get => dateBookRoom; set => dateBookRoom = value; }
     }
 }

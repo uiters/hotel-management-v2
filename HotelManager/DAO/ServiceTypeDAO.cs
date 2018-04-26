@@ -25,7 +25,11 @@ namespace HotelManager.DAO
         {
             return UpdateServiceType(serviceType.Id, serviceType.Name);
         }
-        
+        public bool DeleteServiceType(int id)
+        {
+            string query = "USP_DeleteServiceType @id";
+            return DataProvider.Instance.ExecuteNoneQuery(query, new object[] { query }) > 0;
+        }
 
         public DataTable LoadListService()
         {

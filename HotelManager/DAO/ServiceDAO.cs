@@ -28,6 +28,11 @@ namespace HotelManager.DAO
         {
             return UpdateService(service.Id, service.Name, service.IdServiceType, service.Price);
         }
+        public bool DeleteService(int id)
+        {
+            string query = "USP_DeleteService @id";
+            return DataProvider.Instance.ExecuteNoneQuery(query, new object[] { id }) > 0;
+        }
 
         public static ServiceDAO Instance
         {
