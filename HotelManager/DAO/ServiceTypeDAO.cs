@@ -16,12 +16,16 @@ namespace HotelManager.DAO
             string query = "USP_InsertServiceType @name";
             return DataProvider.Instance.ExecuteNoneQuery(query, new object[] { name }) > 0;
         }
+       public bool InsertServiceType(ServiceType serviceTypeNow)
+        {
+            return InsertServiceType(serviceTypeNow.Name);
+        }
         public bool UpdateServiceType(int id, string name)
         {
             string query = "USP_UpdateServiceType @id , @name";
             return DataProvider.Instance.ExecuteNoneQuery(query, new object[] { id, name }) > 0;
         }
-        public bool UpdateServiceType(ServiceType serviceType)
+        public bool UpdateServiceType(ServiceType serviceTypeNow, ServiceType serviceTypePre)
         {
             return UpdateServiceType(serviceType.Id, serviceType.Name);
         }
@@ -30,12 +34,12 @@ namespace HotelManager.DAO
             string query = "USP_DeleteServiceType @id";
             return DataProvider.Instance.ExecuteNoneQuery(query, new object[] { query }) > 0;
         }
-
-        public DataTable LoadListService()
+        internal DataTable LoadFullServiceType()
         {
-            string query = "select * from ServiceType";
+            string query = "USP_LoadFullServiceType";
             return DataProvider.Instance.ExecuteQuery(query);
         }
+
         public static ServiceTypeDAO Instance
         {
             get

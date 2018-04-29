@@ -66,6 +66,7 @@
     <Compile Include="DAO\CustomerDAO.cs" />
     <Compile Include="DAO\CustomerTypeDAO.cs" />
     <Compile Include="DAO\DataProvider.cs" />
+    <Compile Include="DAO\ExportToExcel.cs" />
     <Compile Include="DAO\ReceiveRoomDAO.cs" />
     <Compile Include="DAO\ReceiveRoomInfoDAO.cs" />
     <Compile Include="DAO\RoomDAO.cs" />
@@ -97,6 +98,18 @@
     <Compile Include="fAddCustomerInfo.Designer.cs">
       <DependentUpon>fAddCustomerInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="fCustomer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fCustomer.Designer.cs">
+      <DependentUpon>fCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fCustomerType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fCustomerType.Designer.cs">
+      <DependentUpon>fCustomerType.cs</DependentUpon>
+    </Compile>
     <Compile Include="fManager.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,6 +134,30 @@
     <Compile Include="fReceiveRoom.Designer.cs">
       <DependentUpon>fReceiveRoom.cs</DependentUpon>
     </Compile>
+    <Compile Include="fRoom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fRoom.Designer.cs">
+      <DependentUpon>fRoom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fRoomType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fRoomType.Designer.cs">
+      <DependentUpon>fRoomType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fServiceType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fServiceType.Designer.cs">
+      <DependentUpon>fServiceType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fStatusRoom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fStatusRoom.Designer.cs">
+      <DependentUpon>fStatusRoom.cs</DependentUpon>
+    </Compile>
     <Compile Include="fUseService.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -131,6 +168,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="fAddCustomerInfo.resx">
       <DependentUpon>fAddCustomerInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fCustomer.resx">
+      <DependentUpon>fCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fCustomerType.resx">
+      <DependentUpon>fCustomerType.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fManager.resx">
       <DependentUpon>fManager.cs</DependentUpon>
@@ -143,6 +186,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="fReceiveRoom.resx">
       <DependentUpon>fReceiveRoom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fRoom.resx">
+      <DependentUpon>fRoom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fRoomType.resx">
+      <DependentUpon>fRoomType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fServiceType.resx">
+      <DependentUpon>fServiceType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fStatusRoom.resx">
+      <DependentUpon>fStatusRoom.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fUseService.resx">
       <DependentUpon>fUseService.cs</DependentUpon>
@@ -171,6 +226,35 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Hotel.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>9</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

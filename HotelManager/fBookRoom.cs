@@ -15,7 +15,6 @@ namespace HotelManager
 {
     public partial class fBookRoom : Form
     {
-        int idBookRoom;
         public fBookRoom()
         {
             InitializeComponent();
@@ -77,7 +76,7 @@ namespace HotelManager
         {
             return CustomerDAO.Instance.CheckIDCardExists(idCard);
         }
-        public bool InsertCustomer(string customerName, int idCustomerType, string idCard, string address, DateTime dateOfBirth, int phoneNumber, string sex, string nationality)
+        public bool InsertCustomer(string customerName, int idCustomerType, int idCard, string address, DateTime dateOfBirth, int phoneNumber, string sex, string nationality)
         {
             return CustomerDAO.Instance.InsertCustomer(customerName,idCustomerType, idCard, address,dateOfBirth, phoneNumber, sex,nationality);
         }
@@ -100,7 +99,7 @@ namespace HotelManager
             if(CheckIDCardExists(txbIDCard.Text)==false)
             {
                 int idCustomerType = (comboBoxCustomerType.SelectedItem as CustomerType).Id;
-                InsertCustomer(txbFullName.Text,idCustomerType, txbIDCard.Text, txbAddress.Text,dpkDateOfBirth.Value,int.Parse(txbPhoneNumber.Text), comboBoxSex.SelectedItem.ToString(), txbNationality.Text);
+                //InsertCustomer(txbFullName.Text,idCustomerType, txbIDCard.Text, txbAddress.Text,dpkDateOfBirth.Value,int.Parse(txbPhoneNumber.Text), comboBoxSex.SelectedItem.ToString(), txbNationality.Text);
             }
             else
             {
@@ -229,8 +228,8 @@ namespace HotelManager
                 {
                     this.Hide();
                                         
-                    fReceiveRoom f = new fReceiveRoom(int.Parse(txbRoomID.Text),txbRoomName.Text,txbRoomTypeName.Text,int.Parse(txbAmountPeople.Text), txbNote.Text,price,txbFullName.Text,txbIDCard.Text,comboBoxCustomerType.Text,int.Parse(txbPhoneNumber.Text),txbAddress.Text,comboBoxSex.Text,dpkDateOfBirth.Value ,txbNationality.Text,idBookRoom,int.Parse(txbCountOfDay.Text));
-                    f.ShowDialog();
+                    //fReceiveRoom f = new fReceiveRoom(int.Parse(txbRoomID.Text),txbRoomName.Text,txbRoomTypeName.Text,int.Parse(txbAmountPeople.Text), txbNote.Text,price,txbFullName.Text,txbIDCard.Text,comboBoxCustomerType.Text,int.Parse(txbPhoneNumber.Text),txbAddress.Text,comboBoxSex.Text,dpkDateOfBirth.Value ,txbNationality.Text,idBookRoom,int.Parse(txbCountOfDay.Text));
+                    //f.ShowDialog();
                     this.Show();
                 }
                 txbRoomID.Text = string.Empty;

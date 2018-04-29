@@ -32,6 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fAddCustomerInfo));
             this.bunifuDragControl1 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.dpkDateOfBirth = new Bunifu.Framework.UI.BunifuDatepicker();
+            this.label1 = new System.Windows.Forms.Label();
             this.comboBoxCustomerType = new MetroFramework.Controls.MetroComboBox();
             this.label20 = new System.Windows.Forms.Label();
             this.txbAddress = new Bunifu.Framework.UI.BunifuMetroTextbox();
@@ -50,8 +52,6 @@
             this.bunifuSeparator1 = new Bunifu.Framework.UI.BunifuSeparator();
             this.btnClose = new Bunifu.Framework.UI.BunifuImageButton();
             this.btnAddCustomer = new Bunifu.Framework.UI.BunifuThinButton2();
-            this.dpkDateOfBirth = new Bunifu.Framework.UI.BunifuDatepicker();
-            this.label1 = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).BeginInit();
             this.SuspendLayout();
@@ -90,6 +90,32 @@
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Thông tin khách hàng";
+            // 
+            // dpkDateOfBirth
+            // 
+            this.dpkDateOfBirth.BackColor = System.Drawing.Color.SeaGreen;
+            this.dpkDateOfBirth.BorderRadius = 0;
+            this.dpkDateOfBirth.ForeColor = System.Drawing.Color.White;
+            this.dpkDateOfBirth.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dpkDateOfBirth.FormatCustom = null;
+            this.dpkDateOfBirth.Location = new System.Drawing.Point(26, 262);
+            this.dpkDateOfBirth.Margin = new System.Windows.Forms.Padding(32, 55, 32, 55);
+            this.dpkDateOfBirth.Name = "dpkDateOfBirth";
+            this.dpkDateOfBirth.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.dpkDateOfBirth.Size = new System.Drawing.Size(203, 29);
+            this.dpkDateOfBirth.TabIndex = 50;
+            this.dpkDateOfBirth.Value = new System.DateTime(2018, 2, 23, 23, 29, 57, 962);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.SeaGreen;
+            this.label1.Location = new System.Drawing.Point(24, 240);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(77, 20);
+            this.label1.TabIndex = 49;
+            this.label1.Text = "Ngày sinh:";
             // 
             // comboBoxCustomerType
             // 
@@ -350,32 +376,6 @@
             this.btnAddCustomer.TabIndex = 48;
             this.btnAddCustomer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.btnAddCustomer.Click += new System.EventHandler(this.btnAddCustomer_Click);
-            // 
-            // dpkDateOfBirth
-            // 
-            this.dpkDateOfBirth.BackColor = System.Drawing.Color.SeaGreen;
-            this.dpkDateOfBirth.BorderRadius = 0;
-            this.dpkDateOfBirth.ForeColor = System.Drawing.Color.White;
-            this.dpkDateOfBirth.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dpkDateOfBirth.FormatCustom = null;
-            this.dpkDateOfBirth.Location = new System.Drawing.Point(26, 262);
-            this.dpkDateOfBirth.Margin = new System.Windows.Forms.Padding(32, 55, 32, 55);
-            this.dpkDateOfBirth.Name = "dpkDateOfBirth";
-            this.dpkDateOfBirth.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.dpkDateOfBirth.Size = new System.Drawing.Size(203, 29);
-            this.dpkDateOfBirth.TabIndex = 50;
-            this.dpkDateOfBirth.Value = new System.DateTime(2018, 2, 23, 23, 29, 57, 962);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.SeaGreen;
-            this.label1.Location = new System.Drawing.Point(24, 240);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(77, 20);
-            this.label1.TabIndex = 49;
-            this.label1.Text = "Ngày sinh:";
             // 
             // fAddCustomerInfo
             // 

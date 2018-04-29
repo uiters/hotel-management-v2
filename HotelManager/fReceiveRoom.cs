@@ -113,7 +113,7 @@ namespace HotelManager
         {
             Customer customer = CustomerDAO.Instance.ShowCustomerInfo(idCustomer);
             txbFullName.Text = customer.CustomerName;
-            txbIDCard.Text = customer.IdCard;
+            //txbIDCard.Text = (customer.IdCard;
             txbAddress.Text = customer.Address;
             txbPhoneNumber.Text = customer.PhoneNumber.ToString();
             txbNationality.Text = customer.Nationality;
@@ -147,7 +147,7 @@ namespace HotelManager
         {
             return CustomerDAO.Instance.CheckIDCardExists(idCard);
         }
-        public bool InsertCustomer(string customerName, int idCustomerType, string idCard, string address,DateTime dateOfBirth, int phoneNumber, string sex, string nationality)
+        public bool InsertCustomer(string customerName, int idCustomerType, int idCard, string address,DateTime dateOfBirth, int phoneNumber, string sex, string nationality)
         {
             return CustomerDAO.Instance.InsertCustomer(customerName, idCustomerType, idCard, address,dpkDateOfBirth.Value, phoneNumber, sex, nationality);
         }
@@ -183,7 +183,7 @@ namespace HotelManager
             if (CheckIDCardExists(txbIDCard.Text) == false)
             {
                 int idCustomerType = (comboBoxCustomerType.SelectedItem as CustomerType).Id;
-                InsertCustomer(txbFullName.Text, idCustomerType, txbIDCard.Text, txbAddress.Text,dpkDateOfBirth.Value, int.Parse(txbPhoneNumber.Text), comboBoxSex.SelectedItem.ToString(), txbNationality.Text);
+                //InsertCustomer(txbFullName.Text, idCustomerType, txbIDCard.Text, txbAddress.Text,dpkDateOfBirth.Value, int.Parse(txbPhoneNumber.Text), comboBoxSex.SelectedItem.ToString(), txbNationality.Text);
             }
             else
             {

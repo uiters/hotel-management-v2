@@ -237,6 +237,11 @@ BEGIN
 	WHERE id = @id
 END
 GO
+CREATE PROC USP_LoadFullServiceType
+AS
+SELECT * FROM ServiceType
+GO
+
 -------------------------
 --Service
 -------------------------
@@ -268,6 +273,51 @@ BEGIN
 	DELETE FROM dbo.Service
 	WHERE ID  = @id
 END
+GO
+------------------------
+--Room
+------------------------
+CREATE PROC USP_LoadFullRoom
+AS
+SELECT Room.ID, Room.Name,RoomType.Name AS [nameRoomType],
+StatusRoom.Name AS [nameStatusRoom], IDRoomType, IDStatusRoom
+FROM dbo.Room INNER JOIN dbo.RoomType 
+ON roomtype.id = room.IDRoomType
+INNER JOIN dbo.StatusRoom ON statusroom.id = room.IDStatusRoom
+GO
+CREATE PROC USP_InsertRoom
+@nameRoom NVARCHAR(100), @idRoomType INT, @idStatusRoom INT
+AS
+INSERT INTO dbo.Room(Name, IDRoomType, IDStatusRoom)
+VALUES(@nameRoom, @idRoomType, @idStatusRoom)
+GO
+CREATE PROC USP_UpdateRoom
+@id INT, @nameRoom NVARCHAR(100), @idRoomType INT, @idStatusRoom INT
+AS
+UPDATE dbo.Room
+SET
+	Name = @nameRoom, IDRoomType = @idRoomType, IDStatusRoom = @idStatusRoom
+WHERE ID = @id
+go
+------------------------
+--Room Type
+------------------------
+CREATE PROC USP_LoadFullRoomType
+AS
+SELECT * FROM dbo.RoomType
+GO
+CREATE PROC USP_InsertRoomType
+@name NVARCHAR(100), @price int, @limitPerson int
+AS
+INSERT INTO RoomType(Name, Price, LimitPerson) VALUES(@name, @price, @limitPerson)
+GO
+CREATE PROC USP_UpdateRoomType
+@id INT, @name NVARCHAR(100), @price int, @limitPerson int
+AS
+	UPDATE RoomType
+	SET
+    name = @name, Price = @price, LimitPerson = @limitPerson
+	WHERE id =@id
 go
 -------------------------
 --Status Room
@@ -295,7 +345,11 @@ BEGIN
 	DELETE FROM dbo.StatusRoom
 	WHERE ID = @id
 END
-go
+GO
+CREATE PROC USP_LoadFullStatusRoom
+AS
+SELECT * FROM dbo.StatusRoom
+GO
 -------------------------
 --Surcharge
 -------------------------
@@ -323,5 +377,81 @@ BEGIN
 	WHERE Name = @name
 END
 GO
+------------------------
+--Customer
+------------------------
+ALTER PROC USP_LoadFullCustomer
+AS
+SELECT TOP(100) Customer.Name, IDCard, CustomerType.Name as [NameCustomerType], Sex, DateOfBirth, PhoneNumber, Address, Nationality, IDCustomerType 
+FROM dbo.Customer INNER JOIN dbo.CustomerType ON CustomerType.ID = Customer.IDCustomerType
+GO
+CREATE PROC USP_InsertCustomer
+@customerName NVARCHAR(100), @idCustomerType int, @idCard int,
+@address NVARCHAR(200), @dateOfBirth date, @phoneNumber int,
+@sex NVARCHAR(100), @nationality NVARCHAR(100)
+AS
+BEGIN
+DECLARE @count INT =0
+SELECT @count = COUNT(*) FROM customer WHERE IDCard = @idCard
+IF(@count=0)
+INSERT INTO dbo.Customer(IDCard,IDCustomerType, Name, DateOfBirth, Address, PhoneNumber, Sex, Nationality)
+	VALUES(@idCard, @idCustomerType, @customerName, @dateOfBirth, @address, @phoneNumber, @sex, @nationality)
+end
+GO
+ALTER PROC USP_UpdateCustomer
+@customerName NVARCHAR(100), @idCustomerType int, @idCardNow int, @address NVARCHAR(200),
+@dateOfBirth date, @phoneNumber int, @sex NVARCHAR(100), @nationality NVARCHAR(100),
+@idCardPre int
+AS
+BEGIN
+	IF(@idCardPre != @idCardNow)
+	begin
+		DECLARE @count INT=0
+		SELECT @count=COUNT(*)
+		FROM dbo.Customer
+		WHERE IDCard = @idCardNow
+		IF(@count=0)
+		BEGIN
+			UPDATE dbo.Customer 
+			SET 
+			Name =@customerName, IDCustomerType = @idCustomerType, IDCard =@idCardNow,
+			Address = @address, DateOfBirth =@dateOfBirth, PhoneNumber =@phoneNumber,
+			Nationality = @nationality, Sex = @sex
+			WHERE IDCard = @idCardPre
+		END
+	END
+	ELSE
+	BEGIN
+		UPDATE dbo.Customer 
+			SET 
+			Name =@customerName, IDCustomerType = @idCustomerType, IDCard =@idCardNow,
+			Address = @address, DateOfBirth =@dateOfBirth, PhoneNumber =@phoneNumber,
+			Nationality = @nationality, Sex = @sex
+			WHERE IDCard = @idCardPre
+	end
+END
+go
+------------------------
+--Customer Type
+------------------------
+CREATE PROC USP_LoadFullCustomerType
+AS
+SELECT * FROM dbo.CustomerType
+GO
+CREATE PROC USP_InsertCustomerType
+@name NVARCHAR(100)
+AS
+INSERT INTO dbo.CustomerType(Name) VALUES(@name)
+GO
+ALTER PROC USP_UpdateCustomerType
+@id int, @name NVARCHAR(100)
+AS
+begin
+	UPDATE dbo.CustomerType
+	SET
+    Name = @name
+	WHERE id = @id
+END
+
 
 

@@ -78,5 +78,13 @@ namespace HotelManager
             f.ShowDialog();
             this.Show();
         }
+
+        private void metroTile17_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            fCustomer customer = new fCustomer();
+            customer.ShowDialog();
+            this.Show();
+        }
     }
 }

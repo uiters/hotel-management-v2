@@ -27,5 +27,24 @@ namespace HotelManager.DAO
             }
             return listRoomType;
         }
+        public DataTable LoadFullRoomType()
+        {
+            return DataProvider.Instance.ExecuteQuery("USP_LoadFullRoomType");
+        }
+        public bool InsertRoomType(string name, int price, int limitPerson)
+        {
+            string query = "USP_InsertRoomType @name , @price , @limitPerson";
+            return DataProvider.Instance.ExecuteNoneQuery(query, new object[] { name, price, limitPerson }) > 0;
+
+        }
+        public bool InsertRoomType(RoomType roomTypeNow)
+        {
+            return InsertRoomType(roomTypeNow.Name, roomTypeNow.Price, roomTypeNow.LimitPerson);
+        }
+        public bool UpdateRoomType(RoomType roomNow, RoomType roomPre)
+        {
+            string query = "USP_UpdateRoomType @id , @name , @price , @limitPerson";
+            return DataProvider.Instance.ExecuteNoneQuery(query, new object[] { roomNow.Id, roomNow.Name, roomNow.Price, roomNow.LimitPerson }) > 0;
+        }
     }
 }

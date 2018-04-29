@@ -1,10 +1,6 @@
 ﻿using HotelManager.DTO;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HotelManager.DAO
 {
@@ -22,11 +18,16 @@ namespace HotelManager.DAO
             return data.Rows.Count > 0;
         }
 
-        public bool InsertCustomer(string customerName ,int idCustomerType ,string idCard ,string address,DateTime dateOfBirth ,int phoneNumber ,string sex ,string nationality)
+        public bool InsertCustomer(string customerName ,int idCustomerType ,int idCard ,string address,DateTime dateOfBirth ,int phoneNumber ,string sex ,string nationality)
         {
             string query = "exec USP_InsertCustomer @customerName , @idCustomerType , @idCard , @address , @dateOfBirth , @phoneNumber , @sex , @nationality";
             int count = DataProvider.Instance.ExecuteNoneQuery(query, new object[] { customerName, idCustomerType, idCard, address,dateOfBirth, phoneNumber, sex, nationality });
             return count > 0;
+        }
+        public bool InsertCustomer(Customer customer)
+        {
+            return InsertCustomer(customer.CustomerName, customer.IdCustomerType, customer.IdCard, customer.Address,
+                customer.DateOfBirth, customer.PhoneNumber, customer.Sex, customer.Nationality);
         }
         public Customer GetIDCustomer(string idCard)
         {
@@ -40,6 +41,16 @@ namespace HotelManager.DAO
             string query = "exec USP_UpdateCustomer1 @phoneNumber , @address , @idCard";
             return DataProvider.Instance.ExecuteNoneQuery(query, new object[] { phoneNumber, address, idCard }) > 0;
         }
+        public bool UpdateCustomer(Customer customerNow, Customer customerPre)
+        {
+            string query = "USP_UpdateCustomer @customerName , @idCustomerType ," +
+                            " @idCardNow , @address , @dateOfBirth , " +
+                            "@phoneNumber , @sex , @nationality , @idCardPre";
+            object[] parameter = new object[] {customerNow.CustomerName, customerNow.IdCustomerType, customerNow.IdCard,
+                                    customerNow.Address, customerNow.DateOfBirth, customerNow.PhoneNumber,
+                                    customerNow.Sex, customerNow.Nationality, customerPre.IdCard};
+            return DataProvider.Instance.ExecuteNoneQuery(query, parameter) > 0;
+        }
         public object GetIDCustomerFromBookRoom(int idBookRoom)
         {
             object obj = DataProvider.Instance.ExecuteScalar("exec USP_GetIDCustomerFromBookRoom @idBookRoom", new object[] { idBookRoom });
@@ -50,6 +61,11 @@ namespace HotelManager.DAO
             DataTable data = DataProvider.Instance.ExecuteQuery("exec USP_ShowCustomerInfo @idCustomer", new object[] { idCustomer });
             Customer customer = new Customer(data.Rows[0]);
             return customer;
+        }
+        public DataTable LoadFullCustomer()
+        {
+            string query = "USP_LoadFullCustomer";
+            return DataProvider.Instance.ExecuteQuery(query);
         }
     }
 }

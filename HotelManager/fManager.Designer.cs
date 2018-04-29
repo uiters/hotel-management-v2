@@ -138,6 +138,7 @@
             this.metroTile17.UseSelectable = true;
             this.metroTile17.UseStyleColors = true;
             this.metroTile17.UseTileImage = true;
+            this.metroTile17.Click += new System.EventHandler(this.metroTile17_Click);
             // 
             // metroTile16
             // 
