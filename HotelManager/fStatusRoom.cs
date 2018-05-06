@@ -55,6 +55,15 @@ namespace HotelManager
         {
             this.Close();
         }
+        private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow Row in dataGridViewStatusRoom.SelectedRows)
+            {
+                Row.Selected = false;
+            }
+            int last = dataGridViewStatusRoom.RowCount - 1;
+            dataGridViewStatusRoom.Rows[last].Selected = true;
+        }
         #endregion
 
         #region GetData
@@ -167,5 +176,7 @@ namespace HotelManager
         }
 
         #endregion
+
+
     }
 }

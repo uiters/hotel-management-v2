@@ -269,6 +269,10 @@ BEGIN
 		DELETE FROM dbo.StaffType
 		WHERE ID = @id
 END
+GO
+CREATE PROC USP_LoadFullStaffType
+AS
+SELECT * FROM dbo.StaffType
 -------------------------
 --Staff 
 -------------------------
@@ -390,9 +394,9 @@ GO
 ------------------------
 --Room
 ------------------------
-CREATE PROC USP_LoadFullRoom
+ALTER PROC USP_LoadFullRoom
 AS
-SELECT Room.ID, Room.Name,RoomType.Name AS [nameRoomType],
+SELECT Room.ID, Room.Name,RoomType.Name AS [nameRoomType], Price, LimitPerson,
 StatusRoom.Name AS [nameStatusRoom], IDRoomType, IDStatusRoom
 FROM dbo.Room INNER JOIN dbo.RoomType 
 ON roomtype.id = room.IDRoomType

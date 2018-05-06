@@ -86,6 +86,15 @@ namespace HotelManager
             LoadFullCustomer();
             this.Show();
         }
+        private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dataGridViewCustomer.SelectedRows)
+            {
+                row.Selected = false;
+            }
+            int last = dataGridViewCustomer.RowCount - 1;
+            dataGridViewCustomer.Rows[last].Selected = true;
+        }
 
         #endregion
 
@@ -222,6 +231,7 @@ namespace HotelManager
             }
         }
         #endregion
+
 
     }
 }

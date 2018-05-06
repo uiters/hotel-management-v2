@@ -9,8 +9,14 @@ namespace HotelManager.DTO
 {
     public class AccountType
     {
+        #region Properties
         private int id;
         private string name;
+        public int Id { get => id; set => id = value; }
+        public string Name { get => name; set => name = value; }
+        #endregion
+
+
         public AccountType(int id, string name)
         {
             Id = id;
@@ -22,7 +28,11 @@ namespace HotelManager.DTO
             Name = (string)row["Name"];
         }
 
-        public int Id { get => id; set => id = value; }
-        public string Name { get => name; set => name = value; }
+        public bool Equals(AccountType accountTypePre)
+        {
+            if (accountTypePre == null) return false;
+            return this.name == accountTypePre.name;
+        }
+       
     }
 }

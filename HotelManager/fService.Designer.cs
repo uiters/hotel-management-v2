@@ -156,7 +156,7 @@
             // 
             // bindingService
             // 
-            this.bindingService.AddNewItem = this.bindingNavigatorAddNewItem;
+            this.bindingService.AddNewItem = null;
             this.bindingService.AutoSize = false;
             this.bindingService.BackColor = System.Drawing.Color.Transparent;
             this.bindingService.CountItem = this.bindingNavigatorCountItem;
@@ -197,6 +197,7 @@
             this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(50, 22);
             this.bindingNavigatorAddNewItem.Text = "Add new";
+            this.bindingNavigatorAddNewItem.Click += new System.EventHandler(this.bindingNavigatorAddNewItem_Click);
             // 
             // bindingNavigatorCountItem
             // 

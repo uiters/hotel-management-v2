@@ -56,6 +56,15 @@ namespace HotelManager
             else
                 UpdateServiceType();
         }
+        private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow Row in dataGridViewServiceType.SelectedRows)
+            {
+                Row.Selected = false;
+            }
+            int last = dataGridViewServiceType.RowCount - 1;
+            dataGridViewServiceType.Rows[last].Selected = true;
+        }
         #endregion
 
         #region GetData
@@ -169,6 +178,7 @@ namespace HotelManager
             }
         }
         #endregion
+
 
     }
 }

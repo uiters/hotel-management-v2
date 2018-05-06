@@ -1,46 +1,52 @@
 ﻿using HotelManager.DAO;
 using HotelManager.DTO;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace HotelManager
 {
-    public partial class fCustomerType : Form
+    public partial class fStaffType : Form
     {
         #region Properties
-        private DataTable table;
-        public DataTable Table
+        private DataTable _tableStaffType;
+        public DataTable tableStaffType
         {
-            get => table;
+            get => _tableStaffType;
             private set
             {
-                table = value;
+                _tableStaffType = value;
                 BindingSource source = new BindingSource();
-                source.DataSource = table;
-                dataGridViewCustomerType.DataSource = source;
-                bindingCustomerType.BindingSource = source;
+                source.DataSource = _tableStaffType;
+                dataGridViewStaffType.DataSource = source;
+                bindingStaffType.BindingSource = source;
             }
         }
         #endregion
 
         #region Constructor
-        public fCustomerType()
+        public fStaffType()
         {
             InitializeComponent();
         }
-        public fCustomerType(DataTable table)
+        public fStaffType(DataTable table)
         {
             InitializeComponent();
-            this.Table = table;
+            this.tableStaffType = table;
         }
 
         #endregion
 
         #region Load
-        private void LoadFullCustomerType()
+        private void LoadFullStaffType()
         {
-            this.Table = GetFullCustomerType();
+            this.tableStaffType = GetFullStaffType();
         }
         #endregion
 
@@ -49,34 +55,34 @@ namespace HotelManager
         {
             this.Close();
         }
-        private void btnAddCustomerType_Click(object sender, EventArgs e)
+        private void btnAddStaffType_Click(object sender, EventArgs e)
         {
-            if (btnAddCustomerType.ButtonText.Contains("Thêm"))
-                InsertCustomerType();
+            if (btnAddStaffType.ButtonText.Contains("Thêm"))
+                InsertStaffType();
             else
-                UpdateCustomerType();
+                UpdateStaffType();
         }
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
-            foreach (DataGridViewRow Row in dataGridViewCustomerType.SelectedRows)
+            foreach (DataGridViewRow Row in dataGridViewStaffType.SelectedRows)
             {
                 Row.Selected = false;
             }
-            int last = dataGridViewCustomerType.RowCount - 1;
-            dataGridViewCustomerType.Rows[last].Selected = true;
+            int last = dataGridViewStaffType.RowCount - 1;
+            dataGridViewStaffType.Rows[last].Selected = true;
         }
 
         #endregion
 
         #region Method
-        private void InsertCustomerType()
+        private void InsertStaffType()
         {
-            if(CheckFill(new Control[] { txbName }))
+            if (CheckFill(new Control[] { txbName }))
             {
-                if (CustomerTypeDAO.Instance.InsertCustomerType(txbName.Text))
+                if (AccountTypeDAO.Instance.InsertStaffType(txbName.Text))
                 {
                     MessageBox.Show("Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.LoadFullCustomerType();
+                    this.LoadFullStaffType();
                 }
                 else
                     MessageBox.Show("Lỗi", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -84,32 +90,32 @@ namespace HotelManager
             else
                 MessageBox.Show("Không được để trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-        private void UpdateCustomerType()
+        private void UpdateStaffType()
         {
-            if(!CheckFill(new Control[] { txbName}))
+            if (!CheckFill(new Control[] { txbName }))
             {
                 MessageBox.Show("Không được để trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             else
             {
-                CustomerType customerTypePre = groupCutomerType.Tag as CustomerType;
+                AccountType StaffTypePre = groupStaffType.Tag as AccountType;
                 try
                 {
-                    CustomerType customerTypeNow = new CustomerType(int.Parse(txbID.Text), txbName.Text);
-                    if (customerTypeNow.Equals(customerTypePre))
+                    AccountType StaffTypeNow = new AccountType(int.Parse(txbID.Text), txbName.Text);
+                    if (StaffTypeNow.Equals(StaffTypePre))
                         MessageBox.Show("Bạn chưa thay đổi dữ liệu", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     else
                     {
-                        bool check = CustomerTypeDAO.Instance.UpdateCustomerType(customerTypeNow);
+                        bool check = AccountTypeDAO.Instance.UpdateStaffType(StaffTypeNow);
                         if (check)
                         {
                             MessageBox.Show("Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            groupCutomerType.Tag = customerTypeNow;
-                            LoadFullCustomerType();
+                            groupStaffType.Tag = StaffTypeNow;
+                            LoadFullStaffType();
                         }
                         else
-                            MessageBox.Show("Loại Khách Hàng đã tồn tại\nTrùng Mã Khách Hàng", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            MessageBox.Show("Trùng loại nhân viên", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     }
                 }
                 catch
@@ -125,16 +131,16 @@ namespace HotelManager
             {
                 txbID.Text = "Tự Động";
                 txbName.Text = string.Empty;
-                btnAddCustomerType.ButtonText = "Thêm";
+                btnAddStaffType.ButtonText = "Thêm";
             }
             else
             {
                 txbID.Text = row.Cells["colID"].Value.ToString();
                 txbName.Text = row.Cells["colName"].Value.ToString();
-               
-                CustomerType customerType = new CustomerType(((DataRowView)row.DataBoundItem).Row);
-                groupCutomerType.Tag = customerType;
-                btnAddCustomerType.ButtonText = "Cập Nhật";
+
+                AccountType customerType = new AccountType(((DataRowView)row.DataBoundItem).Row);
+                groupStaffType.Tag = customerType;
+                btnAddStaffType.ButtonText = "Cập Nhật";
             }
         }
         public bool CheckFill(Control[] controls)
@@ -150,24 +156,22 @@ namespace HotelManager
         #endregion
 
         #region GetData
-        private DataTable GetFullCustomerType()
+        private DataTable GetFullStaffType()
         {
-            return CustomerTypeDAO.Instance.LoadFullCustomerType();
+            return AccountTypeDAO.Instance.LoadFullStaffType();
         }
         #endregion
-  
+
         #region Change
-        private void dataGridViewCustomerType_SelectionChanged(object sender, EventArgs e)
+        private void dataGridViewStaffType_SelectionChanged(object sender, EventArgs e)
         {
-            if (dataGridViewCustomerType.SelectedRows.Count > 0)
+            if (dataGridViewStaffType.SelectedRows.Count > 0)
             {
-                DataGridViewRow row = dataGridViewCustomerType.SelectedRows[0];
+                DataGridViewRow row = dataGridViewStaffType.SelectedRows[0];
                 ChangeText(row);
             }
         }
 
         #endregion
-
-
     }
 }

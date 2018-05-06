@@ -31,9 +31,9 @@ namespace HotelManager.DAO
             return DataProvider.Instance.ExecuteNoneQuery(query, new object[] { id }) > 0;
         }
 
-        public DataTable LoadListStaffType()
+        public DataTable LoadFullStaffType()
         {
-            string query = "select * from stafftype";
+            string query = "USP_LoadFullStaffType";
             return DataProvider.Instance.ExecuteQuery(query);
         }
 

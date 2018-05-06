@@ -1,13 +1,7 @@
 ﻿using HotelManager.DAO;
 using HotelManager.DTO;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace HotelManager
@@ -66,6 +60,15 @@ namespace HotelManager
             this.LoadFullService();
             comboBoxServiceType.DataSource = _fServiceType.TableSerViceType;
             this.Show();
+        }
+        private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow Row in dataGridViewService.SelectedRows)
+            {
+                Row.Selected = false;
+            }
+            int last = dataGridViewService.RowCount - 1;
+            dataGridViewService.Rows[last].Selected = true;
         }
         #endregion
 
@@ -191,8 +194,8 @@ namespace HotelManager
 
 
 
-        #endregion
 
+        #endregion
 
     }
 }
