@@ -27,7 +27,7 @@ namespace HotelManager.DAO
         }
         public bool UpdateServiceType(ServiceType serviceTypeNow, ServiceType serviceTypePre)
         {
-            return UpdateServiceType(serviceType.Id, serviceType.Name);
+            return UpdateServiceType(serviceTypeNow.Id, serviceTypeNow.Name);
         }
         public bool DeleteServiceType(int id)
         {

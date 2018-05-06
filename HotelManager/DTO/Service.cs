@@ -9,6 +9,7 @@ namespace HotelManager.DTO
 {
     public class Service
     {
+        #region Properties
         private int id;
         private int idServiceType;
         private string name;
@@ -18,7 +19,10 @@ namespace HotelManager.DTO
         public int IdServiceType { get => idServiceType; set => idServiceType = value; }
         public string Name { get => name; set => name = value; }
         public int Price { get => price; set => price = value; }
+        #endregion
 
+        #region Constructor
+        public Service() { }
         public Service(int id, int idServiceType, int price, string name)
         {
             this.Id = id;
@@ -33,5 +37,17 @@ namespace HotelManager.DTO
             this.Price = (int)row["price"];
             this.Name = (string)row["Name"];
         }
+        #endregion
+
+        #region Method
+        public bool Equals(Service servicePre)
+        {
+            if (servicePre == null) return false;
+            if (servicePre.idServiceType != this.idServiceType) return false;
+            if (servicePre.name != this.name) return false;
+            if (servicePre.price != this.price) return false;
+            return true;
+        }
+        #endregion
     }
 }

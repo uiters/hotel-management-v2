@@ -44,8 +44,6 @@
             this.txbID = new Bunifu.Framework.UI.BunifuMetroTextbox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dataGridViewServiceType = new System.Windows.Forms.DataGridView();
-            this.colID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bindingServiceType = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -58,6 +56,8 @@
             this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.colID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupServiceType.SuspendLayout();
@@ -171,7 +171,7 @@
             this.groupServiceType.Size = new System.Drawing.Size(244, 245);
             this.groupServiceType.TabIndex = 46;
             this.groupServiceType.TabStop = false;
-            this.groupServiceType.Text = "Thêm Dịch Vụ";
+            this.groupServiceType.Text = "Thêm Loại Dịch Vụ";
             // 
             // label1
             // 
@@ -180,9 +180,9 @@
             this.label1.ForeColor = System.Drawing.Color.SeaGreen;
             this.label1.Location = new System.Drawing.Point(16, 105);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(88, 17);
+            this.label1.Size = new System.Drawing.Size(98, 17);
             this.label1.TabIndex = 24;
-            this.label1.Text = "Tên trạng thái";
+            this.label1.Text = "Tên loại dịch vụ";
             // 
             // txbName
             // 
@@ -235,9 +235,9 @@
             this.label16.ForeColor = System.Drawing.Color.SeaGreen;
             this.label16.Location = new System.Drawing.Point(16, 31);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(75, 17);
+            this.label16.Size = new System.Drawing.Size(97, 17);
             this.label16.TabIndex = 22;
-            this.label16.Text = "Mã Dịch Vụ";
+            this.label16.Text = "Mã loại dịch vụ";
             // 
             // txbID
             // 
@@ -269,7 +269,7 @@
             this.groupBox1.Size = new System.Drawing.Size(412, 427);
             this.groupBox1.TabIndex = 47;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Danh Sách Dịch Vụ";
+            this.groupBox1.Text = "Danh Sách Loại Dịch Vụ";
             // 
             // dataGridViewServiceType
             // 
@@ -289,24 +289,6 @@
             this.dataGridViewServiceType.Size = new System.Drawing.Size(406, 378);
             this.dataGridViewServiceType.TabIndex = 28;
             this.dataGridViewServiceType.SelectionChanged += new System.EventHandler(this.dataGridViewServiceType_SelectionChanged);
-            // 
-            // colID
-            // 
-            this.colID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colID.DataPropertyName = "id";
-            this.colID.HeaderText = "Mã dịch vụ";
-            this.colID.Name = "colID";
-            this.colID.ReadOnly = true;
-            this.colID.Width = 97;
-            // 
-            // colName
-            // 
-            this.colName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.colName.DataPropertyName = "name";
-            this.colName.FillWeight = 90F;
-            this.colName.HeaderText = "Tên dịch vụ";
-            this.colName.Name = "colName";
-            this.colName.ReadOnly = true;
             // 
             // bindingServiceType
             // 
@@ -421,6 +403,24 @@
             this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
             this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
+            // colID
+            // 
+            this.colID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colID.DataPropertyName = "id";
+            this.colID.HeaderText = "Mã loại dịch vụ";
+            this.colID.Name = "colID";
+            this.colID.ReadOnly = true;
+            this.colID.Width = 122;
+            // 
+            // colName
+            // 
+            this.colName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.colName.DataPropertyName = "name";
+            this.colName.FillWeight = 90F;
+            this.colName.HeaderText = "Tên loại dịch vụ";
+            this.colName.Name = "colName";
+            this.colName.ReadOnly = true;
+            // 
             // fServiceType
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -467,8 +467,6 @@
         private Bunifu.Framework.UI.BunifuMetroTextbox txbID;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView dataGridViewServiceType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colName;
         private System.Windows.Forms.BindingNavigator bindingServiceType;
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
@@ -481,5 +479,7 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveNextItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colName;
     }
 }

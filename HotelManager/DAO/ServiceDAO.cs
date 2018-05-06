@@ -1,6 +1,7 @@
 ﻿using HotelManager.DTO;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,19 +20,28 @@ namespace HotelManager.DAO
                 name, idtype, price
             }) > 0;
         }
+        public bool InsertService(Service serviceNow)
+        {
+            return InsertService(serviceNow.Name, serviceNow.IdServiceType, serviceNow.Price);
+        }
         public bool UpdateService(int id, string name, int idServiceType, int price)
         {
             string query = "USP_UpdateService @id , @name , @idServiceType , @price";
             return DataProvider.Instance.ExecuteNoneQuery(query, new object[] { id, name, idServiceType, price }) > 0;
         }
-        public bool UpdateService(Service service)
+        public bool UpdateService(Service serviceNow, Service servicePre)
         {
-            return UpdateService(service.Id, service.Name, service.IdServiceType, service.Price);
+            return UpdateService(serviceNow.Id, serviceNow.Name, serviceNow.IdServiceType, serviceNow.Price);
         }
         public bool DeleteService(int id)
         {
             string query = "USP_DeleteService @id";
             return DataProvider.Instance.ExecuteNoneQuery(query, new object[] { id }) > 0;
+        }
+        public DataTable LoadFullService()
+        {
+            string query = "USP_LoadFullService";
+            return DataProvider.Instance.ExecuteQuery(query);
         }
 
         public static ServiceDAO Instance
