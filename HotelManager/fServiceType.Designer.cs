@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fServiceType));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.bunifuDragControl1 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.btnClose = new Bunifu.Framework.UI.BunifuImageButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -39,7 +40,7 @@
             this.groupServiceType = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txbName = new Bunifu.Framework.UI.BunifuMetroTextbox();
-            this.btnAddServiceType = new Bunifu.Framework.UI.BunifuThinButton2();
+            this.btnUpdateServiceType = new Bunifu.Framework.UI.BunifuThinButton2();
             this.label16 = new System.Windows.Forms.Label();
             this.txbID = new Bunifu.Framework.UI.BunifuMetroTextbox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -47,9 +48,7 @@
             this.colID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bindingServiceType = new System.Windows.Forms.BindingNavigator(this.components);
-            this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
-            this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator = new System.Windows.Forms.ToolStripSeparator();
@@ -58,6 +57,7 @@
             this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.labelName = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupServiceType.SuspendLayout();
@@ -80,10 +80,10 @@
             this.btnClose.BackColor = System.Drawing.Color.Transparent;
             this.btnClose.Image = ((System.Drawing.Image)(resources.GetObject("btnClose.Image")));
             this.btnClose.ImageActive = null;
-            this.btnClose.Location = new System.Drawing.Point(658, 12);
+            this.btnClose.Location = new System.Drawing.Point(547, 12);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(16, 14);
-            this.btnClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.btnClose.Size = new System.Drawing.Size(16, 16);
+            this.btnClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.btnClose.TabIndex = 44;
             this.btnClose.TabStop = false;
             this.btnClose.Zoom = 10;
@@ -94,11 +94,11 @@
             this.groupBox3.Controls.Add(this.btnSearch);
             this.groupBox3.Controls.Add(this.txbSreach);
             this.groupBox3.Controls.Add(this.label5);
-            this.groupBox3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.ForeColor = System.Drawing.Color.SeaGreen;
-            this.groupBox3.Location = new System.Drawing.Point(12, 32);
+            this.groupBox3.Location = new System.Drawing.Point(15, 62);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(243, 172);
+            this.groupBox3.Size = new System.Drawing.Size(230, 140);
             this.groupBox3.TabIndex = 45;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Tìm kiếm";
@@ -121,10 +121,10 @@
             this.btnSearch.IdleFillColor = System.Drawing.Color.White;
             this.btnSearch.IdleForecolor = System.Drawing.Color.SeaGreen;
             this.btnSearch.IdleLineColor = System.Drawing.Color.SeaGreen;
-            this.btnSearch.Location = new System.Drawing.Point(30, 103);
+            this.btnSearch.Location = new System.Drawing.Point(26, 80);
             this.btnSearch.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(198, 53);
+            this.btnSearch.Size = new System.Drawing.Size(175, 50);
             this.btnSearch.TabIndex = 46;
             this.btnSearch.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -136,13 +136,13 @@
             this.txbSreach.BorderThickness = 1;
             this.txbSreach.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txbSreach.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txbSreach.ForeColor = System.Drawing.Color.SeaGreen;
+            this.txbSreach.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.txbSreach.isPassword = false;
-            this.txbSreach.Location = new System.Drawing.Point(26, 52);
+            this.txbSreach.Location = new System.Drawing.Point(26, 45);
             this.txbSreach.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.txbSreach.Name = "txbSreach";
-            this.txbSreach.Size = new System.Drawing.Size(199, 38);
-            this.txbSreach.TabIndex = 27;
+            this.txbSreach.Size = new System.Drawing.Size(175, 29);
+            this.txbSreach.TabIndex = 0;
             this.txbSreach.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             // 
             // label5
@@ -152,23 +152,23 @@
             this.label5.ForeColor = System.Drawing.Color.SeaGreen;
             this.label5.Location = new System.Drawing.Point(16, 22);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(48, 17);
+            this.label5.Size = new System.Drawing.Size(55, 17);
             this.label5.TabIndex = 28;
-            this.label5.Text = "ID/Tên:";
+            this.label5.Text = "Mã/Tên:";
             // 
             // groupServiceType
             // 
             this.groupServiceType.Controls.Add(this.label1);
             this.groupServiceType.Controls.Add(this.txbName);
-            this.groupServiceType.Controls.Add(this.btnAddServiceType);
+            this.groupServiceType.Controls.Add(this.btnUpdateServiceType);
             this.groupServiceType.Controls.Add(this.label16);
             this.groupServiceType.Controls.Add(this.txbID);
             this.groupServiceType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupServiceType.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupServiceType.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupServiceType.ForeColor = System.Drawing.Color.SeaGreen;
-            this.groupServiceType.Location = new System.Drawing.Point(12, 214);
+            this.groupServiceType.Location = new System.Drawing.Point(15, 210);
             this.groupServiceType.Name = "groupServiceType";
-            this.groupServiceType.Size = new System.Drawing.Size(244, 245);
+            this.groupServiceType.Size = new System.Drawing.Size(230, 211);
             this.groupServiceType.TabIndex = 46;
             this.groupServiceType.TabStop = false;
             this.groupServiceType.Text = "Thêm Loại Dịch Vụ";
@@ -178,7 +178,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.SeaGreen;
-            this.label1.Location = new System.Drawing.Point(16, 105);
+            this.label1.Location = new System.Drawing.Point(16, 79);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(98, 17);
             this.label1.TabIndex = 24;
@@ -192,48 +192,48 @@
             this.txbName.BorderThickness = 1;
             this.txbName.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txbName.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txbName.ForeColor = System.Drawing.Color.SeaGreen;
+            this.txbName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.txbName.isPassword = false;
-            this.txbName.Location = new System.Drawing.Point(22, 133);
+            this.txbName.Location = new System.Drawing.Point(26, 105);
             this.txbName.Margin = new System.Windows.Forms.Padding(0);
             this.txbName.Name = "txbName";
-            this.txbName.Size = new System.Drawing.Size(201, 38);
-            this.txbName.TabIndex = 0;
+            this.txbName.Size = new System.Drawing.Size(175, 29);
+            this.txbName.TabIndex = 1;
             this.txbName.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             // 
-            // btnAddServiceType
+            // btnUpdateServiceType
             // 
-            this.btnAddServiceType.ActiveBorderThickness = 1;
-            this.btnAddServiceType.ActiveCornerRadius = 20;
-            this.btnAddServiceType.ActiveFillColor = System.Drawing.Color.SeaGreen;
-            this.btnAddServiceType.ActiveForecolor = System.Drawing.Color.White;
-            this.btnAddServiceType.ActiveLineColor = System.Drawing.Color.SeaGreen;
-            this.btnAddServiceType.BackColor = System.Drawing.Color.White;
-            this.btnAddServiceType.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAddServiceType.BackgroundImage")));
-            this.btnAddServiceType.ButtonText = "Thêm";
-            this.btnAddServiceType.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAddServiceType.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddServiceType.ForeColor = System.Drawing.Color.SeaGreen;
-            this.btnAddServiceType.IdleBorderThickness = 1;
-            this.btnAddServiceType.IdleCornerRadius = 15;
-            this.btnAddServiceType.IdleFillColor = System.Drawing.Color.White;
-            this.btnAddServiceType.IdleForecolor = System.Drawing.Color.SeaGreen;
-            this.btnAddServiceType.IdleLineColor = System.Drawing.Color.SeaGreen;
-            this.btnAddServiceType.Location = new System.Drawing.Point(22, 177);
-            this.btnAddServiceType.Margin = new System.Windows.Forms.Padding(6);
-            this.btnAddServiceType.Name = "btnAddServiceType";
-            this.btnAddServiceType.Size = new System.Drawing.Size(201, 55);
-            this.btnAddServiceType.TabIndex = 8;
-            this.btnAddServiceType.TabStop = false;
-            this.btnAddServiceType.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.btnAddServiceType.Click += new System.EventHandler(this.btnAddServiceType_Click);
+            this.btnUpdateServiceType.ActiveBorderThickness = 1;
+            this.btnUpdateServiceType.ActiveCornerRadius = 20;
+            this.btnUpdateServiceType.ActiveFillColor = System.Drawing.Color.SeaGreen;
+            this.btnUpdateServiceType.ActiveForecolor = System.Drawing.Color.White;
+            this.btnUpdateServiceType.ActiveLineColor = System.Drawing.Color.SeaGreen;
+            this.btnUpdateServiceType.BackColor = System.Drawing.Color.White;
+            this.btnUpdateServiceType.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnUpdateServiceType.BackgroundImage")));
+            this.btnUpdateServiceType.ButtonText = "Cập Nhật";
+            this.btnUpdateServiceType.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnUpdateServiceType.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUpdateServiceType.ForeColor = System.Drawing.Color.SeaGreen;
+            this.btnUpdateServiceType.IdleBorderThickness = 1;
+            this.btnUpdateServiceType.IdleCornerRadius = 15;
+            this.btnUpdateServiceType.IdleFillColor = System.Drawing.Color.White;
+            this.btnUpdateServiceType.IdleForecolor = System.Drawing.Color.SeaGreen;
+            this.btnUpdateServiceType.IdleLineColor = System.Drawing.Color.SeaGreen;
+            this.btnUpdateServiceType.Location = new System.Drawing.Point(26, 149);
+            this.btnUpdateServiceType.Margin = new System.Windows.Forms.Padding(6);
+            this.btnUpdateServiceType.Name = "btnUpdateServiceType";
+            this.btnUpdateServiceType.Size = new System.Drawing.Size(175, 50);
+            this.btnUpdateServiceType.TabIndex = 8;
+            this.btnUpdateServiceType.TabStop = false;
+            this.btnUpdateServiceType.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnUpdateServiceType.Click += new System.EventHandler(this.BtnUpdateServiceType_Click);
             // 
             // label16
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label16.ForeColor = System.Drawing.Color.SeaGreen;
-            this.label16.Location = new System.Drawing.Point(16, 31);
+            this.label16.Location = new System.Drawing.Point(16, 23);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(97, 17);
             this.label16.TabIndex = 22;
@@ -241,6 +241,7 @@
             // 
             // txbID
             // 
+            this.txbID.BackColor = System.Drawing.Color.WhiteSmoke;
             this.txbID.BorderColorFocused = System.Drawing.Color.SeaGreen;
             this.txbID.BorderColorIdle = System.Drawing.Color.SeaGreen;
             this.txbID.BorderColorMouseHover = System.Drawing.Color.SeaGreen;
@@ -248,14 +249,13 @@
             this.txbID.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txbID.Enabled = false;
             this.txbID.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txbID.ForeColor = System.Drawing.Color.SeaGreen;
+            this.txbID.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.txbID.isPassword = false;
-            this.txbID.Location = new System.Drawing.Point(22, 61);
+            this.txbID.Location = new System.Drawing.Point(26, 45);
             this.txbID.Margin = new System.Windows.Forms.Padding(0);
             this.txbID.Name = "txbID";
-            this.txbID.Size = new System.Drawing.Size(201, 38);
+            this.txbID.Size = new System.Drawing.Size(175, 29);
             this.txbID.TabIndex = 0;
-            this.txbID.Text = "Tự Động";
             this.txbID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // groupBox1
@@ -264,9 +264,9 @@
             this.groupBox1.Controls.Add(this.bindingServiceType);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.SeaGreen;
-            this.groupBox1.Location = new System.Drawing.Point(262, 32);
+            this.groupBox1.Location = new System.Drawing.Point(260, 62);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(412, 427);
+            this.groupBox1.Size = new System.Drawing.Size(299, 359);
             this.groupBox1.TabIndex = 47;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Danh Sách Loại Dịch Vụ";
@@ -280,13 +280,21 @@
             this.dataGridViewServiceType.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colID,
             this.colName});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.SeaGreen;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.SeaGreen;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewServiceType.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewServiceType.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewServiceType.Location = new System.Drawing.Point(3, 46);
             this.dataGridViewServiceType.Name = "dataGridViewServiceType";
             this.dataGridViewServiceType.ReadOnly = true;
             this.dataGridViewServiceType.RowHeadersVisible = false;
             this.dataGridViewServiceType.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewServiceType.Size = new System.Drawing.Size(406, 378);
+            this.dataGridViewServiceType.Size = new System.Drawing.Size(293, 310);
             this.dataGridViewServiceType.TabIndex = 28;
             this.dataGridViewServiceType.SelectionChanged += new System.EventHandler(this.dataGridViewServiceType_SelectionChanged);
             // 
@@ -312,7 +320,7 @@
             // 
             this.bindingServiceType.AddNewItem = null;
             this.bindingServiceType.CountItem = this.bindingNavigatorCountItem;
-            this.bindingServiceType.DeleteItem = this.bindingNavigatorDeleteItem;
+            this.bindingServiceType.DeleteItem = null;
             this.bindingServiceType.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.bindingNavigatorMoveFirstItem,
             this.bindingNavigatorMovePreviousItem,
@@ -322,9 +330,7 @@
             this.bindingNavigatorSeparator1,
             this.bindingNavigatorMoveNextItem,
             this.bindingNavigatorMoveLastItem,
-            this.bindingNavigatorSeparator2,
-            this.bindingNavigatorAddNewItem,
-            this.bindingNavigatorDeleteItem});
+            this.bindingNavigatorSeparator2});
             this.bindingServiceType.Location = new System.Drawing.Point(3, 21);
             this.bindingServiceType.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.bindingServiceType.MoveLastItem = this.bindingNavigatorMoveLastItem;
@@ -332,19 +338,9 @@
             this.bindingServiceType.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.bindingServiceType.Name = "bindingServiceType";
             this.bindingServiceType.PositionItem = this.bindingNavigatorPositionItem;
-            this.bindingServiceType.Size = new System.Drawing.Size(406, 25);
+            this.bindingServiceType.Size = new System.Drawing.Size(293, 25);
             this.bindingServiceType.TabIndex = 29;
             this.bindingServiceType.Text = "bindingNavigator1";
-            // 
-            // bindingNavigatorAddNewItem
-            // 
-            this.bindingNavigatorAddNewItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorAddNewItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorAddNewItem.Image")));
-            this.bindingNavigatorAddNewItem.Name = "bindingNavigatorAddNewItem";
-            this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorAddNewItem.Text = "Add new";
-            this.bindingNavigatorAddNewItem.Click += new System.EventHandler(this.bindingNavigatorAddNewItem_Click);
             // 
             // bindingNavigatorCountItem
             // 
@@ -352,15 +348,6 @@
             this.bindingNavigatorCountItem.Size = new System.Drawing.Size(35, 22);
             this.bindingNavigatorCountItem.Text = "of {0}";
             this.bindingNavigatorCountItem.ToolTipText = "Total number of items";
-            // 
-            // bindingNavigatorDeleteItem
-            // 
-            this.bindingNavigatorDeleteItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorDeleteItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorDeleteItem.Image")));
-            this.bindingNavigatorDeleteItem.Name = "bindingNavigatorDeleteItem";
-            this.bindingNavigatorDeleteItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorDeleteItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorDeleteItem.Text = "Delete";
             // 
             // bindingNavigatorMoveFirstItem
             // 
@@ -422,15 +409,29 @@
             this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
             this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
+            // labelName
+            // 
+            this.labelName.AutoSize = true;
+            this.labelName.BackColor = System.Drawing.Color.Transparent;
+            this.labelName.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelName.ForeColor = System.Drawing.Color.SeaGreen;
+            this.labelName.Location = new System.Drawing.Point(177, 12);
+            this.labelName.Name = "labelName";
+            this.labelName.Size = new System.Drawing.Size(166, 37);
+            this.labelName.TabIndex = 48;
+            this.labelName.Text = "Loại Dịch Vụ";
+            this.labelName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // fServiceType
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(686, 470);
+            this.ClientSize = new System.Drawing.Size(575, 440);
+            this.Controls.Add(this.labelName);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupServiceType);
-            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.btnClose);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.SeaGreen;
@@ -449,6 +450,7 @@
             this.bindingServiceType.ResumeLayout(false);
             this.bindingServiceType.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -463,15 +465,13 @@
         private System.Windows.Forms.GroupBox groupServiceType;
         private System.Windows.Forms.Label label1;
         private Bunifu.Framework.UI.BunifuMetroTextbox txbName;
-        private Bunifu.Framework.UI.BunifuThinButton2 btnAddServiceType;
+        private Bunifu.Framework.UI.BunifuThinButton2 btnUpdateServiceType;
         private System.Windows.Forms.Label label16;
         private Bunifu.Framework.UI.BunifuMetroTextbox txbID;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView dataGridViewServiceType;
         private System.Windows.Forms.BindingNavigator bindingServiceType;
-        private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
-        private System.Windows.Forms.ToolStripButton bindingNavigatorDeleteItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveFirstItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMovePreviousItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator;
@@ -482,5 +482,6 @@
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.DataGridViewTextBoxColumn colID;
         private System.Windows.Forms.DataGridViewTextBoxColumn colName;
+        private System.Windows.Forms.Label labelName;
     }
 }

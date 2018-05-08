@@ -51,39 +51,13 @@ namespace HotelManager
         }
         private void btnAddCustomerType_Click(object sender, EventArgs e)
         {
-            if (btnAddCustomerType.ButtonText.Contains("Thêm"))
-                InsertCustomerType();
-            else
                 UpdateCustomerType();
-        }
-        private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
-        {
-            foreach (DataGridViewRow Row in dataGridViewCustomerType.SelectedRows)
-            {
-                Row.Selected = false;
-            }
-            int last = dataGridViewCustomerType.RowCount - 1;
-            dataGridViewCustomerType.Rows[last].Selected = true;
         }
 
         #endregion
 
         #region Method
-        private void InsertCustomerType()
-        {
-            if(CheckFill(new Control[] { txbName }))
-            {
-                if (CustomerTypeDAO.Instance.InsertCustomerType(txbName.Text))
-                {
-                    MessageBox.Show("Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.LoadFullCustomerType();
-                }
-                else
-                    MessageBox.Show("Lỗi", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
-                MessageBox.Show("Không được để trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
+        
         private void UpdateCustomerType()
         {
             if(!CheckFill(new Control[] { txbName}))
@@ -121,20 +95,13 @@ namespace HotelManager
         }
         private void ChangeText(DataGridViewRow row)
         {
-            if (row.IsNewRow)
-            {
-                txbID.Text = "Tự Động";
-                txbName.Text = string.Empty;
-                btnAddCustomerType.ButtonText = "Thêm";
-            }
-            else
+            if (!row.IsNewRow)
             {
                 txbID.Text = row.Cells["colID"].Value.ToString();
                 txbName.Text = row.Cells["colName"].Value.ToString();
                
                 CustomerType customerType = new CustomerType(((DataRowView)row.DataBoundItem).Row);
                 groupCutomerType.Tag = customerType;
-                btnAddCustomerType.ButtonText = "Cập Nhật";
             }
         }
         public bool CheckFill(Control[] controls)

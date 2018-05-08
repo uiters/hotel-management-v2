@@ -44,26 +44,24 @@ namespace HotelManager
         #endregion
 
         #region Click
-        private void btnAddStatusRoom_Click(object sender, EventArgs e)
+        private void BtnUpdateStatusRoom_Click(object sender, EventArgs e)
         {
-            if (btnAddStatusRoom.ButtonText.Contains("Thêm"))
-                InsertStatusRoom();
-            else
                 UpdateStatusRoom();
         }
-        private void btnClose_Click(object sender, EventArgs e)
+        private void BtnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-        private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
-        {
-            foreach (DataGridViewRow Row in dataGridViewStatusRoom.SelectedRows)
-            {
-                Row.Selected = false;
-            }
-            int last = dataGridViewStatusRoom.RowCount - 1;
-            dataGridViewStatusRoom.Rows[last].Selected = true;
-        }
+
+        //private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
+        //{
+        //    foreach (DataGridViewRow Row in dataGridViewStatusRoom.SelectedRows)
+        //    {
+        //        Row.Selected = false;
+        //    }
+        //    int last = dataGridViewStatusRoom.RowCount - 1;
+        //    dataGridViewStatusRoom.Rows[last].Selected = true;
+        //}
         #endregion
 
         #region GetData
@@ -88,29 +86,29 @@ namespace HotelManager
         #endregion
 
         #region Method
-        private void InsertStatusRoom()
-        {
-            if (fCustomer.CheckFillInText(new Control[] { txbName }))
-            {
-                try
-                {
-                    StatusRoom statusRoomNow = GetStatusRoomNow();
-                    if (StatusRoomDAO.Instance.InsertStatusRoom(statusRoomNow))
-                    {
-                        MessageBox.Show("Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        this.LoadFullStatusRoom();
-                    }
-                    else
-                        MessageBox.Show("Lỗi", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                catch
-                {
-                    MessageBox.Show("Lỗi Nhập dữ liệu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
-                MessageBox.Show("Không được để trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
+        //private void InsertStatusRoom()
+        //{
+        //    if (fCustomer.CheckFillInText(new Control[] { txbName }))
+        //    {
+        //        try
+        //        {
+        //            StatusRoom statusRoomNow = GetStatusRoomNow();
+        //            if (StatusRoomDAO.Instance.InsertStatusRoom(statusRoomNow))
+        //            {
+        //                MessageBox.Show("Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //                this.LoadFullStatusRoom();
+        //            }
+        //            else
+        //                MessageBox.Show("Lỗi", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //        }
+        //        catch
+        //        {
+        //            MessageBox.Show("Lỗi Nhập dữ liệu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //        }
+        //    }
+        //    else
+        //        MessageBox.Show("Không được để trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //}
         private void UpdateStatusRoom()
         {
             if (!fCustomer.CheckFillInText(new Control[] { txbName }))
@@ -147,19 +145,12 @@ namespace HotelManager
         }
         private void ChangeText(DataGridViewRow row)
         {
-            if (row.IsNewRow)
-            {
-                txbID.Text = "Tự Động";
-                txbName.Text = string.Empty;
-                btnAddStatusRoom.ButtonText = "Thêm";
-            }
-            else
+            if (!row.IsNewRow)
             {
                 txbID.Text = row.Cells["colID"].Value.ToString();
                 txbName.Text = row.Cells["colName"].Value.ToString();
                 StatusRoom roomType = new StatusRoom(((DataRowView)row.DataBoundItem).Row);
                 groupStatusRoom.Tag = roomType;
-                btnAddStatusRoom.ButtonText = "Cập Nhật";
             }
         }
 
@@ -176,7 +167,5 @@ namespace HotelManager
         }
 
         #endregion
-
-
     }
 }

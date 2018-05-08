@@ -277,28 +277,54 @@ SELECT * FROM dbo.StaffType
 --Staff 
 -------------------------
 GO
-CREATE PROC USP_InsertStaff
+CREATE PROC USP_LoadFullStaff
+AS
+BEGIN
+	SELECT UserName, DisplayName, IDStaffType, Name,IDCard,
+			DateOfBirth, Sex,Address,PhoneNumber,StartDay
+    FROM dbo.Staff INNER JOIN dbo.StaffType ON StaffType.ID = Staff.IDStaffType
+END
+GO
+ALTER PROC USP_InsertStaff
 @user NVARCHAR(100), @name NVARCHAR(100), @pass NVARCHAR(100),
-@idStaffType INT, @dateOfBirth DATE, @sex NVARCHAR(100),
+@idStaffType INT,@idCard INT, @dateOfBirth DATE, @sex NVARCHAR(100),
 @address NVARCHAR(200), @phoneNumber INT, @startDay date
 AS
 BEGIN
-	INSERT INTO dbo.Staff(UserName, DisplayName, PassWord, IDStaffType, DateOfBirth, Sex, Address, PhoneNumber, StartDay)
-	VALUES (@user, @name, @pass, @idStaffType, @dateOfBirth, @sex, @address, @phoneNumber, @startDay)
+	DECLARE @count INT =0
+	SELECT @count = COUNT(*) FROM dbo.Staff WHERE UserName = @user OR IDCard = @idCard
+	IF(@count >0) RETURN
+	INSERT INTO dbo.Staff(UserName, DisplayName, PassWord, IDStaffType, IDCard, DateOfBirth, Sex, Address, PhoneNumber, StartDay)
+	VALUES (@user, @name, @pass, @idStaffType,@idCard, @dateOfBirth, @sex, @address, @phoneNumber, @startDay)
 END
 go
-create PROC USP_UpdateStaff
-@user NVARCHAR(100), @name NVARCHAR(100),
-@idStaffType INT, @dateOfBirth DATE, @sex NVARCHAR(100),
-@address NVARCHAR(200), @phoneNumber INT, @startDay DATE
+ALTER PROC USP_UpdateStaff
+@user NVARCHAR(100), @name NVARCHAR(100), @pass NVARCHAR(100),
+@idStaffType INT, @idCard INT, @dateOfBirth DATE, @sex NVARCHAR(100),
+@address NVARCHAR(200), @phoneNumber INT, @startDay date
 AS
 BEGIN
-	UPDATE dbo.Staff	
-	SET
-	DisplayName = @name, IDStaffType = @idStaffType,
-	DateOfBirth = @dateOfBirth, sex = @sex,
-	Address = @address, PhoneNumber = @phoneNumber, StartDay = @startDay
-	WHERE UserName = @user
+	DECLARE @count INT =0
+	SELECT @count=COUNT(*) FROM dbo.Staff WHERE IDCard = @idCard AND UserName != @user
+	IF (@count >0) RETURN
+	IF(@pass= '')
+	BEGIN
+		UPDATE dbo.Staff	
+		SET
+		DisplayName = @name, IDStaffType = @idStaffType,
+		DateOfBirth = @dateOfBirth, sex = @sex, IDCard = @idCard,
+		Address = @address, PhoneNumber = @phoneNumber, StartDay = @startDay
+		WHERE UserName = @user
+	end
+	ELSE
+	BEGIN
+		UPDATE dbo.Staff	
+		SET
+		DisplayName = @name, IDStaffType = @idStaffType,
+		DateOfBirth = @dateOfBirth, sex = @sex, IDCard = @idCard,
+		Address = @address, PhoneNumber = @phoneNumber, StartDay = @startDay, PassWord = @pass
+		WHERE UserName = @user
+    end
 END
 GO
 CREATE PROC USP_UpdatePassword
@@ -470,10 +496,11 @@ GO
 -------------------------
 --Surcharge
 -------------------------
-CREATE PROC USP_InsertSurcharge
-@name NVARCHAR(200), @value FLOAT, @describe NVARCHAR(200)
-AS
-INSERT INTO surcharge(name, Value, Describe) VALUES(@name, @value, @describe)
+GO
+--CREATE PROC USP_InsertSurcharge
+--@name NVARCHAR(200), @value FLOAT, @describe NVARCHAR(200)
+--AS
+--INSERT INTO surcharge(name, Value, Describe) VALUES(@name, @value, @describe)
 GO
 CREATE PROC USP_UpdateSurcharge
 @name NVARCHAR(200), @value float, @describe NVARCHAR(200)
@@ -486,13 +513,13 @@ UPDATE dbo.Surcharge
 	WHERE name = @name
 END
 GO
-CREATE PROC USP_DeleteSurcharge
-@name NVARCHAR(200)
-AS
-BEGIN
-	DELETE FROM dbo.Surcharge
-	WHERE Name = @name
-END
+--CREATE PROC USP_DeleteSurcharge
+--@name NVARCHAR(200)
+--AS
+--BEGIN
+--	DELETE FROM dbo.Surcharge
+--	WHERE Name = @name
+--END
 GO
 ------------------------
 --Customer

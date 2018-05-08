@@ -31,7 +31,11 @@ namespace HotelManager.DAO
             DataTable data = DataProvider.Instance.ExecuteQuery(query, new object[] { userName, hashPass });
             return data.Rows.Count>0;
         }
-
+        public DataTable LoadFullStaff()
+        {
+            string query = "USP_LoadFullStaff";
+            return DataProvider.Instance.ExecuteQuery(query);
+        }
         public static AccountDAO Instance
         {
             get { if (instance == null) instance = new AccountDAO();return instance; }
@@ -39,17 +43,21 @@ namespace HotelManager.DAO
         }
         public bool InsertAccount(Account account)
         {
-            string query = "EXEC USP_InsertStaff @user , @name , @pass , @idStaffType , @dateOfBirth , @sex , @address , @phoneNumber , @startDay";
-            object[] parameter = new object[] {account.UserName, account.DisplayName, account.PassWord,
-                                                account.IdStaffType, account.DateOfBirth, account.Sex,
+            string query = "EXEC USP_InsertStaff @user , @name , @pass , @idStaffType , @idCard , @dateOfBirth , @sex , @address , @phoneNumber , @startDay";
+            string pass = HashPass(account.PassWord);
+            object[] parameter = new object[] {account.UserName, account.DisplayName, pass, account.IdStaffType,
+                                                account.IdCard, account.DateOfBirth, account.Sex,
                                                 account.Address, account.PhoneNumber, account.StartDay};
             return DataProvider.Instance.ExecuteNoneQuery(query, parameter) > 0;
         }
         public bool UpdateAccount(Account account)
         {
-            string query = "EXEC USP_UpdateStaff @user , @name , @idStaffType , @dateOfBirth , @sex , @address , @phoneNumber , @startDay";
-            object[] parameter = new object[] {account.UserName, account.DisplayName,
-                                                account.IdStaffType, account.DateOfBirth, account.Sex,
+            string pass = "";
+            if (account.PassWord != "")
+                pass = HashPass(account.PassWord);
+            string query = "EXEC USP_UpdateStaff @user , @name , @pass , @idStaffType , @idCard , @dateOfBirth , @sex , @address , @phoneNumber , @startDay";
+            object[] parameter = new object[] {account.UserName, account.DisplayName, pass,
+                                                account.IdStaffType, account.IdCard, account.DateOfBirth, account.Sex,
                                                 account.Address, account.PhoneNumber, account.StartDay};
             return DataProvider.Instance.ExecuteNoneQuery(query, parameter) > 0;
         }

@@ -55,41 +55,30 @@ namespace HotelManager
         {
             this.Close();
         }
-        private void btnAddStaffType_Click(object sender, EventArgs e)
+        private void BtnUpdateStaffType_Click(object sender, EventArgs e)
         {
-            if (btnAddStaffType.ButtonText.Contains("Thêm"))
-                InsertStaffType();
-            else
                 UpdateStaffType();
-        }
-        private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
-        {
-            foreach (DataGridViewRow Row in dataGridViewStaffType.SelectedRows)
-            {
-                Row.Selected = false;
-            }
-            int last = dataGridViewStaffType.RowCount - 1;
-            dataGridViewStaffType.Rows[last].Selected = true;
         }
 
         #endregion
 
         #region Method
-        private void InsertStaffType()
-        {
-            if (CheckFill(new Control[] { txbName }))
-            {
-                if (AccountTypeDAO.Instance.InsertStaffType(txbName.Text))
-                {
-                    MessageBox.Show("Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.LoadFullStaffType();
-                }
-                else
-                    MessageBox.Show("Lỗi", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
-                MessageBox.Show("Không được để trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
+        //private void InsertStaffType()
+        //{
+        //    if (CheckFill(new Control[] { txbName }))
+        //    {
+        //        if (AccountTypeDAO.Instance.InsertStaffType(txbName.Text))
+        //        {
+        //            MessageBox.Show("Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //            this.LoadFullStaffType();
+        //        }
+        //        else
+        //            MessageBox.Show("Lỗi", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //    }
+        //    else
+        //        MessageBox.Show("Không được để trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //}
+
         private void UpdateStaffType()
         {
             if (!CheckFill(new Control[] { txbName }))
@@ -129,9 +118,9 @@ namespace HotelManager
         {
             if (row.IsNewRow)
             {
-                txbID.Text = "Tự Động";
-                txbName.Text = string.Empty;
-                btnAddStaffType.ButtonText = "Thêm";
+                //txbID.Text = "Tự Động";
+                //txbName.Text = string.Empty;
+                //btnAddStaffType.ButtonText = "Thêm";
             }
             else
             {
@@ -140,7 +129,7 @@ namespace HotelManager
 
                 AccountType customerType = new AccountType(((DataRowView)row.DataBoundItem).Row);
                 groupStaffType.Tag = customerType;
-                btnAddStaffType.ButtonText = "Cập Nhật";
+                //btnAddStaffType.ButtonText = "Cập Nhật";
             }
         }
         public bool CheckFill(Control[] controls)
@@ -173,5 +162,6 @@ namespace HotelManager
         }
 
         #endregion
+
     }
 }

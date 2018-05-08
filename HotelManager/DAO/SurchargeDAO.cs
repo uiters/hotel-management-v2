@@ -9,12 +9,12 @@ namespace HotelManager.DAO
 {
     public class SurchargeDAO
     {
-        private SurchargeDAO instance;
-        public bool InsertSurcharge(string name, float value, string describe = "")
-        {
-            string query = "exec USP_InsertSurcharge @name , @value , @describe";
-            return DataProvider.Instance.ExecuteNoneQuery(query, new object[] { name, value, describe }) > 0;
-        }
+        private static SurchargeDAO instance;
+        //public bool InsertSurcharge(string name, float value, string describe = "")
+        //{
+        //    string query = "exec USP_InsertSurcharge @name , @value , @describe";
+        //    return DataProvider.Instance.ExecuteNoneQuery(query, new object[] { name, value, describe }) > 0;
+        //}
 
         public bool UpdateSurcharge(string name, float value, string describe)
         {
@@ -27,6 +27,6 @@ namespace HotelManager.DAO
         }
 
         private SurchargeDAO() { }
-        public SurchargeDAO Instance { get { if (instance == null) instance = new SurchargeDAO(); return instance; } }
+        public static SurchargeDAO Instance { get { if (instance == null) instance = new SurchargeDAO(); return instance; } }
     }
 }

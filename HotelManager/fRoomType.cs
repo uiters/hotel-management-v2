@@ -52,10 +52,9 @@ namespace HotelManager
         }
         private void btnAddRoomType_Click(object sender, EventArgs e)
         {
-            if (btnAddRoomType.ButtonText.Contains("Thêm"))
+            DialogResult result = MetroFramework.MetroMessageBox.Show(this, "Bạn có muốn thêm loại phòng mới?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+            if(result == DialogResult.OK)
                 InsertRoomType();
-            else
-                UpdateRoomType();
         }
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
@@ -65,6 +64,16 @@ namespace HotelManager
             }
             int last = dataGridViewRoomType.Rows.Count - 1;
             dataGridViewRoomType.Rows[last].Selected = true;
+        }
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MetroFramework.MetroMessageBox.Show(this, "Bạn có muốn cập nhật loại phòng này không?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+            if (result == DialogResult.OK)
+                UpdateRoomType();
+        }
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
         #endregion
 
@@ -157,7 +166,6 @@ namespace HotelManager
                 txbName.Text = string.Empty;
                 txbPrice.Text = string.Empty;
                 txbLimitPerson.Text = string.Empty;
-                btnAddRoomType.ButtonText = "Thêm";
             }
             else
             {
@@ -167,7 +175,6 @@ namespace HotelManager
                 txbLimitPerson.Text = row.Cells["colLimitPerson"].Value.ToString();
                 RoomType roomType = new RoomType(((DataRowView) row.DataBoundItem).Row);
                 groupRoomType.Tag = roomType;
-                btnAddRoomType.ButtonText = "Cập Nhật";
             }
         }
 
@@ -182,6 +189,28 @@ namespace HotelManager
                 ChangeText(row);
             }
         }
+
+
+
+        #endregion
+
+        #region Check Idigit
+        private void TxbPrice_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(!char.IsNumber(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+        private void TxbLimitPerson_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(!char.IsNumber(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+
         #endregion
 
 

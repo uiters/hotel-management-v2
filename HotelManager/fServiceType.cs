@@ -49,22 +49,19 @@ namespace HotelManager
         {
             this.Close();
         }
-        private void btnAddServiceType_Click(object sender, EventArgs e)
+        private void BtnUpdateServiceType_Click(object sender, EventArgs e)
         {
-            if (btnAddServiceType.ButtonText.Contains("Thêm"))
-                InsertServiceType();
-            else
                 UpdateServiceType();
         }
-        private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
-        {
-            foreach (DataGridViewRow Row in dataGridViewServiceType.SelectedRows)
-            {
-                Row.Selected = false;
-            }
-            int last = dataGridViewServiceType.RowCount - 1;
-            dataGridViewServiceType.Rows[last].Selected = true;
-        }
+        //private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
+        //{
+        //    foreach (DataGridViewRow Row in dataGridViewServiceType.SelectedRows)
+        //    {
+        //        Row.Selected = false;
+        //    }
+        //    int last = dataGridViewServiceType.RowCount - 1;
+        //    dataGridViewServiceType.Rows[last].Selected = true;
+        //}
         #endregion
 
         #region GetData
@@ -89,30 +86,31 @@ namespace HotelManager
         #endregion
 
         #region Method
-        private void InsertServiceType()
-        {
-            if (fCustomer.CheckFillInText(new Control[] { txbName }))
-            {
-                try
-                {
-                    ServiceType serviceTypeNow = GetServiceTypeNow();
-                    if (ServiceTypeDAO.Instance.InsertServiceType(serviceTypeNow))
-                    {
-                        MessageBox.Show("Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        this.LoadFullServiceType();
-                    }
-                    else
-                        MessageBox.Show("Lỗi", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                catch
-                {
-                    MessageBox.Show("Lỗi Nhập dữ liệu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
-                MessageBox.Show("Không được để trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //private void InsertServiceType()
+        //{
+        //    if (fCustomer.CheckFillInText(new Control[] { txbName }))
+        //    {
+        //        try
+        //        {
+        //            ServiceType serviceTypeNow = GetServiceTypeNow();
+        //            if (ServiceTypeDAO.Instance.InsertServiceType(serviceTypeNow))
+        //            {
+        //                MessageBox.Show("Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //                this.LoadFullServiceType();
+        //            }
+        //            else
+        //                MessageBox.Show("Lỗi", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //        }
+        //        catch
+        //        {
+        //            MessageBox.Show("Lỗi Nhập dữ liệu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //        }
+        //    }
+        //    else
+        //        MessageBox.Show("Không được để trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-        }
+        //}
+
         private void UpdateServiceType()
         {
             if (!fCustomer.CheckFillInText(new Control[] { txbName }))
@@ -151,9 +149,9 @@ namespace HotelManager
         {
             if (row.IsNewRow)
             {
-                txbID.Text = "Tự Động";
-                txbName.Text = string.Empty;
-                btnAddServiceType.ButtonText = "Thêm";
+                //txbID.Text = "Tự Động";
+                //txbName.Text = string.Empty;
+                //btnUpdateServiceType.ButtonText = "Thêm";
             }
             else
             {
@@ -161,7 +159,6 @@ namespace HotelManager
                 txbName.Text = row.Cells["colName"].Value.ToString();
                 ServiceType roomType = new ServiceType(((DataRowView)row.DataBoundItem).Row);
                 groupServiceType.Tag = roomType;
-                btnAddServiceType.ButtonText = "Cập Nhật";
             }
         }
 
