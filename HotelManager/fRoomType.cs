@@ -110,25 +110,25 @@ namespace HotelManager
                     RoomType roomTypeNow = GetRoomTypeNow();
                     if (RoomTypeDAO.Instance.InsertRoomType(roomTypeNow))
                     {
-                        MessageBox.Show("Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MetroFramework.MetroMessageBox.Show(this, "Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         this.LoadFullRoomType();
                     }
                     else
-                        MessageBox.Show("Lỗi", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MetroFramework.MetroMessageBox.Show(this, "Lỗi", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 catch
                 {
-                    MessageBox.Show("Lỗi Nhập dữ liệu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MetroFramework.MetroMessageBox.Show(this, "Lỗi Nhập dữ liệu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
-                MessageBox.Show("Không được để trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroFramework.MetroMessageBox.Show(this, "Không được để trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
         private void UpdateRoomType()
         {
             if (!fCustomer.CheckFillInText(new Control[] { txbName, txbPrice, txbLimitPerson }))
             {
-                MessageBox.Show("Không được để trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroFramework.MetroMessageBox.Show(this, "Không được để trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             else
@@ -138,23 +138,24 @@ namespace HotelManager
                 {
                     RoomType roomTypeNow = GetRoomTypeNow();
                     if (roomTypeNow.Equals(roomTypePre))
-                        MessageBox.Show("Bạn chưa thay đổi dữ liệu", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MetroFramework.MetroMessageBox.Show(this, "Bạn chưa thay đổi dữ liệu", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     else
                     {
                         bool check = RoomTypeDAO.Instance.UpdateRoomType(roomTypeNow, roomTypePre);
                         if(check)
                         {
-                            MessageBox.Show("Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MetroFramework.MetroMessageBox.Show(this, "Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             groupRoomType.Tag = roomTypeNow;
                             LoadFullRoomType();
                         }
                         else
-                            MessageBox.Show("Loại Phòng đã tồn tại\nTrùng Mã phòng", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            MetroFramework.MetroMessageBox.Show(this, "Loại Phòng đã tồn tại\nTrùng Mã phòng", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     }
                 }
                 catch
                 {
-                    MessageBox.Show("Lỗi Nhập dữ liệu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    
+                    MetroFramework.MetroMessageBox.Show(this, "Lỗi Nhập dữ liệu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -197,22 +198,16 @@ namespace HotelManager
         #region Check Idigit
         private void TxbPrice_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if(!char.IsNumber(e.KeyChar))
+            if(!char.IsNumber(e.KeyChar) && e.KeyChar != '\b')
             {
                 e.Handled = true;
             }
         }
-        private void TxbLimitPerson_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if(!char.IsNumber(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-        }
+
+
 
 
         #endregion
-
 
     }
 }

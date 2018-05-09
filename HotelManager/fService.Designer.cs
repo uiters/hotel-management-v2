@@ -29,20 +29,22 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fService));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fService));
             this.bunifuDragControl1 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.groupService = new System.Windows.Forms.GroupBox();
             this.txbPrice = new Bunifu.Framework.UI.BunifuMetroTextbox();
-            this.btnServiceType = new Bunifu.Framework.UI.BunifuThinButton2();
-            this.btnAddService = new Bunifu.Framework.UI.BunifuThinButton2();
-            this.label16 = new System.Windows.Forms.Label();
             this.comboBoxServiceType = new MetroFramework.Controls.MetroComboBox();
-            this.txbID = new Bunifu.Framework.UI.BunifuMetroTextbox();
             this.label13 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.txbID = new Bunifu.Framework.UI.BunifuMetroTextbox();
             this.label15 = new System.Windows.Forms.Label();
             this.txbName = new Bunifu.Framework.UI.BunifuMetroTextbox();
+            this.btnServiceType = new Bunifu.Framework.UI.BunifuThinButton2();
+            this.btnInsert = new Bunifu.Framework.UI.BunifuThinButton2();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnSearch = new Bunifu.Framework.UI.BunifuThinButton2();
             this.txbSreach = new Bunifu.Framework.UI.BunifuMetroTextbox();
@@ -68,6 +70,9 @@
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.btnClose = new Bunifu.Framework.UI.BunifuImageButton();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnUpdate = new Bunifu.Framework.UI.BunifuThinButton2();
+            this.label6 = new System.Windows.Forms.Label();
             this.groupService.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -75,6 +80,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.bindingService)).BeginInit();
             this.bindingService.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).BeginInit();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // bunifuDragControl1
@@ -87,21 +93,19 @@
             // groupService
             // 
             this.groupService.Controls.Add(this.txbPrice);
-            this.groupService.Controls.Add(this.btnServiceType);
-            this.groupService.Controls.Add(this.btnAddService);
-            this.groupService.Controls.Add(this.label16);
             this.groupService.Controls.Add(this.comboBoxServiceType);
-            this.groupService.Controls.Add(this.txbID);
             this.groupService.Controls.Add(this.label13);
             this.groupService.Controls.Add(this.label20);
+            this.groupService.Controls.Add(this.label16);
+            this.groupService.Controls.Add(this.txbID);
             this.groupService.Controls.Add(this.label15);
             this.groupService.Controls.Add(this.txbName);
             this.groupService.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupService.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupService.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupService.ForeColor = System.Drawing.Color.SeaGreen;
-            this.groupService.Location = new System.Drawing.Point(12, 184);
+            this.groupService.Location = new System.Drawing.Point(12, 197);
             this.groupService.Name = "groupService";
-            this.groupService.Size = new System.Drawing.Size(244, 311);
+            this.groupService.Size = new System.Drawing.Size(217, 266);
             this.groupService.TabIndex = 41;
             this.groupService.TabStop = false;
             this.groupService.Text = "Thông tin dịch vụ";
@@ -116,77 +120,13 @@
             this.txbPrice.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txbPrice.ForeColor = System.Drawing.Color.SeaGreen;
             this.txbPrice.isPassword = false;
-            this.txbPrice.Location = new System.Drawing.Point(22, 216);
+            this.txbPrice.Location = new System.Drawing.Point(22, 217);
             this.txbPrice.Margin = new System.Windows.Forms.Padding(0);
             this.txbPrice.Name = "txbPrice";
-            this.txbPrice.Size = new System.Drawing.Size(200, 29);
-            this.txbPrice.TabIndex = 51;
+            this.txbPrice.Size = new System.Drawing.Size(175, 29);
+            this.txbPrice.TabIndex = 59;
             this.txbPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            // 
-            // btnServiceType
-            // 
-            this.btnServiceType.ActiveBorderThickness = 1;
-            this.btnServiceType.ActiveCornerRadius = 20;
-            this.btnServiceType.ActiveFillColor = System.Drawing.Color.SeaGreen;
-            this.btnServiceType.ActiveForecolor = System.Drawing.Color.White;
-            this.btnServiceType.ActiveLineColor = System.Drawing.Color.SeaGreen;
-            this.btnServiceType.BackColor = System.Drawing.Color.White;
-            this.btnServiceType.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnServiceType.BackgroundImage")));
-            this.btnServiceType.ButtonText = "Sửa";
-            this.btnServiceType.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnServiceType.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnServiceType.ForeColor = System.Drawing.Color.SeaGreen;
-            this.btnServiceType.IdleBorderThickness = 1;
-            this.btnServiceType.IdleCornerRadius = 15;
-            this.btnServiceType.IdleFillColor = System.Drawing.Color.White;
-            this.btnServiceType.IdleForecolor = System.Drawing.Color.SeaGreen;
-            this.btnServiceType.IdleLineColor = System.Drawing.Color.SeaGreen;
-            this.btnServiceType.Location = new System.Drawing.Point(169, 153);
-            this.btnServiceType.Margin = new System.Windows.Forms.Padding(4);
-            this.btnServiceType.Name = "btnServiceType";
-            this.btnServiceType.Size = new System.Drawing.Size(53, 39);
-            this.btnServiceType.TabIndex = 50;
-            this.btnServiceType.TabStop = false;
-            this.btnServiceType.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.btnServiceType.Click += new System.EventHandler(this.btnServiceType_Click);
-            // 
-            // btnAddService
-            // 
-            this.btnAddService.ActiveBorderThickness = 1;
-            this.btnAddService.ActiveCornerRadius = 20;
-            this.btnAddService.ActiveFillColor = System.Drawing.Color.SeaGreen;
-            this.btnAddService.ActiveForecolor = System.Drawing.Color.White;
-            this.btnAddService.ActiveLineColor = System.Drawing.Color.SeaGreen;
-            this.btnAddService.BackColor = System.Drawing.Color.White;
-            this.btnAddService.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAddService.BackgroundImage")));
-            this.btnAddService.ButtonText = "Thêm";
-            this.btnAddService.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAddService.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddService.ForeColor = System.Drawing.Color.SeaGreen;
-            this.btnAddService.IdleBorderThickness = 1;
-            this.btnAddService.IdleCornerRadius = 15;
-            this.btnAddService.IdleFillColor = System.Drawing.Color.White;
-            this.btnAddService.IdleForecolor = System.Drawing.Color.SeaGreen;
-            this.btnAddService.IdleLineColor = System.Drawing.Color.SeaGreen;
-            this.btnAddService.Location = new System.Drawing.Point(22, 253);
-            this.btnAddService.Margin = new System.Windows.Forms.Padding(4);
-            this.btnAddService.Name = "btnAddService";
-            this.btnAddService.Size = new System.Drawing.Size(203, 45);
-            this.btnAddService.TabIndex = 8;
-            this.btnAddService.TabStop = false;
-            this.btnAddService.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.btnAddService.Click += new System.EventHandler(this.btnAddService_Click);
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.ForeColor = System.Drawing.Color.SeaGreen;
-            this.label16.Location = new System.Drawing.Point(15, 22);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(81, 20);
-            this.label16.TabIndex = 22;
-            this.label16.Text = "Mã dịch vụ";
+            this.txbPrice.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxbPrice_KeyPress);
             // 
             // comboBoxServiceType
             // 
@@ -195,44 +135,25 @@
             this.comboBoxServiceType.ForeColor = System.Drawing.Color.SeaGreen;
             this.comboBoxServiceType.FormattingEnabled = true;
             this.comboBoxServiceType.ItemHeight = 23;
-            this.comboBoxServiceType.Location = new System.Drawing.Point(22, 159);
+            this.comboBoxServiceType.Location = new System.Drawing.Point(22, 157);
             this.comboBoxServiceType.Name = "comboBoxServiceType";
-            this.comboBoxServiceType.Size = new System.Drawing.Size(146, 29);
+            this.comboBoxServiceType.Size = new System.Drawing.Size(175, 29);
             this.comboBoxServiceType.Style = MetroFramework.MetroColorStyle.Green;
-            this.comboBoxServiceType.TabIndex = 2;
+            this.comboBoxServiceType.TabIndex = 56;
             this.comboBoxServiceType.UseCustomBackColor = true;
             this.comboBoxServiceType.UseCustomForeColor = true;
             this.comboBoxServiceType.UseSelectable = true;
             this.comboBoxServiceType.UseStyleColors = true;
-            // 
-            // txbID
-            // 
-            this.txbID.BorderColorFocused = System.Drawing.Color.SeaGreen;
-            this.txbID.BorderColorIdle = System.Drawing.Color.SeaGreen;
-            this.txbID.BorderColorMouseHover = System.Drawing.Color.SeaGreen;
-            this.txbID.BorderThickness = 1;
-            this.txbID.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txbID.Enabled = false;
-            this.txbID.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txbID.ForeColor = System.Drawing.Color.SeaGreen;
-            this.txbID.isPassword = false;
-            this.txbID.Location = new System.Drawing.Point(22, 44);
-            this.txbID.Margin = new System.Windows.Forms.Padding(0);
-            this.txbID.Name = "txbID";
-            this.txbID.Size = new System.Drawing.Size(200, 29);
-            this.txbID.TabIndex = 0;
-            this.txbID.Text = "Tự Động";
-            this.txbID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.ForeColor = System.Drawing.Color.SeaGreen;
-            this.label13.Location = new System.Drawing.Point(15, 191);
+            this.label13.Location = new System.Drawing.Point(12, 192);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(31, 20);
-            this.label13.TabIndex = 28;
+            this.label13.TabIndex = 57;
             this.label13.Text = "Giá";
             // 
             // label20
@@ -240,18 +161,49 @@
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label20.ForeColor = System.Drawing.Color.SeaGreen;
-            this.label20.Location = new System.Drawing.Point(15, 133);
+            this.label20.Location = new System.Drawing.Point(12, 134);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(88, 20);
-            this.label20.TabIndex = 41;
+            this.label20.TabIndex = 58;
             this.label20.Text = "Loại dịch vụ";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.ForeColor = System.Drawing.Color.SeaGreen;
+            this.label16.Location = new System.Drawing.Point(12, 23);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(81, 20);
+            this.label16.TabIndex = 22;
+            this.label16.Text = "Mã dịch vụ";
+            // 
+            // txbID
+            // 
+            this.txbID.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txbID.BorderColorFocused = System.Drawing.Color.SeaGreen;
+            this.txbID.BorderColorIdle = System.Drawing.Color.SeaGreen;
+            this.txbID.BorderColorMouseHover = System.Drawing.Color.SeaGreen;
+            this.txbID.BorderThickness = 1;
+            this.txbID.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txbID.Enabled = false;
+            this.txbID.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txbID.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.txbID.isPassword = false;
+            this.txbID.Location = new System.Drawing.Point(22, 44);
+            this.txbID.Margin = new System.Windows.Forms.Padding(0);
+            this.txbID.Name = "txbID";
+            this.txbID.Size = new System.Drawing.Size(175, 29);
+            this.txbID.TabIndex = 0;
+            this.txbID.Text = "Tự Động";
+            this.txbID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label15
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label15.ForeColor = System.Drawing.Color.SeaGreen;
-            this.label15.Location = new System.Drawing.Point(15, 78);
+            this.label15.Location = new System.Drawing.Point(12, 80);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(83, 20);
             this.label15.TabIndex = 24;
@@ -265,25 +217,79 @@
             this.txbName.BorderThickness = 1;
             this.txbName.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txbName.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txbName.ForeColor = System.Drawing.Color.SeaGreen;
+            this.txbName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.txbName.isPassword = false;
             this.txbName.Location = new System.Drawing.Point(22, 100);
             this.txbName.Margin = new System.Windows.Forms.Padding(0);
             this.txbName.Name = "txbName";
-            this.txbName.Size = new System.Drawing.Size(200, 29);
+            this.txbName.Size = new System.Drawing.Size(175, 29);
             this.txbName.TabIndex = 1;
             this.txbName.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            // 
+            // btnServiceType
+            // 
+            this.btnServiceType.ActiveBorderThickness = 1;
+            this.btnServiceType.ActiveCornerRadius = 20;
+            this.btnServiceType.ActiveFillColor = System.Drawing.Color.SeaGreen;
+            this.btnServiceType.ActiveForecolor = System.Drawing.Color.White;
+            this.btnServiceType.ActiveLineColor = System.Drawing.Color.SeaGreen;
+            this.btnServiceType.BackColor = System.Drawing.Color.White;
+            this.btnServiceType.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnServiceType.BackgroundImage")));
+            this.btnServiceType.ButtonText = "Sửa Loại Dịch Vụ";
+            this.btnServiceType.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnServiceType.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnServiceType.ForeColor = System.Drawing.Color.SeaGreen;
+            this.btnServiceType.IdleBorderThickness = 1;
+            this.btnServiceType.IdleCornerRadius = 20;
+            this.btnServiceType.IdleFillColor = System.Drawing.Color.White;
+            this.btnServiceType.IdleForecolor = System.Drawing.Color.SeaGreen;
+            this.btnServiceType.IdleLineColor = System.Drawing.Color.SeaGreen;
+            this.btnServiceType.Location = new System.Drawing.Point(22, 131);
+            this.btnServiceType.Margin = new System.Windows.Forms.Padding(4);
+            this.btnServiceType.Name = "btnServiceType";
+            this.btnServiceType.Size = new System.Drawing.Size(175, 50);
+            this.btnServiceType.TabIndex = 50;
+            this.btnServiceType.TabStop = false;
+            this.btnServiceType.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnServiceType.Click += new System.EventHandler(this.BtnServiceType_Click);
+            // 
+            // btnInsert
+            // 
+            this.btnInsert.ActiveBorderThickness = 1;
+            this.btnInsert.ActiveCornerRadius = 20;
+            this.btnInsert.ActiveFillColor = System.Drawing.Color.SeaGreen;
+            this.btnInsert.ActiveForecolor = System.Drawing.Color.White;
+            this.btnInsert.ActiveLineColor = System.Drawing.Color.SeaGreen;
+            this.btnInsert.BackColor = System.Drawing.Color.White;
+            this.btnInsert.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnInsert.BackgroundImage")));
+            this.btnInsert.ButtonText = "Thêm";
+            this.btnInsert.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnInsert.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnInsert.ForeColor = System.Drawing.Color.SeaGreen;
+            this.btnInsert.IdleBorderThickness = 1;
+            this.btnInsert.IdleCornerRadius = 20;
+            this.btnInsert.IdleFillColor = System.Drawing.Color.White;
+            this.btnInsert.IdleForecolor = System.Drawing.Color.SeaGreen;
+            this.btnInsert.IdleLineColor = System.Drawing.Color.SeaGreen;
+            this.btnInsert.Location = new System.Drawing.Point(22, 16);
+            this.btnInsert.Margin = new System.Windows.Forms.Padding(4);
+            this.btnInsert.Name = "btnInsert";
+            this.btnInsert.Size = new System.Drawing.Size(175, 50);
+            this.btnInsert.TabIndex = 8;
+            this.btnInsert.TabStop = false;
+            this.btnInsert.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnInsert.Click += new System.EventHandler(this.BtnInsertService_Click);
             // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.btnSearch);
             this.groupBox3.Controls.Add(this.txbSreach);
             this.groupBox3.Controls.Add(this.label5);
-            this.groupBox3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.ForeColor = System.Drawing.Color.SeaGreen;
-            this.groupBox3.Location = new System.Drawing.Point(12, 35);
+            this.groupBox3.Location = new System.Drawing.Point(12, 48);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(244, 143);
+            this.groupBox3.Size = new System.Drawing.Size(217, 143);
             this.groupBox3.TabIndex = 40;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Tìm kiếm";
@@ -309,7 +315,7 @@
             this.btnSearch.Location = new System.Drawing.Point(22, 81);
             this.btnSearch.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(200, 40);
+            this.btnSearch.Size = new System.Drawing.Size(175, 50);
             this.btnSearch.TabIndex = 46;
             this.btnSearch.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -320,13 +326,13 @@
             this.txbSreach.BorderColorMouseHover = System.Drawing.Color.SeaGreen;
             this.txbSreach.BorderThickness = 1;
             this.txbSreach.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txbSreach.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.txbSreach.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txbSreach.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.txbSreach.isPassword = false;
             this.txbSreach.Location = new System.Drawing.Point(22, 44);
             this.txbSreach.Margin = new System.Windows.Forms.Padding(4);
             this.txbSreach.Name = "txbSreach";
-            this.txbSreach.Size = new System.Drawing.Size(200, 29);
+            this.txbSreach.Size = new System.Drawing.Size(175, 29);
             this.txbSreach.TabIndex = 27;
             this.txbSreach.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             // 
@@ -347,18 +353,26 @@
             this.groupBox1.Controls.Add(this.bindingService);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.SeaGreen;
-            this.groupBox1.Location = new System.Drawing.Point(262, 35);
+            this.groupBox1.Location = new System.Drawing.Point(235, 48);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(535, 460);
+            this.groupBox1.Size = new System.Drawing.Size(437, 609);
             this.groupBox1.TabIndex = 42;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Danh Dịch Vụ";
+            this.groupBox1.Text = "Danh Sách Dịch Vụ";
             // 
             // dataGridViewService
             // 
             this.dataGridViewService.BackgroundColor = System.Drawing.Color.White;
             this.dataGridViewService.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridViewService.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewService.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewService.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewService.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colID,
@@ -366,21 +380,30 @@
             this.colPrice,
             this.colNameServiceType,
             this.colIdNameServiceType});
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.SeaGreen;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.SeaGreen;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewService.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.SeaGreen;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewService.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewService.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewService.Location = new System.Drawing.Point(3, 64);
             this.dataGridViewService.Name = "dataGridViewService";
             this.dataGridViewService.ReadOnly = true;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewService.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewService.RowHeadersVisible = false;
+            this.dataGridViewService.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.dataGridViewService.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewService.Size = new System.Drawing.Size(529, 393);
+            this.dataGridViewService.Size = new System.Drawing.Size(431, 542);
             this.dataGridViewService.TabIndex = 28;
             this.dataGridViewService.SelectionChanged += new System.EventHandler(this.dataGridViewService_SelectionChanged);
             // 
@@ -457,7 +480,7 @@
             this.bindingService.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.bindingService.Name = "bindingService";
             this.bindingService.PositionItem = this.bindingNavigatorPositionItem;
-            this.bindingService.Size = new System.Drawing.Size(529, 43);
+            this.bindingService.Size = new System.Drawing.Size(431, 43);
             this.bindingService.TabIndex = 29;
             this.bindingService.Text = "binding";
             // 
@@ -475,7 +498,7 @@
             this.bindingNavigatorDeleteItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorDeleteItem.Image")));
             this.bindingNavigatorDeleteItem.Name = "bindingNavigatorDeleteItem";
             this.bindingNavigatorDeleteItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorDeleteItem.Size = new System.Drawing.Size(50, 22);
+            this.bindingNavigatorDeleteItem.Size = new System.Drawing.Size(40, 22);
             this.bindingNavigatorDeleteItem.Text = "Delete";
             // 
             // bindingNavigatorMoveFirstItem
@@ -485,7 +508,7 @@
             this.bindingNavigatorMoveFirstItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveFirstItem.Image")));
             this.bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
             this.bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(50, 22);
+            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(40, 22);
             this.bindingNavigatorMoveFirstItem.Text = "Move first";
             // 
             // bindingNavigatorMovePreviousItem
@@ -495,7 +518,7 @@
             this.bindingNavigatorMovePreviousItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMovePreviousItem.Image")));
             this.bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
             this.bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(50, 22);
+            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(40, 22);
             this.bindingNavigatorMovePreviousItem.Text = "Move previous";
             // 
             // bindingNavigatorSeparator
@@ -508,7 +531,7 @@
             this.bindingNavigatorPositionItem.AccessibleName = "Position";
             this.bindingNavigatorPositionItem.AutoSize = false;
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
-            this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 25);
+            this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(40, 22);
             this.bindingNavigatorPositionItem.Text = "0";
             this.bindingNavigatorPositionItem.ToolTipText = "Current position";
             // 
@@ -524,7 +547,7 @@
             this.bindingNavigatorMoveNextItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveNextItem.Image")));
             this.bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
             this.bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(50, 22);
+            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(40, 22);
             this.bindingNavigatorMoveNextItem.Text = "Move next";
             // 
             // bindingNavigatorMoveLastItem
@@ -534,7 +557,7 @@
             this.bindingNavigatorMoveLastItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveLastItem.Image")));
             this.bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
             this.bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(50, 22);
+            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(40, 22);
             this.bindingNavigatorMoveLastItem.Text = "Move last";
             // 
             // bindingNavigatorAddNewItem
@@ -544,9 +567,9 @@
             this.bindingNavigatorAddNewItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorAddNewItem.Image")));
             this.bindingNavigatorAddNewItem.Name = "bindingNavigatorAddNewItem";
             this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(50, 22);
+            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(40, 22);
             this.bindingNavigatorAddNewItem.Text = "Add new";
-            this.bindingNavigatorAddNewItem.Click += new System.EventHandler(this.bindingNavigatorAddNewItem_Click);
+            this.bindingNavigatorAddNewItem.Click += new System.EventHandler(this.BindingNavigatorAddNewItem_Click);
             // 
             // toolStripButton1
             // 
@@ -555,7 +578,7 @@
             this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(50, 40);
+            this.toolStripButton1.Size = new System.Drawing.Size(40, 22);
             this.toolStripButton1.Text = "toolStripButton1";
             // 
             // toolStripLabel1
@@ -570,14 +593,68 @@
             this.btnClose.BackColor = System.Drawing.Color.Transparent;
             this.btnClose.Image = ((System.Drawing.Image)(resources.GetObject("btnClose.Image")));
             this.btnClose.ImageActive = null;
-            this.btnClose.Location = new System.Drawing.Point(778, 9);
+            this.btnClose.Location = new System.Drawing.Point(656, 12);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(16, 16);
             this.btnClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.btnClose.TabIndex = 39;
             this.btnClose.TabStop = false;
             this.btnClose.Zoom = 10;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            this.btnClose.Click += new System.EventHandler(this.BtnClose_Click);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.btnUpdate);
+            this.groupBox2.Controls.Add(this.btnInsert);
+            this.groupBox2.Controls.Add(this.btnServiceType);
+            this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.ForeColor = System.Drawing.Color.SeaGreen;
+            this.groupBox2.Location = new System.Drawing.Point(12, 469);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(217, 188);
+            this.groupBox2.TabIndex = 43;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Chức Năng";
+            // 
+            // btnUpdate
+            // 
+            this.btnUpdate.ActiveBorderThickness = 1;
+            this.btnUpdate.ActiveCornerRadius = 20;
+            this.btnUpdate.ActiveFillColor = System.Drawing.Color.SeaGreen;
+            this.btnUpdate.ActiveForecolor = System.Drawing.Color.White;
+            this.btnUpdate.ActiveLineColor = System.Drawing.Color.SeaGreen;
+            this.btnUpdate.BackColor = System.Drawing.Color.White;
+            this.btnUpdate.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnUpdate.BackgroundImage")));
+            this.btnUpdate.ButtonText = "Cập Nhật";
+            this.btnUpdate.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnUpdate.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUpdate.ForeColor = System.Drawing.Color.SeaGreen;
+            this.btnUpdate.IdleBorderThickness = 1;
+            this.btnUpdate.IdleCornerRadius = 20;
+            this.btnUpdate.IdleFillColor = System.Drawing.Color.White;
+            this.btnUpdate.IdleForecolor = System.Drawing.Color.SeaGreen;
+            this.btnUpdate.IdleLineColor = System.Drawing.Color.SeaGreen;
+            this.btnUpdate.Location = new System.Drawing.Point(22, 73);
+            this.btnUpdate.Margin = new System.Windows.Forms.Padding(4);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(175, 50);
+            this.btnUpdate.TabIndex = 51;
+            this.btnUpdate.TabStop = false;
+            this.btnUpdate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnUpdate.Click += new System.EventHandler(this.BtnUpdate_Click);
+            // 
+            // label6
+            // 
+            this.label6.BackColor = System.Drawing.Color.Transparent;
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.SeaGreen;
+            this.label6.Location = new System.Drawing.Point(268, 9);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(141, 37);
+            this.label6.TabIndex = 45;
+            this.label6.Text = "Dịch Vụ";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // fService
             // 
@@ -585,7 +662,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(808, 505);
+            this.ClientSize = new System.Drawing.Size(688, 669);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupService);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
@@ -593,6 +672,7 @@
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.SeaGreen;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.KeyPreview = true;
             this.Name = "fService";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "fService";
@@ -606,6 +686,7 @@
             this.bindingService.ResumeLayout(false);
             this.bindingService.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).EndInit();
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -615,14 +696,10 @@
 
         private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl1;
         private System.Windows.Forms.GroupBox groupService;
-        private Bunifu.Framework.UI.BunifuMetroTextbox txbPrice;
         private Bunifu.Framework.UI.BunifuThinButton2 btnServiceType;
-        private Bunifu.Framework.UI.BunifuThinButton2 btnAddService;
+        private Bunifu.Framework.UI.BunifuThinButton2 btnInsert;
         private System.Windows.Forms.Label label16;
-        private MetroFramework.Controls.MetroComboBox comboBoxServiceType;
         private Bunifu.Framework.UI.BunifuMetroTextbox txbID;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label15;
         private Bunifu.Framework.UI.BunifuMetroTextbox txbName;
         private System.Windows.Forms.GroupBox groupBox3;
@@ -650,5 +727,12 @@
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private Bunifu.Framework.UI.BunifuImageButton btnClose;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label6;
+        private Bunifu.Framework.UI.BunifuThinButton2 btnUpdate;
+        private Bunifu.Framework.UI.BunifuMetroTextbox txbPrice;
+        private MetroFramework.Controls.MetroComboBox comboBoxServiceType;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label20;
     }
 }

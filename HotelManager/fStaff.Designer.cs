@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fStaff));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnClose = new Bunifu.Framework.UI.BunifuImageButton();
             this.bunifuDragControl1 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -66,6 +66,7 @@
             this.groupStaff = new System.Windows.Forms.GroupBox();
             this.label8 = new System.Windows.Forms.Label();
             this.txbPassword2 = new Bunifu.Framework.UI.BunifuMetroTextbox();
+            this.comboBoxStaffType = new MetroFramework.Controls.MetroComboBox();
             this.label20 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.txbUserName = new Bunifu.Framework.UI.BunifuMetroTextbox();
@@ -92,7 +93,6 @@
             this.btnUpdate = new Bunifu.Framework.UI.BunifuThinButton2();
             this.bunifuThinButton22 = new Bunifu.Framework.UI.BunifuThinButton2();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.comboBoxStaffType = new MetroFramework.Controls.MetroComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -133,7 +133,7 @@
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.ForeColor = System.Drawing.Color.SeaGreen;
-            this.groupBox3.Location = new System.Drawing.Point(12, 34);
+            this.groupBox3.Location = new System.Drawing.Point(12, 55);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(220, 158);
             this.groupBox3.TabIndex = 20;
@@ -158,10 +158,10 @@
             this.btnSearch.IdleFillColor = System.Drawing.Color.White;
             this.btnSearch.IdleForecolor = System.Drawing.Color.SeaGreen;
             this.btnSearch.IdleLineColor = System.Drawing.Color.SeaGreen;
-            this.btnSearch.Location = new System.Drawing.Point(20, 95);
+            this.btnSearch.Location = new System.Drawing.Point(23, 94);
             this.btnSearch.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(175, 40);
+            this.btnSearch.Size = new System.Drawing.Size(175, 50);
             this.btnSearch.TabIndex = 46;
             this.btnSearch.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -175,10 +175,10 @@
             this.txbSreach.Font = new System.Drawing.Font("Century Gothic", 9.75F);
             this.txbSreach.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.txbSreach.isPassword = false;
-            this.txbSreach.Location = new System.Drawing.Point(20, 54);
+            this.txbSreach.Location = new System.Drawing.Point(23, 47);
             this.txbSreach.Margin = new System.Windows.Forms.Padding(4);
             this.txbSreach.Name = "txbSreach";
-            this.txbSreach.Size = new System.Drawing.Size(175, 31);
+            this.txbSreach.Size = new System.Drawing.Size(175, 29);
             this.txbSreach.TabIndex = 0;
             this.txbSreach.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             // 
@@ -187,7 +187,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.SeaGreen;
-            this.label5.Location = new System.Drawing.Point(6, 27);
+            this.label5.Location = new System.Drawing.Point(6, 23);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(112, 20);
             this.label5.TabIndex = 28;
@@ -199,7 +199,7 @@
             this.groupBox1.Controls.Add(this.bindingStaff);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.SeaGreen;
-            this.groupBox1.Location = new System.Drawing.Point(453, 36);
+            this.groupBox1.Location = new System.Drawing.Point(453, 57);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(535, 566);
             this.groupBox1.TabIndex = 35;
@@ -211,14 +211,14 @@
             this.dataGridStaffType.BackgroundColor = System.Drawing.Color.White;
             this.dataGridStaffType.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridStaffType.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.SeaGreen;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridStaffType.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.SeaGreen;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridStaffType.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridStaffType.ColumnHeadersHeight = 30;
             this.dataGridStaffType.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridStaffType.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -232,27 +232,27 @@
             this.colPhone,
             this.colStartDay,
             this.colAddress});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.SeaGreen;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridStaffType.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.SeaGreen;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.SeaGreen;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridStaffType.DefaultCellStyle = dataGridViewCellStyle8;
             this.dataGridStaffType.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridStaffType.GridColor = System.Drawing.Color.SeaGreen;
             this.dataGridStaffType.Location = new System.Drawing.Point(3, 48);
             this.dataGridStaffType.Name = "dataGridStaffType";
             this.dataGridStaffType.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.SeaGreen;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.SeaGreen;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridStaffType.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.SeaGreen;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.SeaGreen;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridStaffType.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dataGridStaffType.RowHeadersVisible = false;
             this.dataGridStaffType.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dataGridStaffType.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -474,7 +474,7 @@
             this.groupStaff.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupStaff.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupStaff.ForeColor = System.Drawing.Color.SeaGreen;
-            this.groupStaff.Location = new System.Drawing.Point(12, 198);
+            this.groupStaff.Location = new System.Drawing.Point(12, 219);
             this.groupStaff.Name = "groupStaff";
             this.groupStaff.Size = new System.Drawing.Size(220, 264);
             this.groupStaff.TabIndex = 21;
@@ -508,6 +508,23 @@
             this.txbPassword2.Size = new System.Drawing.Size(175, 29);
             this.txbPassword2.TabIndex = 3;
             this.txbPassword2.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            // 
+            // comboBoxStaffType
+            // 
+            this.comboBoxStaffType.BackColor = System.Drawing.Color.White;
+            this.comboBoxStaffType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBoxStaffType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.comboBoxStaffType.FormattingEnabled = true;
+            this.comboBoxStaffType.ItemHeight = 23;
+            this.comboBoxStaffType.Location = new System.Drawing.Point(23, 218);
+            this.comboBoxStaffType.Name = "comboBoxStaffType";
+            this.comboBoxStaffType.Size = new System.Drawing.Size(175, 29);
+            this.comboBoxStaffType.Style = MetroFramework.MetroColorStyle.Green;
+            this.comboBoxStaffType.TabIndex = 4;
+            this.comboBoxStaffType.UseCustomBackColor = true;
+            this.comboBoxStaffType.UseCustomForeColor = true;
+            this.comboBoxStaffType.UseSelectable = true;
+            this.comboBoxStaffType.UseStyleColors = true;
             // 
             // label20
             // 
@@ -594,10 +611,10 @@
             this.btnRoomType.IdleFillColor = System.Drawing.Color.White;
             this.btnRoomType.IdleForecolor = System.Drawing.Color.SeaGreen;
             this.btnRoomType.IdleLineColor = System.Drawing.Color.SeaGreen;
-            this.btnRoomType.Location = new System.Drawing.Point(244, 75);
+            this.btnRoomType.Location = new System.Drawing.Point(245, 78);
             this.btnRoomType.Margin = new System.Windows.Forms.Padding(4);
             this.btnRoomType.Name = "btnRoomType";
-            this.btnRoomType.Size = new System.Drawing.Size(175, 39);
+            this.btnRoomType.Size = new System.Drawing.Size(175, 50);
             this.btnRoomType.TabIndex = 53;
             this.btnRoomType.TabStop = false;
             this.btnRoomType.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -622,7 +639,7 @@
             this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.Color.SeaGreen;
-            this.groupBox2.Location = new System.Drawing.Point(238, 36);
+            this.groupBox2.Location = new System.Drawing.Point(238, 57);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(209, 426);
             this.groupBox2.TabIndex = 22;
@@ -833,7 +850,7 @@
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.SeaGreen;
-            this.label6.Location = new System.Drawing.Point(59, -1);
+            this.label6.Location = new System.Drawing.Point(395, 12);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(141, 37);
             this.label6.TabIndex = 41;
@@ -858,10 +875,10 @@
             this.btnInsert.IdleFillColor = System.Drawing.Color.White;
             this.btnInsert.IdleForecolor = System.Drawing.Color.SeaGreen;
             this.btnInsert.IdleLineColor = System.Drawing.Color.SeaGreen;
-            this.btnInsert.Location = new System.Drawing.Point(23, 27);
+            this.btnInsert.Location = new System.Drawing.Point(23, 22);
             this.btnInsert.Margin = new System.Windows.Forms.Padding(4);
             this.btnInsert.Name = "btnInsert";
-            this.btnInsert.Size = new System.Drawing.Size(175, 40);
+            this.btnInsert.Size = new System.Drawing.Size(175, 50);
             this.btnInsert.TabIndex = 41;
             this.btnInsert.TabStop = false;
             this.btnInsert.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -885,10 +902,10 @@
             this.btnUpdate.IdleFillColor = System.Drawing.Color.White;
             this.btnUpdate.IdleForecolor = System.Drawing.Color.SeaGreen;
             this.btnUpdate.IdleLineColor = System.Drawing.Color.SeaGreen;
-            this.btnUpdate.Location = new System.Drawing.Point(23, 75);
+            this.btnUpdate.Location = new System.Drawing.Point(23, 78);
             this.btnUpdate.Margin = new System.Windows.Forms.Padding(4);
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(175, 40);
+            this.btnUpdate.Size = new System.Drawing.Size(175, 50);
             this.btnUpdate.TabIndex = 42;
             this.btnUpdate.TabStop = false;
             this.btnUpdate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -912,10 +929,10 @@
             this.bunifuThinButton22.IdleFillColor = System.Drawing.Color.White;
             this.bunifuThinButton22.IdleForecolor = System.Drawing.Color.SeaGreen;
             this.bunifuThinButton22.IdleLineColor = System.Drawing.Color.SeaGreen;
-            this.bunifuThinButton22.Location = new System.Drawing.Point(244, 27);
+            this.bunifuThinButton22.Location = new System.Drawing.Point(244, 22);
             this.bunifuThinButton22.Margin = new System.Windows.Forms.Padding(4);
             this.bunifuThinButton22.Name = "bunifuThinButton22";
-            this.bunifuThinButton22.Size = new System.Drawing.Size(175, 40);
+            this.bunifuThinButton22.Size = new System.Drawing.Size(175, 50);
             this.bunifuThinButton22.TabIndex = 43;
             this.bunifuThinButton22.TabStop = false;
             this.bunifuThinButton22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -929,36 +946,19 @@
             this.groupBox4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox4.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.ForeColor = System.Drawing.Color.SeaGreen;
-            this.groupBox4.Location = new System.Drawing.Point(12, 467);
+            this.groupBox4.Location = new System.Drawing.Point(12, 488);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(435, 135);
             this.groupBox4.TabIndex = 45;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Chức Năng";
             // 
-            // comboBoxStaffType
-            // 
-            this.comboBoxStaffType.BackColor = System.Drawing.Color.White;
-            this.comboBoxStaffType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBoxStaffType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.comboBoxStaffType.FormattingEnabled = true;
-            this.comboBoxStaffType.ItemHeight = 23;
-            this.comboBoxStaffType.Location = new System.Drawing.Point(23, 218);
-            this.comboBoxStaffType.Name = "comboBoxStaffType";
-            this.comboBoxStaffType.Size = new System.Drawing.Size(175, 29);
-            this.comboBoxStaffType.Style = MetroFramework.MetroColorStyle.Green;
-            this.comboBoxStaffType.TabIndex = 4;
-            this.comboBoxStaffType.UseCustomBackColor = true;
-            this.comboBoxStaffType.UseCustomForeColor = true;
-            this.comboBoxStaffType.UseSelectable = true;
-            this.comboBoxStaffType.UseStyleColors = true;
-            // 
             // fStaff
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1000, 615);
+            this.ClientSize = new System.Drawing.Size(1000, 635);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.groupStaff);

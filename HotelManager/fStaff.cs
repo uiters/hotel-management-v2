@@ -44,25 +44,34 @@ namespace HotelManager
         }
         private void btnInsert_Click(object sender, EventArgs e)
         {
-            if(CheckDate())
+            DialogResult result = MetroFramework.MetroMessageBox.Show(this, "Bạn có muốn thêm nhân viên mới không?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+            if (result == DialogResult.OK)
             {
-                if(CheckPass())
-                    InsertStaff();
-                else
+
+                if (CheckDate())
                 {
-                    MetroFramework.MetroMessageBox.Show(this, "Nhập lại mật khẩu không chính xác", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (CheckPass())
+                        InsertStaff();
+                    else
+                    {
+                        MetroFramework.MetroMessageBox.Show(this, "Nhập lại mật khẩu không chính xác", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            if (CheckDate())
+            DialogResult result = MetroFramework.MetroMessageBox.Show(this, "Bạn có muốn cập nhật nhân viên này không?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+            if (result == DialogResult.OK)
             {
-                if (CheckPass())
-                    UpdateStaff();
-                else
+                if (CheckDate())
                 {
-                    MetroFramework.MetroMessageBox.Show(this, "Nhập lại mật khẩu không chính xác", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (CheckPass())
+                        UpdateStaff();
+                    else
+                    {
+                        MetroFramework.MetroMessageBox.Show(this, "Nhập lại mật khẩu không chính xác", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }

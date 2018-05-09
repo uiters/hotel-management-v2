@@ -57,6 +57,8 @@ namespace HotelManager
         }
         private void BtnUpdateStaffType_Click(object sender, EventArgs e)
         {
+             DialogResult result = MetroFramework.MetroMessageBox.Show(this, "Bạn có muốn cập nhật loại nhân viên này không?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+            if (result == DialogResult.OK)
                 UpdateStaffType();
         }
 
@@ -83,7 +85,7 @@ namespace HotelManager
         {
             if (!CheckFill(new Control[] { txbName }))
             {
-                MessageBox.Show("Không được để trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroFramework.MetroMessageBox.Show(this, "Không được để trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             else
@@ -93,23 +95,23 @@ namespace HotelManager
                 {
                     AccountType StaffTypeNow = new AccountType(int.Parse(txbID.Text), txbName.Text);
                     if (StaffTypeNow.Equals(StaffTypePre))
-                        MessageBox.Show("Bạn chưa thay đổi dữ liệu", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MetroFramework.MetroMessageBox.Show(this, "Bạn chưa thay đổi dữ liệu", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     else
                     {
                         bool check = AccountTypeDAO.Instance.UpdateStaffType(StaffTypeNow);
                         if (check)
                         {
-                            MessageBox.Show("Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MetroFramework.MetroMessageBox.Show(this, "Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             groupStaffType.Tag = StaffTypeNow;
                             LoadFullStaffType();
                         }
                         else
-                            MessageBox.Show("Trùng loại nhân viên", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            MetroFramework.MetroMessageBox.Show(this, "Trùng loại nhân viên", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     }
                 }
                 catch
                 {
-                    MessageBox.Show("Lỗi Nhập dữ liệu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MetroFramework.MetroMessageBox.Show(this, "Lỗi Nhập dữ liệu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 
@@ -163,5 +165,14 @@ namespace HotelManager
 
         #endregion
 
+        #region Key
+        private void fStaffType_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                BtnUpdateStaffType_Click(sender, e);
+            }
+        }
+        #endregion 
     }
 }

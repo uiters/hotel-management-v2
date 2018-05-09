@@ -9,7 +9,7 @@ namespace HotelManager
     public partial class fStatusRoom : Form
     {
         #region Properties
-        DataTable _tableStatusRoom;
+        private DataTable _tableStatusRoom;
         public DataTable TableStatusRoom
         {
             get => _tableStatusRoom;
@@ -23,6 +23,7 @@ namespace HotelManager
             }
         }
         #endregion
+
 
         #region Constructor
         public fStatusRoom()
@@ -46,6 +47,8 @@ namespace HotelManager
         #region Click
         private void BtnUpdateStatusRoom_Click(object sender, EventArgs e)
         {
+            DialogResult result = MetroFramework.MetroMessageBox.Show(this, "Bạn có muốn cập nhật loại trạng thái phòng này không?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+            if (result == DialogResult.OK)
                 UpdateStatusRoom();
         }
         private void BtnClose_Click(object sender, EventArgs e)
@@ -113,7 +116,7 @@ namespace HotelManager
         {
             if (!fCustomer.CheckFillInText(new Control[] { txbName }))
             {
-                MessageBox.Show("Không được để trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroFramework.MetroMessageBox.Show(this, "Không được để trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             else
@@ -123,23 +126,23 @@ namespace HotelManager
                 {
                     StatusRoom statusRoomNow = GetStatusRoomNow();
                     if (statusRoomNow.Equals(statusRoomPre))
-                        MessageBox.Show("Bạn chưa thay đổi dữ liệu", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MetroFramework.MetroMessageBox.Show(this, "Bạn chưa thay đổi dữ liệu", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     else
                     {
                         bool check = StatusRoomDAO.Instance.UpdateStatusRoom(statusRoomNow, statusRoomPre);
                         if (check)
                         {
-                            MessageBox.Show("Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MetroFramework.MetroMessageBox.Show(this, "Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             groupStatusRoom.Tag = statusRoomNow;
                             LoadFullStatusRoom();
                         }
                         else
-                            MessageBox.Show("Loại trạng thái đã tồn tại\nTrùng Mã trạng thái", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            MetroFramework.MetroMessageBox.Show(this, "Loại trạng thái đã tồn tại\nTrùng Mã trạng thái", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     }
                 }
                 catch
                 {
-                    MessageBox.Show("Lỗi Nhập dữ liệu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MetroFramework.MetroMessageBox.Show(this, "Lỗi Nhập dữ liệu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -167,5 +170,23 @@ namespace HotelManager
         }
 
         #endregion
+
+        #region Key
+        private void FStatusRoom_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                BtnUpdateStatusRoom_Click(sender, e);
+            }
+        }
+
+        private void FStatusRoom_KeyUp(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        #endregion
+
+
     }
 }

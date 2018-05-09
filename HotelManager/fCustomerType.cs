@@ -45,12 +45,14 @@ namespace HotelManager
         #endregion
 
         #region Click
-        private void btnClose_Click(object sender, EventArgs e)
+        private void BtnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-        private void btnAddCustomerType_Click(object sender, EventArgs e)
+        private void BtnAddCustomerType_Click(object sender, EventArgs e)
         {
+            DialogResult result = MetroFramework.MetroMessageBox.Show(this, "Bạn có muốn cập nhật loại khách hàng này không?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+            if (result == DialogResult.OK)
                 UpdateCustomerType();
         }
 
@@ -72,23 +74,23 @@ namespace HotelManager
                 {
                     CustomerType customerTypeNow = new CustomerType(int.Parse(txbID.Text), txbName.Text);
                     if (customerTypeNow.Equals(customerTypePre))
-                        MessageBox.Show("Bạn chưa thay đổi dữ liệu", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MetroFramework.MetroMessageBox.Show(this, "Bạn chưa thay đổi dữ liệu", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     else
                     {
                         bool check = CustomerTypeDAO.Instance.UpdateCustomerType(customerTypeNow);
                         if (check)
                         {
-                            MessageBox.Show("Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MetroFramework.MetroMessageBox.Show(this, "Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             groupCutomerType.Tag = customerTypeNow;
                             LoadFullCustomerType();
                         }
                         else
-                            MessageBox.Show("Loại Khách Hàng đã tồn tại\nTrùng Mã Khách Hàng", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            MetroFramework.MetroMessageBox.Show(this, "Loại Khách Hàng đã tồn tại\nTrùng Mã Khách Hàng", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     }
                 }
                 catch
                 {
-                    MessageBox.Show("Lỗi Nhập dữ liệu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MetroFramework.MetroMessageBox.Show(this, "Lỗi Nhập dữ liệu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 
@@ -133,8 +135,18 @@ namespace HotelManager
             }
         }
 
+
         #endregion
 
+        #region Key
+        private void FCustomerType_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                BtnAddCustomerType_Click(sender, e);
+            }
+        }
+        #endregion
 
     }
 }

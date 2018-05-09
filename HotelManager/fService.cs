@@ -42,18 +42,23 @@ namespace HotelManager
         #endregion
 
         #region Click
-        private void btnAddService_Click(object sender, EventArgs e)
+        private void BtnInsertService_Click(object sender, EventArgs e)
         {
-            if (btnAddService.ButtonText.Contains("Thêm"))
+            DialogResult result = MetroFramework.MetroMessageBox.Show(this, "Bạn có muốn thêm mới dịch vụ?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+            if (result == DialogResult.OK)
                 InsertService();
-            else
+        }
+        private void BtnUpdate_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MetroFramework.MetroMessageBox.Show(this, "Bạn có muốn cập nhật lại dịch vụ?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+            if (result == DialogResult.OK)
                 UpdateService();
         }
-        private void btnClose_Click(object sender, EventArgs e)
+        private void BtnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-        private void btnServiceType_Click(object sender, EventArgs e)
+        private void BtnServiceType_Click(object sender, EventArgs e)
         {
             this.Hide();
             _fServiceType.ShowDialog();
@@ -61,7 +66,7 @@ namespace HotelManager
             comboBoxServiceType.DataSource = _fServiceType.TableSerViceType;
             this.Show();
         }
-        private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
+        private void BindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
             foreach (DataGridViewRow Row in dataGridViewService.SelectedRows)
             {
@@ -77,9 +82,10 @@ namespace HotelManager
         {
             if (row.IsNewRow)
             {
+                bindingNavigatorMoveFirstItem.Enabled = false;
+                bindingNavigatorMovePreviousItem.Enabled = false;
                 txbID.Text = "Tự Động";
                 txbName.Text = string.Empty;
-                btnAddService.ButtonText = "Thêm";
                 txbPrice.Text = string.Empty;
             }
             else
@@ -90,14 +96,15 @@ namespace HotelManager
                 txbPrice.Text = row.Cells["colPrice"].Value.ToString();
                 Service room = new Service(((DataRowView)row.DataBoundItem).Row);
                 groupService.Tag = room;
-                btnAddService.ButtonText = "Cập";
+                bindingNavigatorMoveFirstItem.Enabled = true;
+                bindingNavigatorMovePreviousItem.Enabled = true;
             }
         }
         private void InsertService()
         {
             if (!fCustomer.CheckFillInText(new Control[] { txbName, comboBoxServiceType, txbPrice }))
             {
-                MessageBox.Show("Không được để trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DialogResult result = MetroFramework.MetroMessageBox.Show(this, "Không được để trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             try
@@ -105,22 +112,22 @@ namespace HotelManager
                 Service serviceNow = GetServiceNow();
                 if (ServiceDAO.Instance.InsertService(serviceNow))
                 {
-                    MessageBox.Show("Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                   MetroFramework.MetroMessageBox.Show(this, "Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LoadFullService();
                 }
                 else
-                    MessageBox.Show("Phòng đã tồn tại\nTrùng số chứng minh nhân dân", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    MetroFramework.MetroMessageBox.Show(this, "Dịch vụ đã tồn tại", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
             catch
             {
-                MessageBox.Show("Lỗi", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroFramework.MetroMessageBox.Show(this, "Lỗi", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void UpdateService()
         {
             if (!fCustomer.CheckFillInText(new Control[] { txbName, comboBoxServiceType, txbPrice }))
             {
-                MessageBox.Show("Không được để trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroFramework.MetroMessageBox.Show(this, "Không được để trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             else
@@ -131,19 +138,19 @@ namespace HotelManager
                     Service serviceNow = GetServiceNow();
                     if (serviceNow.Equals(servicePre))
                     {
-                        MessageBox.Show("Bạn chưa thay đổi dữ liệu", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MetroFramework.MetroMessageBox.Show(this, "Bạn chưa thay đổi dữ liệu", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     else
                     {
                         bool check = ServiceDAO.Instance.UpdateService(serviceNow, servicePre);
                         if (check)
                         {
-                            MessageBox.Show("Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MetroFramework.MetroMessageBox.Show(this, "Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             groupService.Tag = serviceNow;
                             LoadFullService();
                         }
                         else
-                            MessageBox.Show("Phòng đã tồn tại\nTrùng số chứng minh nhân dân", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            MetroFramework.MetroMessageBox.Show(this, "Dịch vụ không tồn tại", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     }
                 }
                 catch
@@ -196,6 +203,17 @@ namespace HotelManager
 
 
         #endregion
+
+        #region Key
+        private void TxbPrice_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsNumber(e.KeyChar) && e.KeyChar != '\b')
+            {
+                e.Handled = true;
+            }
+        }
+        #endregion
+
 
     }
 }
