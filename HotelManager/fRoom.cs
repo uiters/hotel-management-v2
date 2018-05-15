@@ -10,7 +10,6 @@ namespace HotelManager
     {
         #region Properties
         private fRoomType _fRoomtType;
-        private fStatusRoom _fStatusRoom;
         #endregion
 
         #region Constructor
@@ -26,18 +25,17 @@ namespace HotelManager
         #endregion
 
         #region Kick
-        private void btnClose_Click(object sender, EventArgs e)
+        private void BtnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-        private void btnAddRoom_Click(object sender, EventArgs e)
+        private void BtnAddRoom_Click(object sender, EventArgs e)
         {
-            if (btnAddRoom.ButtonText.Contains("Thêm"))
+            DialogResult result = MetroFramework.MetroMessageBox.Show(this, "Bạn có muốn thêm phòng mới?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+            if (result == DialogResult.OK)
                 InsertRoom();
-            else
-                UpdateRoom();
         }
-        private void btnRoomType_Click(object sender, EventArgs e)
+        private void BtnRoomType_Click(object sender, EventArgs e)
         {
             this.Hide();
             _fRoomtType.ShowDialog();
@@ -46,23 +44,54 @@ namespace HotelManager
             //comboBoxRoomType.Refresh();
             this.Show();
         }
-        private void btnStatusRoom_Click(object sender, EventArgs e)
+        private void BtnCLose1_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            _fStatusRoom.ShowDialog();
-            comboBoxStatusRoom.DataSource = _fStatusRoom.TableStatusRoom;
-            //comboBoxStatusRoom.re
-            this.Show();
+            Close();
         }
-        private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
+        private void BindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
-            foreach (DataGridViewRow Row in dataGridViewRoom.SelectedRows)
+            txbID.Text = "Tự Động";
+            txbNameRoom.Text = string.Empty;
+        }
+        private void BtnUpdate_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MetroFramework.MetroMessageBox.Show(this, "Bạn có muốn cập nhật lại phòng?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+            if (result == DialogResult.OK)
+                UpdateRoom();
+        }
+        private void ToolStripLabel1_Click(object sender, EventArgs e)
+        {
+            if (saveRoom.ShowDialog() == DialogResult.Cancel)
+                return;
+            else
             {
-                Row.Selected = false;
+                bool check;
+                try
+                {
+                    switch (saveRoom.FilterIndex)
+                    {
+                        case 2:
+                            check = ExportToExcel.Instance.Export(dataGridViewRoom, saveRoom.FileName, ModeExportToExcel.XLSX);
+                            break;
+                        case 3:
+                            check = ExportToExcel.Instance.Export(dataGridViewRoom, saveRoom.FileName, ModeExportToExcel.PDF);
+                            break;
+                        default:
+                            check = ExportToExcel.Instance.Export(dataGridViewRoom, saveRoom.FileName, ModeExportToExcel.XLS);
+                            break;
+                    }
+                    if (check)
+                        MetroFramework.MetroMessageBox.Show(this, "Xuất thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    else
+                        MetroFramework.MetroMessageBox.Show(this, "Lỗi xuất thất bại", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch
+                {
+                    MetroFramework.MetroMessageBox.Show(this, "Lỗi (Cần cài đặt Office)", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            int last = dataGridViewRoom.RowCount - 1;
-            dataGridViewRoom.Rows[last].Selected = true;
         }
+
         #endregion
 
         #region Load
@@ -81,7 +110,6 @@ namespace HotelManager
             comboBoxStatusRoom.DisplayMember = "Name";
             if (table.Rows.Count > 0)
                 comboBoxStatusRoom.SelectedIndex = 0;
-            _fStatusRoom = new fStatusRoom(table);
         }
         private void LoadFullRoomType()
         {
@@ -91,6 +119,8 @@ namespace HotelManager
             if (table.Rows.Count > 0)
                 comboBoxRoomType.SelectedIndex = 0;
             _fRoomtType = new fRoomType(table);
+            txbPrice.DataBindings.Add(new Binding("Text", table, "price"));
+            txbLimitPerson.DataBindings.Add(new Binding("Text", table, "limitPerson"));
         }
         #endregion
 
@@ -99,7 +129,7 @@ namespace HotelManager
         {
             if (!fCustomer.CheckFillInText(new Control[] { txbNameRoom, comboBoxStatusRoom, comboBoxRoomType }))
             {
-                MessageBox.Show("Không được để trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroFramework.MetroMessageBox.Show(this, "Không được để trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             try
@@ -107,22 +137,22 @@ namespace HotelManager
                 Room roomNow = GetRoomNow();
                 if (RoomDAO.Instance.InsertRoom(roomNow))
                 {
-                    MessageBox.Show("Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MetroFramework.MetroMessageBox.Show(this, "Thêm Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LoadFullRoom();
                 }
                 else
-                    MessageBox.Show("Phòng đã tồn tại\nTrùng số chứng minh nhân dân", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    MetroFramework.MetroMessageBox.Show(this, "Phòng này đã tồn tại(Trùng mã số phòng)", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
             catch
             {
-                MessageBox.Show("Lỗi", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroFramework.MetroMessageBox.Show(this, "Lỗi không thêm được phòng này", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void UpdateRoom()
         {
             if (!fCustomer.CheckFillInText(new Control[] { txbNameRoom, comboBoxStatusRoom, comboBoxRoomType }))
             {
-                MessageBox.Show("Không được để trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroFramework.MetroMessageBox.Show(this, "Không được để trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             else
@@ -133,24 +163,24 @@ namespace HotelManager
                     Room roomNow = GetRoomNow();
                     if (roomNow.Equals(roomPre))
                     {
-                        MessageBox.Show("Bạn chưa thay đổi dữ liệu", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MetroFramework.MetroMessageBox.Show(this, "Bạn chưa thay đổi dữ liệu", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     else
                     {
                         bool check = RoomDAO.Instance.UpdateCustomer(roomNow, roomPre);
                         if (check)
                         {
-                            MessageBox.Show("Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MetroFramework.MetroMessageBox.Show(this, "Cập Nhật Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             groupRoom.Tag = roomNow;
                             LoadFullRoom();
                         }
                         else
-                            MessageBox.Show("Phòng đã tồn tại\nTrùng số chứng minh nhân dân", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            MetroFramework.MetroMessageBox.Show(this, "Phòng này chưa tồn tại\n", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     }
                 }
                 catch
                 {
-                    MessageBox.Show("Lỗi", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MetroFramework.MetroMessageBox.Show(this, "Lỗi cập nhật phòng này", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -160,17 +190,19 @@ namespace HotelManager
             {
                 txbID.Text = "Tự Động";
                 txbNameRoom.Text = string.Empty;
-                btnAddRoom.ButtonText = "Thêm Phòng";
+                bindingNavigatorMoveFirstItem.Enabled = false;
+                bindingNavigatorMovePreviousItem.Enabled = false;
             }
             else
             {
+                bindingNavigatorMoveFirstItem.Enabled = true;
+                bindingNavigatorMovePreviousItem.Enabled = true;
                 txbID.Text = row.Cells["colIDRoom"].Value.ToString();
                 txbNameRoom.Text = row.Cells["colName"].Value.ToString();
-                comboBoxRoomType.Text = row.Cells["colNameRoomType"].Value.ToString();
-                comboBoxStatusRoom.Text = row.Cells["colStatus"].Value.ToString();
+                comboBoxRoomType.SelectedIndex = (int)row.Cells["colIdRoomType"].Value - 1;
+                comboBoxStatusRoom.SelectedIndex = (int)row.Cells["colIdStatus"].Value - 1;
                 Room room = new Room(((DataRowView)row.DataBoundItem).Row);
                 groupRoom.Tag = room;
-                btnAddRoom.ButtonText = "Cập nhật";
             }
         }
         #endregion
@@ -217,9 +249,7 @@ namespace HotelManager
                 ChangeText(row);
             }
         }
-
         #endregion
-
 
     }
 }

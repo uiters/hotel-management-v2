@@ -15,6 +15,7 @@ namespace HotelManager
         #region Constructor
         public fService()
         {
+            this.DoubleBuffered = true;
             InitializeComponent();
             LoadFullService();
             LoadFullServiceType();
@@ -35,6 +36,7 @@ namespace HotelManager
             DataTable table = GetFullServiceType();
             comboBoxServiceType.DataSource = table;
             comboBoxServiceType.DisplayMember = "name";
+            ;
             if (table.Rows.Count > 0)
                 comboBoxServiceType.SelectedIndex = 0;
             _fServiceType = new fServiceType(table);
@@ -68,12 +70,45 @@ namespace HotelManager
         }
         private void BindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
-            foreach (DataGridViewRow Row in dataGridViewService.SelectedRows)
+            txbID.Text = "Tự Động";
+            txbName.Text = string.Empty;
+            txbPrice.Text = string.Empty;
+        }
+        private void BtnCLose1_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+        private void ToolStripLabel1_Click(object sender, EventArgs e)
+        {
+            if (saveService.ShowDialog() == DialogResult.Cancel)
+                return;
+            else
             {
-                Row.Selected = false;
+                bool check;
+                try
+                {
+                    switch (saveService.FilterIndex)
+                    {
+                        case 2:
+                            check = ExportToExcel.Instance.Export(dataGridViewService, saveService.FileName, ModeExportToExcel.XLSX);
+                            break;
+                        case 3:
+                            check = ExportToExcel.Instance.Export(dataGridViewService, saveService.FileName, ModeExportToExcel.PDF);
+                            break;
+                        default:
+                            check = ExportToExcel.Instance.Export(dataGridViewService, saveService.FileName, ModeExportToExcel.XLS);
+                            break;
+                    }
+                    if (check)
+                        MetroFramework.MetroMessageBox.Show(this, "Xuất thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    else
+                        MetroFramework.MetroMessageBox.Show(this, "Lỗi xuất thất bại", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch
+                {
+                    MetroFramework.MetroMessageBox.Show(this, "Lỗi (Cần cài đặt Office)", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            int last = dataGridViewService.RowCount - 1;
-            dataGridViewService.Rows[last].Selected = true;
         }
         #endregion
 
@@ -92,7 +127,7 @@ namespace HotelManager
             {
                 txbID.Text = row.Cells["colID"].Value.ToString();
                 txbName.Text = row.Cells["colName"].Value.ToString();
-                comboBoxServiceType.Text =(string) row.Cells["colNameServiceType"].Value;
+                comboBoxServiceType.SelectedIndex = (int)row.Cells["colIdServiceType"].Value - 1;
                 txbPrice.Text = row.Cells["colPrice"].Value.ToString();
                 Service room = new Service(((DataRowView)row.DataBoundItem).Row);
                 groupService.Tag = room;
@@ -212,6 +247,7 @@ namespace HotelManager
                 e.Handled = true;
             }
         }
+
         #endregion
 
 

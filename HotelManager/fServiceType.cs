@@ -45,7 +45,7 @@ namespace HotelManager
         #endregion
 
         #region Click
-        private void btnClose_Click(object sender, EventArgs e)
+        private void BtnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
@@ -55,15 +55,51 @@ namespace HotelManager
             if (result == DialogResult.OK)
                 UpdateServiceType();
         }
-        //private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
-        //{
-        //    foreach (DataGridViewRow Row in dataGridViewServiceType.SelectedRows)
-        //    {
-        //        Row.Selected = false;
-        //    }
-        //    int last = dataGridViewServiceType.RowCount - 1;
-        //    dataGridViewServiceType.Rows[last].Selected = true;
-        //}
+        private void BtnCLose1_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+        private void BtnInsert_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MetroFramework.MetroMessageBox.Show(this, "Bạn có muốn thêm mới loại dịch vụ không?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+            if (result == DialogResult.OK)
+                InsertServiceType();
+        }
+        private void BtnAdd_Click(object sender, EventArgs e)
+        {
+            txbName.Text = string.Empty;
+            txbID.Text = "Tự Động";
+        }
+        private void ToolStripLabel1_Click(object sender, EventArgs e)
+        {
+            bool check;
+            if (saveServiceType.ShowDialog() == DialogResult.Cancel)
+                return;
+            try
+            {
+                switch (saveServiceType.FilterIndex)
+                {
+                    case 2:
+                        check = ExportToExcel.Instance.Export(dataGridViewServiceType, saveServiceType.FileName, ModeExportToExcel.XLSX);
+                        break;
+                    case 3:
+                        check = ExportToExcel.Instance.Export(dataGridViewServiceType, saveServiceType.FileName, ModeExportToExcel.PDF);
+                        break;
+                    default:
+                        check = ExportToExcel.Instance.Export(dataGridViewServiceType, saveServiceType.FileName, ModeExportToExcel.XLS);
+                        break;
+                }
+                if (check)
+                    MetroFramework.MetroMessageBox.Show(this, "Xuất thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else
+                    MetroFramework.MetroMessageBox.Show(this, "Lỗi xuất thất bại", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch
+            {
+                MetroFramework.MetroMessageBox.Show(this, "Lỗi (Cần cài đặt Office)", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         #endregion
 
         #region GetData
@@ -88,31 +124,30 @@ namespace HotelManager
         #endregion
 
         #region Method
-        //private void InsertServiceType()
-        //{
-        //    if (fCustomer.CheckFillInText(new Control[] { txbName }))
-        //    {
-        //        try
-        //        {
-        //            ServiceType serviceTypeNow = GetServiceTypeNow();
-        //            if (ServiceTypeDAO.Instance.InsertServiceType(serviceTypeNow))
-        //            {
-        //                MessageBox.Show("Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        //                this.LoadFullServiceType();
-        //            }
-        //            else
-        //                MessageBox.Show("Lỗi", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //        }
-        //        catch
-        //        {
-        //            MessageBox.Show("Lỗi Nhập dữ liệu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //        }
-        //    }
-        //    else
-        //        MessageBox.Show("Không được để trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        private void InsertServiceType()
+        {
+            if (fCustomer.CheckFillInText(new Control[] { txbName }))
+            {
+                try
+                {
+                    ServiceType serviceTypeNow = GetServiceTypeNow();
+                    if (ServiceTypeDAO.Instance.InsertServiceType(serviceTypeNow))
+                    {
+                        MetroFramework.MetroMessageBox.Show(this, "Thêm thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.LoadFullServiceType();
+                    }
+                    else
+                        MetroFramework.MetroMessageBox.Show(this, "Lỗi nhập dữ liệu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch
+                {
+                    MetroFramework.MetroMessageBox.Show(this, "Lỗi loại dịch vụ đã có", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+                MetroFramework.MetroMessageBox.Show(this, "Không được để trống", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-        //}
-
+        }
         private void UpdateServiceType()
         {
             if (!fCustomer.CheckFillInText(new Control[] { txbName }))
@@ -133,17 +168,19 @@ namespace HotelManager
                         bool check = ServiceTypeDAO.Instance.UpdateServiceType(serviceTypeNow, serviceTypePre);
                         if (check)
                         {
-                            MetroFramework.MetroMessageBox.Show(this, "Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MetroFramework.MetroMessageBox.Show(this, "Cập nhật thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             groupServiceType.Tag = serviceTypeNow;
                             LoadFullServiceType();
                         }
                         else
-                            MetroFramework.MetroMessageBox.Show(this, "Loại trạng thái đã tồn tại\nTrùng Mã trạng thái", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        {
+                            MetroFramework.MetroMessageBox.Show(this, "Loại dịch vụ này chưa tồn tại", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                 }
                 catch
                 {
-                    MetroFramework.MetroMessageBox.Show(this, "Lỗi Nhập dữ liệu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MetroFramework.MetroMessageBox.Show(this, "Lỗi loại dịch vụ đã có", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -153,9 +190,8 @@ namespace HotelManager
             {
                 bindingNavigatorMoveFirstItem.Enabled = false;
                 bindingNavigatorMovePreviousItem.Enabled = false;
-                //txbID.Text = "Tự Động";
-                //txbName.Text = string.Empty;
-                //btnUpdateServiceType.ButtonText = "Thêm";
+                txbID.Text = "Tự Động";
+                txbName.Text = string.Empty;
             }
             else
             {
@@ -167,8 +203,6 @@ namespace HotelManager
                 bindingNavigatorMovePreviousItem.Enabled = true;
             }
         }
-
-
         #endregion
 
         #region Change
@@ -191,7 +225,8 @@ namespace HotelManager
                 BtnUpdateServiceType_Click(sender, e);
             }
         }
-        #endregion
 
+
+        #endregion
     }
 }

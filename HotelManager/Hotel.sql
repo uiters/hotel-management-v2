@@ -590,7 +590,7 @@ GO
 CREATE PROC USP_UpdateCustomerType
 @id int, @name NVARCHAR(100)
 AS
-begin
+BEGIN
 	UPDATE dbo.CustomerType
 	SET
     Name = @name

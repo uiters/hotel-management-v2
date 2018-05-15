@@ -4,13 +4,13 @@ using System;
 using System.Data;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 namespace HotelManager
 {
     public partial class fCustomer : Form
     {
         private fCustomerType customerType;
-        private DataTable tableCustomer;
         public fCustomer()
         {
             InitializeComponent();
@@ -23,9 +23,9 @@ namespace HotelManager
         #region Load
         private void LoadFullCustomer()
         {
-            tableCustomer = GetFullCustomer();
+            DataTable table = GetFullCustomer();
             BindingSource source = new BindingSource();
-            source.DataSource = tableCustomer;
+            source.DataSource = table;
             dataGridViewCustomer.DataSource = source;
             bindingCustomer.BindingSource = source;           
         }
@@ -42,16 +42,15 @@ namespace HotelManager
 
 
         #region Click
-        private void btnClose_Click(object sender, EventArgs e)
+        private void BtnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-        private void toolStripLabel1_Click(object sender, EventArgs e)
+        private void ToolStripLabel1_Click(object sender, EventArgs e)
         {
             bool check;
             if (SaveCustomer.ShowDialog() == DialogResult.Cancel)
                 return;
-            
             switch (SaveCustomer.FilterIndex)
             {
                 case 2:
@@ -65,19 +64,18 @@ namespace HotelManager
                     break;
             }
             if (check)
-                MessageBox.Show("Xuất thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MetroFramework.MetroMessageBox.Show(this, "Xuất file thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             else
-                MessageBox.Show("Lỗi", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroFramework.MetroMessageBox.Show(this, "Lỗi (Cần cài đặt Office)", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        private void BtnAddCustomer_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MetroFramework.MetroMessageBox.Show(this, "Bạn có muốn thêm khách hàng mới?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+            if (result == DialogResult.OK)
+                InsertCustomer();
 
         }
-        private void btnAddCustomer_Click(object sender, EventArgs e)
-        {
-            if (btnAddCustomer.ButtonText.Contains("Thêm"))
-                InsertCustomer();
-            else
-                UpdateCustomer();
-        }
-        private void btnCustomerType_Click(object sender, EventArgs e)
+        private void BtnCustomerType_Click(object sender, EventArgs e)
         {
             this.Hide();
             customerType.ShowDialog();
@@ -86,16 +84,25 @@ namespace HotelManager
             LoadFullCustomer();
             this.Show();
         }
-        private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
+        private void BindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
-            foreach (DataGridViewRow row in dataGridViewCustomer.SelectedRows)
-            {
-                row.Selected = false;
-            }
-            int last = dataGridViewCustomer.RowCount - 1;
-            dataGridViewCustomer.Rows[last].Selected = true;
+            txbFullName.Text = string.Empty;
+            txbAddress.Text = string.Empty;
+            txbIDCard.Text = string.Empty;
+            txbNationality.Text = string.Empty;
+            txbPhoneNumber.Text = string.Empty;
         }
+        private void BtnClose1_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+        private void BtnUpdate_Click(object sender, EventArgs e)
+        {
 
+            DialogResult result = MetroFramework.MetroMessageBox.Show(this, "Bạn có muốn cập nhật khách hàng này không?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+            if (result == DialogResult.OK)
+                UpdateCustomer();
+        }
         #endregion
 
         #region Method
@@ -112,7 +119,7 @@ namespace HotelManager
         {
             if (!CheckFillInText(new Control[] { txbPhoneNumber, txbFullName, txbIDCard, txbNationality, txbAddress, comboBoxCustomerType}))
             {
-                MessageBox.Show("Không được để trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroFramework.MetroMessageBox.Show(this, "Không được để trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             try
@@ -120,22 +127,22 @@ namespace HotelManager
                 Customer customer = GetCustomerNow();
                 if (CustomerDAO.Instance.InsertCustomer(customer))
                 {
-                    MessageBox.Show("Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MetroFramework.MetroMessageBox.Show(this, "Thêm thành tông", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LoadFullCustomer();
                 }
                 else
-                    MessageBox.Show("Khách Hàng đã tồn tại\nTrùng số chứng minh nhân dân", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    MetroFramework.MetroMessageBox.Show(this, "Khách Hàng đã tồn tại\nTrùng số chứng minh nhân dân", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
             catch
             {
-                MessageBox.Show("Lỗi", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroFramework.MetroMessageBox.Show(this, "Lỗi thêm khách hàng", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void UpdateCustomer()
         {
             if (!CheckFillInText(new Control[] { txbPhoneNumber, txbFullName, txbIDCard, txbNationality, txbAddress, comboBoxCustomerType }))
             {
-                MessageBox.Show("Không được để trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroFramework.MetroMessageBox.Show(this, "Không được để trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             else
@@ -145,23 +152,23 @@ namespace HotelManager
                 {
                     Customer customerNow = GetCustomerNow();
                     if (customerNow.Equals(customerPre))
-                        MessageBox.Show("Bạn chưa thay đổi dữ liệu", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MetroFramework.MetroMessageBox.Show(this, "Bạn chưa thay đổi dữ liệu", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     else
                     {
                         bool check = CustomerDAO.Instance.UpdateCustomer(customerNow, customerPre);
                         if (check)
                         {
-                            MessageBox.Show("Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MetroFramework.MetroMessageBox.Show(this, "Cập nhật thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             groupCustomer.Tag = customerNow;
                             LoadFullCustomer();
                         }
                         else
-                            MessageBox.Show("Khách Hàng đã tồn tại\nTrùng số chứng minh nhân dân", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            MetroFramework.MetroMessageBox.Show(this, "Khách Hàng chưa tồn tại hoặc trùng chứng minh nhân dân", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     }
                 }
                 catch
                 {
-                    MessageBox.Show("Lỗi Nhập dữ liệu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MetroFramework.MetroMessageBox.Show(this, "Lỗi Khách hàng đã tồn tại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -174,26 +181,27 @@ namespace HotelManager
                 txbIDCard.Text = string.Empty;
                 txbNationality.Text = string.Empty;
                 txbPhoneNumber.Text = string.Empty;
-                btnAddCustomer.ButtonText = "Thêm Khách Hàng";
+                bindingNavigatorMoveFirstItem.Enabled = false;
+                bindingNavigatorMovePreviousItem.Enabled = false;
             }
             else
             {
+                bindingNavigatorMoveFirstItem.Enabled = true;
+                bindingNavigatorMovePreviousItem.Enabled = true;
                 txbFullName.Text = row.Cells["colNameCustomer"].Value.ToString();
                 txbAddress.Text = row.Cells["colAddress"].Value.ToString();
                 txbIDCard.Text = row.Cells["colIDCard"].Value.ToString();
                 txbNationality.Text = row.Cells["colNationality"].Value.ToString();
                 txbPhoneNumber.Text = row.Cells["colPhone"].Value.ToString();
-                comboBoxCustomerType.Text = row.Cells["colNameCustomerType"].Value.ToString();
+                comboBoxCustomerType.SelectedIndex =(int) row.Cells["colIdCustomerType"].Value - 1;
                 comboBoxSex.SelectedItem = row.Cells["colSex"].Value;
                 datepickerDateOfBirth.Value = (DateTime)row.Cells["colDateOfBirth"].Value;
                 Customer customer = new Customer(((DataRowView) row.DataBoundItem).Row);
                 groupCustomer.Tag = customer;              
-                btnAddCustomer.ButtonText = "Cập Nhật";
             }
         }
 
         #endregion
-
 
         #region GetData
         private Customer GetCustomerNow()
@@ -222,7 +230,7 @@ namespace HotelManager
         #endregion
 
         #region Seclection Change
-        private void dataGridViewCustomer_SelectionChanged(object sender, EventArgs e)
+        private void DataGridViewCustomer_SelectionChanged(object sender, EventArgs e)
         {
             if (dataGridViewCustomer.SelectedRows.Count > 0)
             {

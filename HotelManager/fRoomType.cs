@@ -46,35 +46,66 @@ namespace HotelManager
         #endregion
 
         #region Click
-        private void bunifuImageButton1_Click(object sender, EventArgs e)
+        private void BunifuImageButton1_Click(object sender, EventArgs e)
         {
             Close();
         }
-        private void btnAddRoomType_Click(object sender, EventArgs e)
+        private void BtnAddRoomType_Click(object sender, EventArgs e)
         {
             DialogResult result = MetroFramework.MetroMessageBox.Show(this, "Bạn có muốn thêm loại phòng mới?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
             if(result == DialogResult.OK)
                 InsertRoomType();
         }
-        private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
+        private void BindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
-            foreach (DataGridViewRow Row in dataGridViewRoomType.SelectedRows)
-            {
-                Row.Selected = false;
-            }
-            int last = dataGridViewRoomType.Rows.Count - 1;
-            dataGridViewRoomType.Rows[last].Selected = true;
+            txbID.Text = "Tự Động";
+            txbName.Text = string.Empty;
+            txbPrice.Text = "0";
+            txbLimitPerson.Text = "0";
         }
-        private void btnUpdate_Click(object sender, EventArgs e)
+        private void BtnUpdate_Click(object sender, EventArgs e)
         {
             DialogResult result = MetroFramework.MetroMessageBox.Show(this, "Bạn có muốn cập nhật loại phòng này không?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
             if (result == DialogResult.OK)
                 UpdateRoomType();
         }
-        private void btnClose_Click(object sender, EventArgs e)
+        private void BtnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+        private void ToolStripLabel1_Click(object sender, EventArgs e)
+        {
+            if (saveRoomType.ShowDialog() == DialogResult.Cancel)
+                return;
+            else
+            {
+                bool check;
+                try
+                {
+                    switch (saveRoomType.FilterIndex)
+                    {
+                        case 2:
+                            check = ExportToExcel.Instance.Export(dataGridViewRoomType, saveRoomType.FileName, ModeExportToExcel.XLSX);
+                            break;
+                        case 3:
+                            check = ExportToExcel.Instance.Export(dataGridViewRoomType, saveRoomType.FileName, ModeExportToExcel.PDF);
+                            break;
+                        default:
+                            check = ExportToExcel.Instance.Export(dataGridViewRoomType, saveRoomType.FileName, ModeExportToExcel.XLS);
+                            break;
+                    }
+                    if (check)
+                        MetroFramework.MetroMessageBox.Show(this, "Xuất thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    else
+                        MetroFramework.MetroMessageBox.Show(this, "Lỗi xuất thất bại", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch
+                {
+                    MetroFramework.MetroMessageBox.Show(this, "Lỗi (Cần cài đặt Office)", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
         #endregion
 
         #region GetData
@@ -110,15 +141,15 @@ namespace HotelManager
                     RoomType roomTypeNow = GetRoomTypeNow();
                     if (RoomTypeDAO.Instance.InsertRoomType(roomTypeNow))
                     {
-                        MetroFramework.MetroMessageBox.Show(this, "Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MetroFramework.MetroMessageBox.Show(this, "Thêm Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         this.LoadFullRoomType();
                     }
                     else
-                        MetroFramework.MetroMessageBox.Show(this, "Lỗi", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MetroFramework.MetroMessageBox.Show(this, "Loại phòng này đã tồn tại", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 catch
                 {
-                    MetroFramework.MetroMessageBox.Show(this, "Lỗi Nhập dữ liệu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MetroFramework.MetroMessageBox.Show(this, "Lỗi loại phòng này đã tồn tại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 }
             }
             else
@@ -138,18 +169,18 @@ namespace HotelManager
                 {
                     RoomType roomTypeNow = GetRoomTypeNow();
                     if (roomTypeNow.Equals(roomTypePre))
-                        MetroFramework.MetroMessageBox.Show(this, "Bạn chưa thay đổi dữ liệu", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        MetroFramework.MetroMessageBox.Show(this, "Bạn chưa thay đổi dữ liệu", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     else
                     {
                         bool check = RoomTypeDAO.Instance.UpdateRoomType(roomTypeNow, roomTypePre);
                         if(check)
                         {
-                            MetroFramework.MetroMessageBox.Show(this, "Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MetroFramework.MetroMessageBox.Show(this, "Cập nhật thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             groupRoomType.Tag = roomTypeNow;
                             LoadFullRoomType();
                         }
                         else
-                            MetroFramework.MetroMessageBox.Show(this, "Loại Phòng đã tồn tại\nTrùng Mã phòng", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            MetroFramework.MetroMessageBox.Show(this, "Loại phòng này chưa tồn tại", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     }
                 }
                 catch
@@ -163,10 +194,10 @@ namespace HotelManager
         {
             if (row.IsNewRow)
             {
-                txbID.Text = "Auto";
+                txbID.Text = "Tự Động";
                 txbName.Text = string.Empty;
-                txbPrice.Text = string.Empty;
-                txbLimitPerson.Text = string.Empty;
+                txbPrice.Text = "0";
+                txbLimitPerson.Text = "0";
             }
             else
             {

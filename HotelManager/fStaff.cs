@@ -150,7 +150,7 @@ namespace HotelManager
             DataTable table = GetFullStaff();
             BindingSource source = new BindingSource();
             source.DataSource = table;
-            dataGridStaffType.DataSource = source;
+            dataGridStaff.DataSource = source;
             bindingStaff.BindingSource = source;
         }
         private void LoadFullStaffType()
@@ -230,6 +230,42 @@ namespace HotelManager
         }
         #endregion
 
+        #region ChangeText
+        private void ChangeText(DataGridViewRow row)
+        {
+            if (row.IsNewRow)
+            {
+                bindingNavigatorMoveFirstItem.Enabled = false;
+                bindingNavigatorMovePreviousItem.Enabled = false;
+                txbUserName.Text = string.Empty;
+                txbPassword.Text = string.Empty;
+                txbPassword2.Text = string.Empty;
+                txbName.Text = string.Empty;
+                txbIDcard.Text = string.Empty;
+                txbPhoneNumber.Text = string.Empty;
+                txbAddress.Text = string.Empty;
+            }
+            else
+            {
+                //txbID.Text = row.Cells["colID"].Value.ToString();
+                //txbName.Text = row.Cells["colName"].Value.ToString();
+                //comboBoxServiceType.Text = (string)row.Cells["colNameServiceType"].Value;
+                //txbPrice.Text = row.Cells["colPrice"].Value.ToString();
+                //Service room = new Service(((DataRowView)row.DataBoundItem).Row);
+                //groupService.Tag = room;
+                //bindingNavigatorMoveFirstItem.Enabled = true;
+                //bindingNavigatorMovePreviousItem.Enabled = true;
+            }
+        }
+        #endregion
 
+        private void dataGridStaffType_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridStaff.SelectedRows.Count > 0)
+            {
+                DataGridViewRow row = dataGridStaff.SelectedRows[0];
+                ChangeText(row);
+            }
+        }
     }
 }
