@@ -10,9 +10,9 @@ namespace HotelManager.DTO
     public class Surcharge
     {
         private string name;
-        private float value;
+        private double value;
         private string describe;
-        public Surcharge(string name, float value, string describe)
+        public Surcharge(string name, double value, string describe)
         {
             this.Name = name;
             this.Value = value;
@@ -26,7 +26,7 @@ namespace HotelManager.DTO
         }
 
         public string Name { get => name; set => name = value; }
-        public float Value { get => value; set => this.value = value; }
+        public double Value { get => value; set => this.value = value; }
         public string Describe { get => describe; set => describe = value; }
     }
 }

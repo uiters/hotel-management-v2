@@ -2,15 +2,17 @@
 using HotelManager.DTO;
 using System;
 using System.Data;
-using System.IO;
-using System.Text;
-using System.Threading;
 using System.Windows.Forms;
 namespace HotelManager
 {
     public partial class fCustomer : Form
     {
+        #region Properties
         private fCustomerType customerType;
+        private int id;
+        #endregion
+
+        #region Constructor
         public fCustomer()
         {
             InitializeComponent();
@@ -19,6 +21,8 @@ namespace HotelManager
             comboBoxSex.SelectedIndex = 0;
             SaveCustomer.OverwritePrompt = true;
         }
+
+        #endregion
 
         #region Load
         private void LoadFullCustomer()
@@ -39,7 +43,6 @@ namespace HotelManager
             customerType = new fCustomerType(table);
         }
         #endregion
-
 
         #region Click
         private void BtnClose_Click(object sender, EventArgs e)
@@ -72,8 +75,10 @@ namespace HotelManager
         {
             DialogResult result = MetroFramework.MetroMessageBox.Show(this, "Bạn có muốn thêm khách hàng mới?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
             if (result == DialogResult.OK)
-                InsertCustomer();
-
+                if (CheckDate())
+                    InsertCustomer();
+                else
+                    MetroFramework.MetroMessageBox.Show(this, "Ngày sinh phải nhỏ hơn ngày hiện tại", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
         private void BtnCustomerType_Click(object sender, EventArgs e)
         {
@@ -98,10 +103,13 @@ namespace HotelManager
         }
         private void BtnUpdate_Click(object sender, EventArgs e)
         {
-
             DialogResult result = MetroFramework.MetroMessageBox.Show(this, "Bạn có muốn cập nhật khách hàng này không?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
             if (result == DialogResult.OK)
-                UpdateCustomer();
+                if (CheckDate())
+                    UpdateCustomer();
+                else
+                    MetroFramework.MetroMessageBox.Show(this, "Ngày sinh phải nhỏ hơn ngày hiện tại", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
         }
         #endregion
 
@@ -127,7 +135,7 @@ namespace HotelManager
                 Customer customer = GetCustomerNow();
                 if (CustomerDAO.Instance.InsertCustomer(customer))
                 {
-                    MetroFramework.MetroMessageBox.Show(this, "Thêm thành tông", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MetroFramework.MetroMessageBox.Show(this, "Thêm thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LoadFullCustomer();
                 }
                 else
@@ -163,12 +171,12 @@ namespace HotelManager
                             LoadFullCustomer();
                         }
                         else
-                            MetroFramework.MetroMessageBox.Show(this, "Khách Hàng chưa tồn tại hoặc trùng chứng minh nhân dân", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            MetroFramework.MetroMessageBox.Show(this, "Khách hàng này đã tồn tại(Trùng số chứng minh nhân dân)", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     }
                 }
                 catch
                 {
-                    MetroFramework.MetroMessageBox.Show(this, "Lỗi Khách hàng đã tồn tại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MetroFramework.MetroMessageBox.Show(this, "Lỗi câp nhật", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -188,6 +196,7 @@ namespace HotelManager
             {
                 bindingNavigatorMoveFirstItem.Enabled = true;
                 bindingNavigatorMovePreviousItem.Enabled = true;
+                id = (int)row.Cells["colid"].Value;
                 txbFullName.Text = row.Cells["colNameCustomer"].Value.ToString();
                 txbAddress.Text = row.Cells["colAddress"].Value.ToString();
                 txbIDCard.Text = row.Cells["colIDCard"].Value.ToString();
@@ -207,7 +216,8 @@ namespace HotelManager
         private Customer GetCustomerNow()
         {
             Customer customer = new Customer();
-            customer.IdCard = int.Parse(txbIDCard.Text);
+            customer.Id = this.id;
+            customer.IdCard = txbIDCard.Text;
             int id = comboBoxCustomerType.SelectedIndex;
             customer.IdCustomerType = (int)customerType.Table.Rows[id]["id"];
             customer.CustomerName = txbFullName.Text;
@@ -240,6 +250,19 @@ namespace HotelManager
         }
         #endregion
 
+        #region Check isDigit
+        private void TxbPhoneNumber_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(char.IsNumber(e.KeyChar) || e.KeyChar == '\b'))
+                e.Handled = true;
+        }
+        private bool CheckDate()
+        {
+            if (DateTime.Now.Subtract(datepickerDateOfBirth.Value).Days <= 0)
+                return false;
+            else return true;
+        }
+        #endregion
 
     }
 }

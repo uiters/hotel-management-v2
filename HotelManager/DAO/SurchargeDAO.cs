@@ -1,6 +1,7 @@
 ﻿using HotelManager.DTO;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,14 +10,14 @@ namespace HotelManager.DAO
 {
     public class SurchargeDAO
     {
+        #region Properties
         private static SurchargeDAO instance;
-        //public bool InsertSurcharge(string name, float value, string describe = "")
-        //{
-        //    string query = "exec USP_InsertSurcharge @name , @value , @describe";
-        //    return DataProvider.Instance.ExecuteNoneQuery(query, new object[] { name, value, describe }) > 0;
-        //}
+        public static SurchargeDAO Instance { get { if (instance == null) instance = new SurchargeDAO(); return instance; } }
+        #endregion
 
-        public bool UpdateSurcharge(string name, float value, string describe)
+
+
+        public bool UpdateSurcharge(string name, double value, string describe)
         {
             string query = "exec USP_UpdateSurcharge @name , @value , @describe";
             return DataProvider.Instance.ExecuteNoneQuery(query, new Object[] { name, value, describe }) > 0;
@@ -26,7 +27,12 @@ namespace HotelManager.DAO
             return UpdateSurcharge(surcharge.Name, surcharge.Value, surcharge.Describe);
         }
 
+        public DataTable LoadFullSurcharge()
+        {
+            return DataProvider.Instance.ExecuteQuery("USP_LoadFullSurcharge");
+        }
+
+
         private SurchargeDAO() { }
-        public static SurchargeDAO Instance { get { if (instance == null) instance = new SurchargeDAO(); return instance; } }
     }
 }

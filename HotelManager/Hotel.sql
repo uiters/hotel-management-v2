@@ -1,19 +1,19 @@
-create database Hotel
+create database HotelManagement
 GO
-use Hotel
+use HotelManagement
 GO
-create table StaffType
+create table STAFFTYPE
 (
 ID int primary key identity,
 Name nvarchar(100)not null default N'No Name'
 )
 go
-create table Staff
+create table STAFF
 (
 UserName nvarchar(100) primary key,
 DisplayName nvarchar(100) not null default N'No Name',
 PassWord nvarchar(100) not null,
-IDStaffType int foreign key references StaffType(ID) ON DELETE CASCADE not null,
+IDStaffType int foreign key references StaffType(ID) not null,
 IDCard nvarchar(100) not null unique,
 DateOfBirth Date not null,
 Sex nvarchar(100) not null,
@@ -22,16 +22,17 @@ PhoneNumber int not null,
 StartDay Date not null
 )
 go
-create table CustomerType
+create table CUSTOMERTYPE
 (
 ID int primary key identity,
 Name nvarchar(100)not null default N'No Name'
 )
-go
-create table Customer
+GO
+create table CUSTOMER
 (
-IDCard int primary key,
-IDCustomerType int foreign key references CustomerType(ID) ON DELETE CASCADE not null,
+ID int PRIMARY KEY IDENTITY,
+IDCard NVARCHAR(100) UNIQUE NOT NULL,
+IDCustomerType int foreign key references CustomerType(ID) NOT null,
 Name nvarchar(100) not null default N'No Name',
 DateOfBirth Date not null,
 Address nvarchar(200) not null,
@@ -40,13 +41,13 @@ Sex nvarchar(100) not null,
 Nationality nvarchar(100) not null
 )
 go
-create table StatusRoom
+create table STATUSROOM
 (
 ID int primary key identity,
 Name nvarchar(100) not null default N'No Name'
 )
 go
-create table RoomType
+create table ROOMTYPE
 (
 ID int primary key identity,
 Name nvarchar(100) not null default N'No Name',
@@ -54,72 +55,81 @@ Price int not null,
 LimitPerson int not null
 )
 go
-create table Room
+create table ROOM
 (
 ID int primary key identity,
 Name nvarchar(100) not null default N'No Name',
-IDRoomType int foreign key references RoomType(ID) ON DELETE CASCADE not null,
-IDStatusRoom int foreign key references StatusRoom(ID) ON DELETE CASCADE not null
+IDRoomType int foreign key references RoomType(ID) not null,
+IDStatusRoom int foreign key references StatusRoom(ID) not null
 )
 GO
-create table BookRoom
+create table BOOKROOM
 (
 ID int primary key identity,
-IDCustomer int foreign key references Customer(IDCard) ON DELETE CASCADE not null,
-IDRoomType int foreign key references RoomType(ID) ON DELETE CASCADE NOT null,
+IDCustomer int foreign key references Customer(ID) not null,
+IDRoomType int foreign key references RoomType(ID) not null,
 DateBookRoom smalldatetime not null,
 DateCheckIn date not null,
 DateCheckOut date not null
 )
 GO
-create table ReceiveRoom
+create table RECEIVEROOM
 (
 ID int primary key identity,
-IDBookRoom int foreign key references BookRoom(ID) ON DELETE CASCADE NOT null,
+IDBookRoom int foreign key references BookRoom(ID)NOT null,
 IDRoom int foreign key references Room(ID) not null
 )
 go
-create table ReceiveRoomDetails
+create table RECEIVEROOMDETAILS
 (
-IDReceiveRoom int foreign key references ReceiveRoom(ID) ON DELETE CASCADE not null,
-IDCustomerOther int foreign key references Customer(IDCard) not null,
-primary key (IDReceiveRoom,IDCustomerOther)
+IDReceiveRoom int foreign key references ReceiveRoom(ID) not null,
+IDCustomerOther int foreign key references Customer(id) not null,
+constraint PK_ReceiveRoomDetails primary key (IDReceiveRoom,IDCustomerOther)
 )
 go
-create table ServiceType
+create table SERVICETYPE
 (
 ID int primary key identity,
 Name nvarchar(100) not null default N'No Name'
 )
 go
-create table Service
+create table SERVICE
 (
 ID int primary key identity,
 Name nvarchar(200) not null default N'No Name',
-IDServiceType int foreign key references ServiceType(ID)  ON DELETE CASCADE  not null,
+IDServiceType int foreign key references ServiceType(ID) not null,
 Price int not null
 )
-go
-create table Bill
+GO
+create table STATUSBILL
 (
 ID int primary key identity,
-IDReceiveRoom int foreign key references ReceiveRoom(ID) ON DELETE CASCADE not null,
-StaffSetUp nvarchar(100) foreign key references Staff(UserName) ON DELETE CASCADE not null,
-DateOfCreate smalldatetime default getdate(),
-TotalPrice int not null,
-Discount int not null default 0,
-Status nvarchar(100)  not null default N'Unpaid'
+Name nvarchar(100) not null default N'No Name'
 )
 go
-create table BillDetails
+create table BILL
 (
-IDService int foreign key references Service(ID) not null,
-IDBill int foreign key references Bill(ID) not null,
-Count int not null
-constraint PK_BillDetails primary key(IDService,IDBill)
+ID int primary key identity,
+IDReceiveRoom int foreign key references ReceiveRoom(ID) not null,
+StaffSetUp nvarchar(100) foreign key references Staff(UserName) not null,
+DateOfCreate smalldatetime default getdate(),
+RoomPrice int not null default 0,
+ServicePrice int not null default 0,
+TotalPrice int not null default 0,
+Discount int not null default 0,
+IDStatusBill int foreign key references StatusBill(ID) not null default 1
 )
 go
-create table Surcharge
+create table BILLDETAILS
+(
+IDBill int foreign key references Bill(ID) not null,
+IDService int foreign key references Service(ID) not null,
+Count int not null,
+TotalPrice int not null default 0
+constraint PK_BillInfo primary key(IDService,IDBill)
+)
+GO
+create table SURCHARGE
 (
 Name nvarchar(200) not null default N'No Name',
 Value float not null,
@@ -244,38 +254,20 @@ begin
 	where IDStatusRoom=@idStatusRoom and IDRoomType=@idRoomType
 end
 go
--------------------------
+--------------------------------------------------------------
+
 --Staff type
--------------------------
-CREATE PROC USP_InsertStaffType
-@name NVARCHAR(100)
-AS
-INSERT	dbo.StaffType(Name) VALUES(@name)
-GO
-CREATE PROC USP_UpdateStaffType
-@id INT, @name NVARCHAR(100)
-AS
-BEGIN
-	UPDATE dbo.StaffType
-	SET
-    name = @name
-	WHERE ID = @id
-END
-GO
-CREATE PROC USP_DeleteStaffType
-@id INT
-AS
-BEGIN
-		DELETE FROM dbo.StaffType
-		WHERE ID = @id
-END
-GO
+--------------------------------------------------------------
+
 CREATE PROC USP_LoadFullStaffType
 AS
 SELECT * FROM dbo.StaffType
--------------------------
+go
+--------------------------------------------------------------
+
 --Staff 
--------------------------
+--------------------------------------------------------------
+
 GO
 CREATE PROC USP_LoadFullStaff
 AS
@@ -285,9 +277,9 @@ BEGIN
     FROM dbo.Staff INNER JOIN dbo.StaffType ON StaffType.ID = Staff.IDStaffType
 END
 GO
-ALTER PROC USP_InsertStaff
+CREATE PROC USP_InsertStaff
 @user NVARCHAR(100), @name NVARCHAR(100), @pass NVARCHAR(100),
-@idStaffType INT,@idCard INT, @dateOfBirth DATE, @sex NVARCHAR(100),
+@idStaffType INT,@idCard NVARCHAR(100), @dateOfBirth DATE, @sex NVARCHAR(100),
 @address NVARCHAR(200), @phoneNumber INT, @startDay date
 AS
 BEGIN
@@ -297,10 +289,12 @@ BEGIN
 	INSERT INTO dbo.Staff(UserName, DisplayName, PassWord, IDStaffType, IDCard, DateOfBirth, Sex, Address, PhoneNumber, StartDay)
 	VALUES (@user, @name, @pass, @idStaffType,@idCard, @dateOfBirth, @sex, @address, @phoneNumber, @startDay)
 END
-go
+GO
+--------------------------------------------------------------
+
 ALTER PROC USP_UpdateStaff
 @user NVARCHAR(100), @name NVARCHAR(100), @pass NVARCHAR(100),
-@idStaffType INT, @idCard INT, @dateOfBirth DATE, @sex NVARCHAR(100),
+@idStaffType INT, @idCard NVARCHAR(100), @dateOfBirth DATE, @sex NVARCHAR(100),
 @address NVARCHAR(200), @phoneNumber INT, @startDay date
 AS
 BEGIN
@@ -345,9 +339,13 @@ BEGIN
 	WHERE UserName = @username
 END
 GO
--------------------------
+---------------------------
+
+--------------------------------------------------------------
+
 --Service Type
--------------------------
+--------------------------------------------------------------
+
 
 CREATE PROC USP_InsertServiceType
 @name NVARCHAR(100)
@@ -367,22 +365,16 @@ BEGIN
 	WHERE id =@id
 END
 GO
-CREATE PROC USP_DeleteServiceType
-@id INT
-AS
-BEGIN
-	DELETE FROM dbo.ServiceType
-	WHERE id = @id
-END
-GO
 CREATE PROC USP_LoadFullServiceType
 AS
 SELECT * FROM ServiceType
 GO
 
--------------------------
+--------------------------------------------------------------
+
 --Service
--------------------------
+--------------------------------------------------------------
+
 GO
 CREATE PROC USP_InsertService
 @name NVARCHAR(200), @idServiceType INT, @price int
@@ -404,23 +396,17 @@ begin
 	where id = @id
 END
 GO
-CREATE PROC USP_DeleteService
-@id INT
-AS
-BEGIN
-	DELETE FROM dbo.Service
-	WHERE ID  = @id
-END
-GO
 CREATE PROC USP_LoadFullService
 AS
 SELECT Service.ID, Service.Name, Price, ServiceType.Name AS [nameServiceType], IDServiceType
 FROM dbo.Service INNER JOIN dbo.ServiceType ON ServiceType.ID = Service.IDServiceType
 GO
-------------------------
+--------------------------------------------------------------
+
 --Room
-------------------------
-ALTER PROC USP_LoadFullRoom
+--------------------------------------------------------------
+
+CREATE PROC USP_LoadFullRoom
 AS
 SELECT Room.ID, Room.Name,RoomType.Name AS [nameRoomType], Price, LimitPerson,
 StatusRoom.Name AS [nameStatusRoom], IDRoomType, IDStatusRoom
@@ -442,9 +428,11 @@ SET
 	Name = @nameRoom, IDRoomType = @idRoomType, IDStatusRoom = @idStatusRoom
 WHERE ID = @id
 go
-------------------------
+--------------------------------------------------------------
+
 --Room Type
-------------------------
+--------------------------------------------------------------
+
 CREATE PROC USP_LoadFullRoomType
 AS
 SELECT * FROM dbo.RoomType
@@ -462,40 +450,18 @@ AS
     name = @name, Price = @price, LimitPerson = @limitPerson
 	WHERE id =@id
 go
--------------------------
+--------------------------------------------------------------
+
 --Status Room
--------------------------
-CREATE PROC USP_InsertStatusRoom
-@name NVARCHAR(100)
-AS
-INSERT INTO statusroom(name) VALUES(@name)
-GO
-CREATE proc USP_UpdateStatusRoom
-@id INT, @name NVARCHAR(100)
-AS
-BEGIN
-	UPDATE dbo.StatusRoom
-	SET
-	name = @name
-	WHERE
-	id = @id
-END
-GO
-CREATE PROC USP_DeleteStatusRoom
-@id INT
-AS
-BEGIN
-	DELETE FROM dbo.StatusRoom
-	WHERE ID = @id
-END
-GO
+--------------------------------------------------------------
 CREATE PROC USP_LoadFullStatusRoom
 AS
 SELECT * FROM dbo.StatusRoom
 GO
--------------------------
+--------------------------------------------------------------
 --Surcharge
--------------------------
+--------------------------------------------------------------
+
 GO
 --CREATE PROC USP_InsertSurcharge
 --@name NVARCHAR(200), @value FLOAT, @describe NVARCHAR(200)
@@ -521,16 +487,17 @@ GO
 --	WHERE Name = @name
 --END
 GO
-------------------------
+--------------------------------------------------------------
 --Customer
-------------------------
+--------------------------------------------------------------
+
 CREATE PROC USP_LoadFullCustomer
 AS
-SELECT TOP(100) Customer.Name, IDCard, CustomerType.Name as [NameCustomerType], Sex, DateOfBirth, PhoneNumber, Address, Nationality, IDCustomerType 
+SELECT TOP(100) CUSTOMER.ID, Customer.Name, IDCard, CustomerType.Name as [NameCustomerType], Sex, DateOfBirth, PhoneNumber, Address, Nationality, IDCustomerType 
 FROM dbo.Customer INNER JOIN dbo.CustomerType ON CustomerType.ID = Customer.IDCustomerType
 GO
 CREATE PROC USP_InsertCustomer
-@customerName NVARCHAR(100), @idCustomerType int, @idCard int,
+@customerName NVARCHAR(100), @idCustomerType int, @idCard NVARCHAR(100),
 @address NVARCHAR(200), @dateOfBirth date, @phoneNumber int,
 @sex NVARCHAR(100), @nationality NVARCHAR(100)
 AS
@@ -542,10 +509,10 @@ INSERT INTO dbo.Customer(IDCard,IDCustomerType, Name, DateOfBirth, Address, Phon
 	VALUES(@idCard, @idCustomerType, @customerName, @dateOfBirth, @address, @phoneNumber, @sex, @nationality)
 end
 GO
+--------------------------------------
 CREATE PROC USP_UpdateCustomer
-@customerName NVARCHAR(100), @idCustomerType int, @idCardNow int, @address NVARCHAR(200),
-@dateOfBirth date, @phoneNumber int, @sex NVARCHAR(100), @nationality NVARCHAR(100),
-@idCardPre int
+@id INT, @customerName NVARCHAR(100), @idCustomerType int, @idCardNow NVARCHAR(100), @address NVARCHAR(200),
+@dateOfBirth date, @phoneNumber int, @sex NVARCHAR(100), @nationality NVARCHAR(100), @idCardPre NVARCHAR(100)
 AS
 BEGIN
 	IF(@idCardPre != @idCardNow)
@@ -561,23 +528,26 @@ BEGIN
 			Name =@customerName, IDCustomerType = @idCustomerType, IDCard =@idCardNow,
 			Address = @address, DateOfBirth =@dateOfBirth, PhoneNumber =@phoneNumber,
 			Nationality = @nationality, Sex = @sex
-			WHERE IDCard = @idCardPre
+			WHERE ID = @id
 		END
 	END
 	ELSE
 	BEGIN
 		UPDATE dbo.Customer 
 			SET 
-			Name =@customerName, IDCustomerType = @idCustomerType, IDCard =@idCardNow,
-			Address = @address, DateOfBirth =@dateOfBirth, PhoneNumber =@phoneNumber,
+			Name =@customerName, IDCustomerType = @idCustomerType,Address = @address,
+			DateOfBirth =@dateOfBirth, PhoneNumber =@phoneNumber,
 			Nationality = @nationality, Sex = @sex
-			WHERE IDCard = @idCardPre
+			WHERE ID = @id
 	end
 END
+----------------------------------
 go
-------------------------
+--------------------------------------------------------------
+
 --Customer Type
-------------------------
+--------------------------------------------------------------
+
 CREATE PROC USP_LoadFullCustomerType
 AS
 SELECT * FROM dbo.CustomerType

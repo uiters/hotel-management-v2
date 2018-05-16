@@ -41,7 +41,10 @@ namespace HotelManager
             _fRoomtType.ShowDialog();
             this.LoadFullRoom();
             comboBoxRoomType.DataSource = _fRoomtType.TableRoomType;
-            //comboBoxRoomType.Refresh();
+            txbPrice.DataBindings.Clear();
+            txbLimitPerson.DataBindings.Clear();
+            txbPrice.DataBindings.Add(new Binding("Text", comboBoxRoomType.DataSource, "price"));
+            txbLimitPerson.DataBindings.Add(new Binding("Text", comboBoxRoomType.DataSource, "limitPerson"));
             this.Show();
         }
         private void BtnCLose1_Click(object sender, EventArgs e)
@@ -119,8 +122,8 @@ namespace HotelManager
             if (table.Rows.Count > 0)
                 comboBoxRoomType.SelectedIndex = 0;
             _fRoomtType = new fRoomType(table);
-            txbPrice.DataBindings.Add(new Binding("Text", table, "price"));
-            txbLimitPerson.DataBindings.Add(new Binding("Text", table, "limitPerson"));
+            txbPrice.DataBindings.Add(new Binding("Text", comboBoxRoomType.DataSource, "price"));
+            txbLimitPerson.DataBindings.Add(new Binding("Text", comboBoxRoomType.DataSource, "limitPerson"));
         }
         #endregion
 

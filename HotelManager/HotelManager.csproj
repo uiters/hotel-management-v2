@@ -165,11 +165,11 @@
     <Compile Include="fStaff.Designer.cs">
       <DependentUpon>fStaff.cs</DependentUpon>
     </Compile>
-    <Compile Include="fStaffType.cs">
+    <Compile Include="fSurcharge.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="fStaffType.Designer.cs">
-      <DependentUpon>fStaffType.cs</DependentUpon>
+    <Compile Include="fSurcharge.Designer.cs">
+      <DependentUpon>fSurcharge.cs</DependentUpon>
     </Compile>
     <Compile Include="fUseService.cs">
       <SubType>Form</SubType>
@@ -215,8 +215,8 @@
     <EmbeddedResource Include="fStaff.resx">
       <DependentUpon>fStaff.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="fStaffType.resx">
-      <DependentUpon>fStaffType.cs</DependentUpon>
+    <EmbeddedResource Include="fSurcharge.resx">
+      <DependentUpon>fSurcharge.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fUseService.resx">
       <DependentUpon>fUseService.cs</DependentUpon>

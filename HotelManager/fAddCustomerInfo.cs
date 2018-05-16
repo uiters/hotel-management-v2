@@ -34,7 +34,7 @@ namespace HotelManager
         {
             return CustomerDAO.Instance.CheckIDCardExists(idCard);
         }
-        public bool InsertCustomer(string customerName, int idCustomerType, int idCard, string address, DateTime dateOfBirth, int phoneNumber, string sex, string nationality)
+        public bool InsertCustomer(string customerName, int idCustomerType, string idCard, string address, DateTime dateOfBirth, int phoneNumber, string sex, string nationality)
         {
             return CustomerDAO.Instance.InsertCustomer(customerName, idCustomerType, idCard, address,dateOfBirth, phoneNumber, sex, nationality);
         }

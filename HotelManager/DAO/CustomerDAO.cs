@@ -18,7 +18,7 @@ namespace HotelManager.DAO
             return data.Rows.Count > 0;
         }
 
-        public bool InsertCustomer(string customerName ,int idCustomerType ,int idCard ,string address,DateTime dateOfBirth ,int phoneNumber ,string sex ,string nationality)
+        public bool InsertCustomer(string customerName ,int idCustomerType ,string idCard ,string address,DateTime dateOfBirth ,int phoneNumber ,string sex ,string nationality)
         {
             string query = "exec USP_InsertCustomer @customerName , @idCustomerType , @idCard , @address , @dateOfBirth , @phoneNumber , @sex , @nationality";
             int count = DataProvider.Instance.ExecuteNoneQuery(query, new object[] { customerName, idCustomerType, idCard, address,dateOfBirth, phoneNumber, sex, nationality });
@@ -43,10 +43,10 @@ namespace HotelManager.DAO
         }
         public bool UpdateCustomer(Customer customerNow, Customer customerPre)
         {
-            string query = "USP_UpdateCustomer @customerName , @idCustomerType ," +
+            string query = "USP_UpdateCustomer @id , @customerName , @idCustomerType ," +
                             " @idCardNow , @address , @dateOfBirth , " +
                             "@phoneNumber , @sex , @nationality , @idCardPre";
-            object[] parameter = new object[] {customerNow.CustomerName, customerNow.IdCustomerType, customerNow.IdCard,
+            object[] parameter = new object[] {customerNow.Id, customerNow.CustomerName, customerNow.IdCustomerType, customerNow.IdCard,
                                     customerNow.Address, customerNow.DateOfBirth, customerNow.PhoneNumber,
                                     customerNow.Sex, customerNow.Nationality, customerPre.IdCard};
             return DataProvider.Instance.ExecuteNoneQuery(query, parameter) > 0;

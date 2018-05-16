@@ -106,9 +106,9 @@
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.ForeColor = System.Drawing.Color.SeaGreen;
-            this.groupBox3.Location = new System.Drawing.Point(15, 65);
+            this.groupBox3.Location = new System.Drawing.Point(12, 65);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(220, 140);
+            this.groupBox3.Size = new System.Drawing.Size(223, 140);
             this.groupBox3.TabIndex = 45;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Tìm kiếm";
@@ -175,9 +175,9 @@
             this.groupServiceType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupServiceType.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupServiceType.ForeColor = System.Drawing.Color.SeaGreen;
-            this.groupServiceType.Location = new System.Drawing.Point(15, 213);
+            this.groupServiceType.Location = new System.Drawing.Point(12, 213);
             this.groupServiceType.Name = "groupServiceType";
-            this.groupServiceType.Size = new System.Drawing.Size(220, 164);
+            this.groupServiceType.Size = new System.Drawing.Size(223, 164);
             this.groupServiceType.TabIndex = 46;
             this.groupServiceType.TabStop = false;
             this.groupServiceType.Text = "Thông tin loại dịch vụ";

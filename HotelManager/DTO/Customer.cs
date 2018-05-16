@@ -9,7 +9,8 @@ namespace HotelManager.DTO
 {
     public class Customer
     {
-        private int idCard;
+        private int id;
+        private string idCard;
         private int idCustomerType;
         private string customerName;
         private DateTime dateOfBirth;
@@ -21,7 +22,7 @@ namespace HotelManager.DTO
         {
 
         }
-        public Customer(int idCard, string customerName, int idCustomerType , string address, int phoneNumber, string sex, string nationality, DateTime dateOfBirth)
+        public Customer(int id, string idCard, string customerName, int idCustomerType , string address, int phoneNumber, string sex, string nationality, DateTime dateOfBirth)
         {
             this.CustomerName = customerName;
             this.IdCustomerType = idCustomerType;
@@ -34,7 +35,8 @@ namespace HotelManager.DTO
         }
         public Customer(DataRow row)
         {
-            this.IdCard = (int)row["IDCard"];
+            this.Id = (int)row["id"];
+            this.IdCard = (string)row["IDCard"];
             this.IdCustomerType = (int)row["IDCustomerType"];
             this.CustomerName = row["Name"].ToString();
             this.DateOfBirth = (DateTime)row["DateOfBirth"];
@@ -71,8 +73,9 @@ namespace HotelManager.DTO
         public int PhoneNumber { get => phoneNumber; set => phoneNumber = value; }
         public string Sex { get => sex; set => sex = value; }
         public string Nationality { get => nationality; set => nationality = value; }
-        public int IdCard { get => idCard; set => idCard = value; }
+        public string IdCard { get => idCard; set => idCard = value; }
         public DateTime DateOfBirth { get => dateOfBirth; set => dateOfBirth = value; }
         public int IdCustomerType { get => idCustomerType; set => idCustomerType = value; }
+        public int Id { get => id; set => id = value; }
     }
 }

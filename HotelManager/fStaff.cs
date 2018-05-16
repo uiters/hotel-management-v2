@@ -1,13 +1,7 @@
 ﻿using HotelManager.DAO;
 using HotelManager.DTO;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace HotelManager
@@ -15,9 +9,7 @@ namespace HotelManager
     public partial class fStaff : Form
     {
         #region Properties
-        fStaffType staffType;
         #endregion
-
 
         #region Constructor
         public fStaff()
@@ -28,21 +20,12 @@ namespace HotelManager
         }
         #endregion
 
-
         #region Click
-        private void btnClose_Click(object sender, EventArgs e)
+        private void BtnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-        private void btnRoomType_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            staffType.ShowDialog();
-            comboBoxStaffType.DataSource = staffType.tableStaffType;
-            LoadFullStaff();
-            this.Show();
-        }
-        private void btnInsert_Click(object sender, EventArgs e)
+        private void BtnInsert_Click(object sender, EventArgs e)
         {
             DialogResult result = MetroFramework.MetroMessageBox.Show(this, "Bạn có muốn thêm nhân viên mới không?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
             if (result == DialogResult.OK)
@@ -59,7 +42,7 @@ namespace HotelManager
                 }
             }
         }
-        private void btnUpdate_Click(object sender, EventArgs e)
+        private void BtnUpdate_Click(object sender, EventArgs e)
         {
             DialogResult result = MetroFramework.MetroMessageBox.Show(this, "Bạn có muốn cập nhật nhân viên này không?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
             if (result == DialogResult.OK)
@@ -161,7 +144,6 @@ namespace HotelManager
             comboBoxStaffType.DisplayMember = "Name";
             if (table.Rows.Count > 0)
                 comboBoxStaffType.SelectedIndex = 0;
-            staffType = new fStaffType(table);
         }
         #endregion
 
@@ -182,7 +164,7 @@ namespace HotelManager
             int index = comboBoxStaffType.SelectedIndex;
             account.IdStaffType = (int)((DataTable)comboBoxStaffType.DataSource).Rows[index]["id"];
             account.DisplayName = txbName.Text;
-            account.IdCard = int.Parse(txbIDcard.Text);
+            account.IdCard = txbIDcard.Text;
             account.Sex = comboBoxSex.Text;
             account.DateOfBirth = datepickerDateOfBirth.Value;
             account.PhoneNumber = int.Parse(txbPhoneNumber.Text);
@@ -193,12 +175,7 @@ namespace HotelManager
         #endregion
 
         #region Check isDigit
-        private void txbIDcard_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!Char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
-                e.Handled = true;
-        }
-        private void txbPhoneNumber_KeyPress(object sender, KeyPressEventArgs e)
+        private void TxbPhoneNumber_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!Char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
                 e.Handled = true;
@@ -257,9 +234,7 @@ namespace HotelManager
                 //bindingNavigatorMovePreviousItem.Enabled = true;
             }
         }
-        #endregion
-
-        private void dataGridStaffType_SelectionChanged(object sender, EventArgs e)
+        private void DataGridStaffType_SelectionChanged(object sender, EventArgs e)
         {
             if (dataGridStaff.SelectedRows.Count > 0)
             {
@@ -267,5 +242,7 @@ namespace HotelManager
                 ChangeText(row);
             }
         }
+
+        #endregion
     }
 }
