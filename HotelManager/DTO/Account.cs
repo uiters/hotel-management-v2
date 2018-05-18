@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HotelManager.DTO
 {
@@ -52,7 +48,6 @@ namespace HotelManager.DTO
         {
             this.UserName = row["UserName"].ToString();
             this.DisplayName = row["DisplayName"].ToString();
-            this.PassWord = row["PassWord"].ToString();
             this.idStaffType = (int)row["IDStaffType"];
             this.DateOfBirth = (DateTime)row["DateOfBirth"];
             this.Sex = row["Sex"].ToString();
@@ -60,15 +55,18 @@ namespace HotelManager.DTO
             this.PhoneNumber = (int)row["PhoneNumber"];
             this.StartDay = (DateTime)row["StartDay"];
             this.IdCard = (string)row["idCard"];
+            this.PassWord = row["PassWord"].ToString();
+
         }
         #endregion
 
         #region Method
         public bool Equals(Account accountPre)
         {
-            if (accountPre == null) return false;
+            if (accountPre == null)
+                return false;
+            if (userName != accountPre.userName) return false;
             if (displayName != accountPre.displayName) return false;
-            if (passWord != accountPre.passWord) return false;
             if (idStaffType != accountPre.idStaffType) return false;
             if (idCard != accountPre.idCard) return false;
             if (dateOfBirth != accountPre.dateOfBirth) return false;

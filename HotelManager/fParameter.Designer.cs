@@ -1,6 +1,6 @@
 ﻿namespace HotelManager
 {
-    partial class fSurcharge
+    partial class fParameter
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fSurcharge));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fParameter));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -39,7 +39,7 @@
             this.btnCLose1 = new Bunifu.Framework.UI.BunifuThinButton2();
             this.btnUpdate = new Bunifu.Framework.UI.BunifuThinButton2();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.dataGridViewSurcharge = new System.Windows.Forms.DataGridView();
+            this.dataGridViewParameter = new System.Windows.Forms.DataGridView();
             this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colDescribe = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -59,23 +59,24 @@
             this.btnSearch = new Bunifu.Framework.UI.BunifuThinButton2();
             this.txbSreach = new Bunifu.Framework.UI.BunifuMetroTextbox();
             this.label5 = new System.Windows.Forms.Label();
-            this.groupSurcharge = new System.Windows.Forms.GroupBox();
+            this.groupParameter = new System.Windows.Forms.GroupBox();
+            this.comboboxName = new MetroFramework.Controls.MetroComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txbDescribe = new Bunifu.Framework.UI.BunifuMetroTextbox();
             this.label1 = new System.Windows.Forms.Label();
             this.txbValue = new Bunifu.Framework.UI.BunifuMetroTextbox();
             this.label16 = new System.Windows.Forms.Label();
-            this.txbName = new Bunifu.Framework.UI.BunifuMetroTextbox();
             this.labelName = new System.Windows.Forms.Label();
             this.bunifuSeparator1 = new Bunifu.Framework.UI.BunifuSeparator();
+            this.saveParameter = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSurcharge)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewParameter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSurcharge)).BeginInit();
             this.bindingSurcharge.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.groupSurcharge.SuspendLayout();
+            this.groupParameter.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnClose
@@ -87,7 +88,7 @@
             this.btnClose.Location = new System.Drawing.Point(771, 12);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(16, 16);
-            this.btnClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.btnClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.btnClose.TabIndex = 45;
             this.btnClose.TabStop = false;
             this.btnClose.Zoom = 10;
@@ -107,7 +108,7 @@
             this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.Color.SeaGreen;
-            this.groupBox2.Location = new System.Drawing.Point(13, 451);
+            this.groupBox2.Location = new System.Drawing.Point(12, 454);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(220, 141);
             this.groupBox2.TabIndex = 68;
@@ -170,24 +171,24 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.dataGridViewSurcharge);
+            this.groupBox1.Controls.Add(this.dataGridViewParameter);
             this.groupBox1.Controls.Add(this.bindingSurcharge);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.SeaGreen;
             this.groupBox1.Location = new System.Drawing.Point(239, 72);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(549, 520);
-            this.groupBox1.TabIndex = 66;
+            this.groupBox1.Size = new System.Drawing.Size(549, 523);
+            this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Danh Sách Phụ Thu";
             // 
-            // dataGridViewSurcharge
+            // dataGridViewParameter
             // 
-            this.dataGridViewSurcharge.AllowUserToAddRows = false;
-            this.dataGridViewSurcharge.AllowUserToDeleteRows = false;
-            this.dataGridViewSurcharge.AllowUserToResizeRows = false;
-            this.dataGridViewSurcharge.BackgroundColor = System.Drawing.Color.White;
-            this.dataGridViewSurcharge.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridViewParameter.AllowUserToAddRows = false;
+            this.dataGridViewParameter.AllowUserToDeleteRows = false;
+            this.dataGridViewParameter.AllowUserToResizeRows = false;
+            this.dataGridViewParameter.BackgroundColor = System.Drawing.Color.White;
+            this.dataGridViewParameter.BorderStyle = System.Windows.Forms.BorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -195,9 +196,9 @@
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewSurcharge.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridViewSurcharge.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewSurcharge.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewParameter.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridViewParameter.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewParameter.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colName,
             this.colValue,
             this.colDescribe});
@@ -208,11 +209,11 @@
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.SeaGreen;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewSurcharge.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridViewSurcharge.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewSurcharge.Location = new System.Drawing.Point(3, 46);
-            this.dataGridViewSurcharge.Name = "dataGridViewSurcharge";
-            this.dataGridViewSurcharge.ReadOnly = true;
+            this.dataGridViewParameter.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridViewParameter.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewParameter.Location = new System.Drawing.Point(3, 46);
+            this.dataGridViewParameter.Name = "dataGridViewParameter";
+            this.dataGridViewParameter.ReadOnly = true;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -220,13 +221,13 @@
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewSurcharge.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.dataGridViewSurcharge.RowHeadersVisible = false;
-            this.dataGridViewSurcharge.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.dataGridViewSurcharge.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewSurcharge.Size = new System.Drawing.Size(543, 471);
-            this.dataGridViewSurcharge.TabIndex = 28;
-            this.dataGridViewSurcharge.SelectionChanged += new System.EventHandler(this.DataGridSurcharge_SelectionChanged);
+            this.dataGridViewParameter.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dataGridViewParameter.RowHeadersVisible = false;
+            this.dataGridViewParameter.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.dataGridViewParameter.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewParameter.Size = new System.Drawing.Size(543, 474);
+            this.dataGridViewParameter.TabIndex = 28;
+            this.dataGridViewParameter.SelectionChanged += new System.EventHandler(this.DataGridSurcharge_SelectionChanged);
             // 
             // colName
             // 
@@ -284,8 +285,9 @@
             // 
             // bindingNavigatorCountItem
             // 
+            this.bindingNavigatorCountItem.AutoSize = false;
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(35, 22);
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(40, 22);
             this.bindingNavigatorCountItem.Text = "of {0}";
             this.bindingNavigatorCountItem.ToolTipText = "Total number of items";
             // 
@@ -296,7 +298,7 @@
             this.bindingNavigatorMoveFirstItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveFirstItem.Image")));
             this.bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
             this.bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(30, 22);
+            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(40, 22);
             this.bindingNavigatorMoveFirstItem.Text = "Move first";
             // 
             // bindingNavigatorMovePreviousItem
@@ -306,7 +308,7 @@
             this.bindingNavigatorMovePreviousItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMovePreviousItem.Image")));
             this.bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
             this.bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(30, 22);
+            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(40, 22);
             this.bindingNavigatorMovePreviousItem.Text = "Move previous";
             // 
             // bindingNavigatorSeparator
@@ -319,7 +321,7 @@
             this.bindingNavigatorPositionItem.AccessibleName = "Position";
             this.bindingNavigatorPositionItem.AutoSize = false;
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
-            this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(58, 23);
+            this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(40, 22);
             this.bindingNavigatorPositionItem.Text = "0";
             this.bindingNavigatorPositionItem.ToolTipText = "Current position";
             // 
@@ -335,7 +337,7 @@
             this.bindingNavigatorMoveNextItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveNextItem.Image")));
             this.bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
             this.bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(30, 22);
+            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(40, 22);
             this.bindingNavigatorMoveNextItem.Text = "Move next";
             // 
             // bindingNavigatorMoveLastItem
@@ -345,7 +347,7 @@
             this.bindingNavigatorMoveLastItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveLastItem.Image")));
             this.bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
             this.bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(30, 22);
+            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(40, 22);
             this.bindingNavigatorMoveLastItem.Text = "Move last";
             // 
             // bindingNavigatorSeparator2
@@ -362,12 +364,15 @@
             this.btnAdd.RightToLeftAutoMirrorImage = true;
             this.btnAdd.Size = new System.Drawing.Size(40, 22);
             this.btnAdd.Text = "Add new";
+            this.btnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
             // 
             // toolStripLabel1
             // 
+            this.toolStripLabel1.AutoSize = false;
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(35, 22);
+            this.toolStripLabel1.Size = new System.Drawing.Size(40, 22);
             this.toolStripLabel1.Text = "Eport";
+            this.toolStripLabel1.Click += new System.EventHandler(this.ToolStripLabel1_Click);
             // 
             // groupBox3
             // 
@@ -379,7 +384,7 @@
             this.groupBox3.Location = new System.Drawing.Point(13, 72);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(220, 140);
-            this.groupBox3.TabIndex = 64;
+            this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Tìm kiếm";
             // 
@@ -436,23 +441,34 @@
             this.label5.TabIndex = 28;
             this.label5.Text = "Mã/Tên:";
             // 
-            // groupSurcharge
+            // groupParameter
             // 
-            this.groupSurcharge.Controls.Add(this.label2);
-            this.groupSurcharge.Controls.Add(this.txbDescribe);
-            this.groupSurcharge.Controls.Add(this.label1);
-            this.groupSurcharge.Controls.Add(this.txbValue);
-            this.groupSurcharge.Controls.Add(this.label16);
-            this.groupSurcharge.Controls.Add(this.txbName);
-            this.groupSurcharge.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupSurcharge.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupSurcharge.ForeColor = System.Drawing.Color.SeaGreen;
-            this.groupSurcharge.Location = new System.Drawing.Point(13, 220);
-            this.groupSurcharge.Name = "groupSurcharge";
-            this.groupSurcharge.Size = new System.Drawing.Size(220, 225);
-            this.groupSurcharge.TabIndex = 65;
-            this.groupSurcharge.TabStop = false;
-            this.groupSurcharge.Text = "Thông tin phụ thu";
+            this.groupParameter.Controls.Add(this.comboboxName);
+            this.groupParameter.Controls.Add(this.label2);
+            this.groupParameter.Controls.Add(this.txbDescribe);
+            this.groupParameter.Controls.Add(this.label1);
+            this.groupParameter.Controls.Add(this.txbValue);
+            this.groupParameter.Controls.Add(this.label16);
+            this.groupParameter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupParameter.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupParameter.ForeColor = System.Drawing.Color.SeaGreen;
+            this.groupParameter.Location = new System.Drawing.Point(13, 220);
+            this.groupParameter.Name = "groupParameter";
+            this.groupParameter.Size = new System.Drawing.Size(220, 228);
+            this.groupParameter.TabIndex = 1;
+            this.groupParameter.TabStop = false;
+            this.groupParameter.Text = "Thông tin phụ thu";
+            // 
+            // comboboxName
+            // 
+            this.comboboxName.FormattingEnabled = true;
+            this.comboboxName.ItemHeight = 23;
+            this.comboboxName.Location = new System.Drawing.Point(26, 43);
+            this.comboboxName.Name = "comboboxName";
+            this.comboboxName.Size = new System.Drawing.Size(175, 29);
+            this.comboboxName.Style = MetroFramework.MetroColorStyle.Green;
+            this.comboboxName.TabIndex = 47;
+            this.comboboxName.UseSelectable = true;
             // 
             // label2
             // 
@@ -479,7 +495,7 @@
             this.txbDescribe.Margin = new System.Windows.Forms.Padding(0);
             this.txbDescribe.Name = "txbDescribe";
             this.txbDescribe.Size = new System.Drawing.Size(175, 29);
-            this.txbDescribe.TabIndex = 25;
+            this.txbDescribe.TabIndex = 3;
             this.txbDescribe.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             // 
             // label1
@@ -522,25 +538,6 @@
             this.label16.TabIndex = 22;
             this.label16.Text = "Tên:";
             // 
-            // txbName
-            // 
-            this.txbName.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.txbName.BorderColorFocused = System.Drawing.Color.SeaGreen;
-            this.txbName.BorderColorIdle = System.Drawing.Color.SeaGreen;
-            this.txbName.BorderColorMouseHover = System.Drawing.Color.SeaGreen;
-            this.txbName.BorderThickness = 1;
-            this.txbName.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txbName.Enabled = false;
-            this.txbName.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txbName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.txbName.isPassword = false;
-            this.txbName.Location = new System.Drawing.Point(26, 45);
-            this.txbName.Margin = new System.Windows.Forms.Padding(0);
-            this.txbName.Name = "txbName";
-            this.txbName.Size = new System.Drawing.Size(175, 29);
-            this.txbName.TabIndex = 0;
-            this.txbName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // labelName
             // 
             this.labelName.AutoSize = true;
@@ -567,16 +564,21 @@
             this.bunifuSeparator1.Transparency = 255;
             this.bunifuSeparator1.Vertical = false;
             // 
-            // fSurcharge
+            // saveParameter
+            // 
+            this.saveParameter.FileName = "Danh sách phụ thu";
+            this.saveParameter.Filter = "Excel File(*.xls)|*.xls|Excel File (*.xlsx) |.xlsx|PDF File(*.pdf)|*.pdf";
+            // 
+            // fParameter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(800, 604);
+            this.ClientSize = new System.Drawing.Size(800, 608);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupSurcharge);
+            this.Controls.Add(this.groupParameter);
             this.Controls.Add(this.labelName);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.bunifuSeparator1);
@@ -584,20 +586,21 @@
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "fSurcharge";
+            this.Name = "fParameter";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "fSurcharge";
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSurcharge)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewParameter)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSurcharge)).EndInit();
             this.bindingSurcharge.ResumeLayout(false);
             this.bindingSurcharge.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            this.groupSurcharge.ResumeLayout(false);
-            this.groupSurcharge.PerformLayout();
+            this.groupParameter.ResumeLayout(false);
+            this.groupParameter.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -611,7 +614,7 @@
         private Bunifu.Framework.UI.BunifuThinButton2 btnCLose1;
         private Bunifu.Framework.UI.BunifuThinButton2 btnUpdate;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.DataGridView dataGridViewSurcharge;
+        private System.Windows.Forms.DataGridView dataGridViewParameter;
         private System.Windows.Forms.BindingNavigator bindingSurcharge;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveFirstItem;
@@ -628,17 +631,18 @@
         private Bunifu.Framework.UI.BunifuThinButton2 btnSearch;
         private Bunifu.Framework.UI.BunifuMetroTextbox txbSreach;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.GroupBox groupSurcharge;
+        private System.Windows.Forms.GroupBox groupParameter;
         private System.Windows.Forms.Label label2;
         private Bunifu.Framework.UI.BunifuMetroTextbox txbDescribe;
         private System.Windows.Forms.Label label1;
         private Bunifu.Framework.UI.BunifuMetroTextbox txbValue;
         private System.Windows.Forms.Label label16;
-        private Bunifu.Framework.UI.BunifuMetroTextbox txbName;
         private System.Windows.Forms.Label labelName;
         private Bunifu.Framework.UI.BunifuSeparator bunifuSeparator1;
         private System.Windows.Forms.DataGridViewTextBoxColumn colName;
         private System.Windows.Forms.DataGridViewTextBoxColumn colValue;
         private System.Windows.Forms.DataGridViewTextBoxColumn colDescribe;
+        private MetroFramework.Controls.MetroComboBox comboboxName;
+        private System.Windows.Forms.SaveFileDialog saveParameter;
     }
 }

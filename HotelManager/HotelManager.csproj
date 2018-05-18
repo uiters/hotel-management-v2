@@ -76,7 +76,7 @@
     <Compile Include="DAO\ServiceDAO.cs" />
     <Compile Include="DAO\ServiceTypeDAO.cs" />
     <Compile Include="DAO\StatusRoomDAO.cs" />
-    <Compile Include="DAO\SurchargeDAO.cs" />
+    <Compile Include="DAO\ParameterDAO.cs" />
     <Compile Include="DTO\Account.cs" />
     <Compile Include="DTO\AccountType.cs" />
     <Compile Include="DTO\Bill.cs" />
@@ -92,7 +92,7 @@
     <Compile Include="DTO\Service.cs" />
     <Compile Include="DTO\ServiceType.cs" />
     <Compile Include="DTO\StatusRoom.cs" />
-    <Compile Include="DTO\Surcharge.cs" />
+    <Compile Include="DTO\Parameter.cs" />
     <Compile Include="fAddCustomerInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -165,11 +165,11 @@
     <Compile Include="fStaff.Designer.cs">
       <DependentUpon>fStaff.cs</DependentUpon>
     </Compile>
-    <Compile Include="fSurcharge.cs">
+    <Compile Include="fParameter.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="fSurcharge.Designer.cs">
-      <DependentUpon>fSurcharge.cs</DependentUpon>
+    <Compile Include="fParameter.Designer.cs">
+      <DependentUpon>fParameter.cs</DependentUpon>
     </Compile>
     <Compile Include="fUseService.cs">
       <SubType>Form</SubType>
@@ -215,8 +215,8 @@
     <EmbeddedResource Include="fStaff.resx">
       <DependentUpon>fStaff.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="fSurcharge.resx">
-      <DependentUpon>fSurcharge.cs</DependentUpon>
+    <EmbeddedResource Include="fParameter.resx">
+      <DependentUpon>fParameter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fUseService.resx">
       <DependentUpon>fUseService.cs</DependentUpon>

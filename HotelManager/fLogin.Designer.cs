@@ -123,7 +123,7 @@
             this.txbPassWord.Name = "txbPassWord";
             this.txbPassWord.Size = new System.Drawing.Size(370, 29);
             this.txbPassWord.TabIndex = 1;
-            this.txbPassWord.Text = "12782389";
+            this.txbPassWord.Text = "123456";
             this.txbPassWord.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             // 
             // bunifuCheckbox1

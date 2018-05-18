@@ -8,31 +8,31 @@ using System.Threading.Tasks;
 
 namespace HotelManager.DAO
 {
-    public class SurchargeDAO
+    public class ParameterDAO
     {
         #region Properties
-        private static SurchargeDAO instance;
-        public static SurchargeDAO Instance { get { if (instance == null) instance = new SurchargeDAO(); return instance; } }
+        private static ParameterDAO instance;
+        public static ParameterDAO Instance { get { if (instance == null) instance = new ParameterDAO(); return instance; } }
         #endregion
 
 
 
-        public bool UpdateSurcharge(string name, double value, string describe)
+        public bool UpdateParameter(string name, double value, string describe)
         {
             string query = "exec USP_UpdateSurcharge @name , @value , @describe";
             return DataProvider.Instance.ExecuteNoneQuery(query, new Object[] { name, value, describe }) > 0;
         }
-        public bool UpdateSurcharge(Surcharge surcharge)
+        public bool UpdateParameter(Parameter surcharge)
         {
-            return UpdateSurcharge(surcharge.Name, surcharge.Value, surcharge.Describe);
+            return UpdateParameter(surcharge.Name, surcharge.Value, surcharge.Describe);
         }
 
-        public DataTable LoadFullSurcharge()
+        public DataTable LoadFullParameter()
         {
             return DataProvider.Instance.ExecuteQuery("USP_LoadFullSurcharge");
         }
 
 
-        private SurchargeDAO() { }
+        private ParameterDAO() { }
     }
 }

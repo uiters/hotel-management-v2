@@ -269,11 +269,11 @@ go
 --------------------------------------------------------------
 
 GO
-CREATE PROC USP_LoadFullStaff
+ALTER PROC USP_LoadFullStaff
 AS
 BEGIN
-	SELECT UserName, DisplayName, IDStaffType, Name,IDCard,
-			DateOfBirth, Sex,Address,PhoneNumber,StartDay
+	SELECT UserName, DisplayName, Name, IDCard,
+			DateOfBirth, Sex, PhoneNumber, StartDay, Address, IDStaffType
     FROM dbo.Staff INNER JOIN dbo.StaffType ON StaffType.ID = Staff.IDStaffType
 END
 GO
@@ -290,36 +290,24 @@ BEGIN
 	VALUES (@user, @name, @pass, @idStaffType,@idCard, @dateOfBirth, @sex, @address, @phoneNumber, @startDay)
 END
 GO
---------------------------------------------------------------
-
-ALTER PROC USP_UpdateStaff
-@user NVARCHAR(100), @name NVARCHAR(100), @pass NVARCHAR(100),
-@idStaffType INT, @idCard NVARCHAR(100), @dateOfBirth DATE, @sex NVARCHAR(100),
-@address NVARCHAR(200), @phoneNumber INT, @startDay date
+CREATE PROC USP_UpdateStaff
+@user NVARCHAR(100), @name NVARCHAR(100),@idStaffType INT,
+@idCard NVARCHAR(100), @dateOfBirth DATE, @sex NVARCHAR(100),
+@address NVARCHAR(200), @phoneNumber INT, @startDay DATE
 AS
 BEGIN
-	DECLARE @count INT =0
-	SELECT @count=COUNT(*) FROM dbo.Staff WHERE IDCard = @idCard AND UserName != @user
-	IF (@count >0) RETURN
-	IF(@pass= '')
-	BEGIN
-		UPDATE dbo.Staff	
-		SET
-		DisplayName = @name, IDStaffType = @idStaffType,
-		DateOfBirth = @dateOfBirth, sex = @sex, IDCard = @idCard,
-		Address = @address, PhoneNumber = @phoneNumber, StartDay = @startDay
-		WHERE UserName = @user
-	end
-	ELSE
-	BEGIN
-		UPDATE dbo.Staff	
-		SET
-		DisplayName = @name, IDStaffType = @idStaffType,
-		DateOfBirth = @dateOfBirth, sex = @sex, IDCard = @idCard,
-		Address = @address, PhoneNumber = @phoneNumber, StartDay = @startDay, PassWord = @pass
-		WHERE UserName = @user
-    end
+	DECLARE @count INT = 0
+	SELECT @count=COUNT(*) FROM staff
+	WHERE IDCard = @idCard AND UserName != @user
+	IF(@count = 0)
+	UPDATE dbo.STAFF
+	SET
+    displayname = @name, idstafftype = @idstafftype,
+	idcard= @idCard, DateOfBirth = @dateOfBirth, sex = @sex,
+	Address = @address, PhoneNumber = @phoneNumber, StartDay = @startDay
+	WHERE UserName = @user
 END
+--------------------------------------------------------------
 GO
 CREATE PROC USP_UpdatePassword
 @user NVARCHAR(100), @pass NVARCHAR(100)
@@ -555,3 +543,6 @@ BEGIN
     Name = @name
 	WHERE id = @id
 END
+
+
+

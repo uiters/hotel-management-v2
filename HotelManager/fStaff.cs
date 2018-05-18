@@ -9,6 +9,7 @@ namespace HotelManager
     public partial class fStaff : Form
     {
         #region Properties
+        private readonly string hassPass = "e10adc3949ba59abbe56e057f20f883e"; // password default
         #endregion
 
         #region Constructor
@@ -33,12 +34,7 @@ namespace HotelManager
 
                 if (CheckDate())
                 {
-                    if (CheckPass())
-                        InsertStaff();
-                    else
-                    {
-                        MetroFramework.MetroMessageBox.Show(this, "Nhập lại mật khẩu không chính xác", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    InsertStaff();
                 }
             }
         }
@@ -49,41 +45,98 @@ namespace HotelManager
             {
                 if (CheckDate())
                 {
-                    if (CheckPass())
-                        UpdateStaff();
-                    else
-                    {
-                        MetroFramework.MetroMessageBox.Show(this, "Nhập lại mật khẩu không chính xác", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    UpdateStaff();
                 }
             }
         }
+        private void BtnReset_Click(object sender, EventArgs e)
+        {
+            if (fCustomer.CheckFillInText(new Control[] { txbUserName }))
+            {
+                DialogResult result = MetroFramework.MetroMessageBox.Show(this, "Bạn có muốn đặt lại mật khẩu với tên đăng nhập " + txbUserName.Text + " không?", "Thông báo",
+                    MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+                if (result == DialogResult.OK)
+                {
+                    ResetPassword();
+                }
+            }
+            else
+            {
+                MetroFramework.MetroMessageBox.Show(this, "Không được để trống tên đăng nhập", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+        private void ToolStripLabel1_Click(object sender, EventArgs e)
+        {
+            if (saveStaff.ShowDialog() == DialogResult.Cancel)
+                return;
+            else
+            {
+                bool check;
+                try
+                {
+                    switch (saveStaff.FilterIndex)
+                    {
+                        case 2:
+                            check = ExportToExcel.Instance.Export(dataGridStaff, saveStaff.FileName, ModeExportToExcel.XLSX);
+                            break;
+                        case 3:
+                            check = ExportToExcel.Instance.Export(dataGridStaff, saveStaff.FileName, ModeExportToExcel.PDF);
+                            break;
+                        default:
+                            check = ExportToExcel.Instance.Export(dataGridStaff, saveStaff.FileName, ModeExportToExcel.XLS);
+                            break;
+                    }
+                    if (check)
+                        MetroFramework.MetroMessageBox.Show(this, "Xuất thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    else
+                        MetroFramework.MetroMessageBox.Show(this, "Lỗi xuất thất bại", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch
+                {
+                    MetroFramework.MetroMessageBox.Show(this, "Lỗi (Cần cài đặt Office)", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        private void BindingNavigatorAddNewItem_Click(object sender, EventArgs e)
+        {
+            txbUserName.Text = string.Empty;
+            txbName.Text = string.Empty;
+            txbIDcard.Text = string.Empty;
+            txbPhoneNumber.Text = string.Empty;
+            txbAddress.Text = string.Empty;
+        }
+
         #endregion
 
         #region Method
         private void InsertStaff()
         {
-            bool isFill = fCustomer.CheckFillInText(new Control[] { txbUserName, txbPassword, comboBoxStaffType, txbName ,
+            bool isFill = fCustomer.CheckFillInText(new Control[] { txbUserName, comboBoxStaffType, txbName ,
                                                             txbIDcard , comboBoxSex , txbPhoneNumber, txbAddress});
-            if (!isFill)
+            if (isFill)
+            {
+                try
+                {
+                    Account accountNow = GetStaffNow();
+                    accountNow.PassWord = hassPass;
+                    if (AccountDAO.Instance.InsertAccount(accountNow))
+                    {
+                        MetroFramework.MetroMessageBox.Show(this, "Thêm Thành Công\n Mật khẩu mặc đinh cho tài khảon " + txbUserName.Text +
+                            ": 123456", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        LoadFullStaff();
+
+                    }
+                    else
+                        MetroFramework.MetroMessageBox.Show(this, "Nhân Viên Đã Tồn Tại(Trùng tên đăng nhập hoặc Số CMND)", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                }
+                catch
+                {
+                    MetroFramework.MetroMessageBox.Show(this, "Lỗi Không xác định", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
             {
                 MetroFramework.MetroMessageBox.Show(this, "Không được để trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            try
-            {
-                Account accountNow = GetStaffNow();
-                if (AccountDAO.Instance.InsertAccount(accountNow))
-                {
-                    MetroFramework.MetroMessageBox.Show(this, "Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LoadFullStaff();
-                }
-                else
-                    MetroFramework.MetroMessageBox.Show(this, "Nhân Viên Đã Tồn Tại(Trùng tên đăng nhập hoặc CMND)", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            }
-            catch
-            {
-                MetroFramework.MetroMessageBox.Show(this, "Lỗi Không xác định", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void UpdateStaff()
@@ -103,7 +156,7 @@ namespace HotelManager
                     Account accountnow = GetStaffNow();
                     if (accountnow.Equals(accountPre))
                     {
-                        MetroFramework.MetroMessageBox.Show(this, "bạn chưa thay đổi dữ liệu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MetroFramework.MetroMessageBox.Show(this, "Bạn chưa thay đổi dữ liệu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     else
                     {
@@ -112,10 +165,18 @@ namespace HotelManager
                         {
                             MetroFramework.MetroMessageBox.Show(this, "Cập nhật thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             groupStaff.Tag = accountnow;
+                            int index = dataGridStaff.SelectedRows[0].Index;                      
                             LoadFullStaff();
+                            dataGridStaff.SelectedRows[0].Selected = false;
+                            dataGridStaff.Rows[index].Selected = true;
                         }
                         else
-                            MetroFramework.MetroMessageBox.Show(this, "Không thể cập nhật(Trùng số chứng minh nhân dân)", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        {
+                            if(accountnow.UserName == accountPre.UserName)
+                                MetroFramework.MetroMessageBox.Show(this, "Không thể cập nhật(Trùng số chứng minh nhân dân)", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            else
+                                MetroFramework.MetroMessageBox.Show(this, "Không thể cập nhật(Tài khoản chưa tồn tại)", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        }
                     }
                 }
                 catch
@@ -123,7 +184,24 @@ namespace HotelManager
                     MetroFramework.MetroMessageBox.Show(this, "Lỗi không xác định", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-        
+
+        }
+        private void ResetPassword()
+        {
+            try
+            {
+                bool check = AccountDAO.Instance.ResetPassword(txbUserName.Text, hassPass );
+                if (check)
+                {
+                    MetroFramework.MetroMessageBox.Show(this, "Đặt lại mật khẩu thành công\nMật khẩu mặt định là: 123456", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                    MetroFramework.MetroMessageBox.Show(this, "Không thể đặt lại mật khẩu(Tên đăng nhập chưa tồn tại)", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            catch
+            {
+                MetroFramework.MetroMessageBox.Show(this, "Lỗi không xác định", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         #endregion
 
@@ -160,7 +238,6 @@ namespace HotelManager
         {
             Account account = new Account();
             account.UserName = txbUserName.Text.ToLower();
-            account.PassWord = txbPassword.Text;
             int index = comboBoxStaffType.SelectedIndex;
             account.IdStaffType = (int)((DataTable)comboBoxStaffType.DataSource).Rows[index]["id"];
             account.DisplayName = txbName.Text;
@@ -201,9 +278,13 @@ namespace HotelManager
             }
             return true;
         }
-        private bool CheckPass()
+        private void TxbUserName_KeyPress(object sender, KeyPressEventArgs e)
         {
-            return txbPassword.Text == txbPassword2.Text;
+            if (!(char.IsLetter(e.KeyChar) || char.IsNumber(e.KeyChar) || e.KeyChar == '\b' || e.KeyChar == '.' || e.KeyChar == '-' ||
+                e.KeyChar == '_' || e.KeyChar == '@'))
+                e.Handled = true;
+            // ^ ([a - zA - Z0 - 9\.\-_ ?@] +)$
+
         }
         #endregion
 
@@ -212,11 +293,7 @@ namespace HotelManager
         {
             if (row.IsNewRow)
             {
-                bindingNavigatorMoveFirstItem.Enabled = false;
-                bindingNavigatorMovePreviousItem.Enabled = false;
                 txbUserName.Text = string.Empty;
-                txbPassword.Text = string.Empty;
-                txbPassword2.Text = string.Empty;
                 txbName.Text = string.Empty;
                 txbIDcard.Text = string.Empty;
                 txbPhoneNumber.Text = string.Empty;
@@ -224,12 +301,28 @@ namespace HotelManager
             }
             else
             {
-                //txbID.Text = row.Cells["colID"].Value.ToString();
-                //txbName.Text = row.Cells["colName"].Value.ToString();
-                //comboBoxServiceType.Text = (string)row.Cells["colNameServiceType"].Value;
-                //txbPrice.Text = row.Cells["colPrice"].Value.ToString();
-                //Service room = new Service(((DataRowView)row.DataBoundItem).Row);
-                //groupService.Tag = room;
+                txbUserName.Text = row.Cells[colUserName.Name].Value as string;
+                txbAddress.Text = row.Cells[colAddress.Name].Value as string;
+                txbName.Text = row.Cells[colname.Name].Value as string;
+                txbPhoneNumber.Text = row.Cells[colPhone.Name].Value.ToString();
+                txbIDcard.Text = row.Cells[colIDCard.Name].Value as string;
+                datepickerDateOfBirth.Text = row.Cells[colDateOfBirth.Name].Value as string;
+                datePickerStartDay.Text = row.Cells[colStartDay.Name].Value as string;
+                comboBoxSex.Text = row.Cells[colSex.Name].Value as string;
+                comboBoxStaffType.SelectedIndex =(int) row.Cells[colIDStaffType.Name].Value - 1;
+
+
+                Account staff = new Account();
+                staff.UserName= txbUserName.Text;
+                staff.Address = txbAddress.Text;
+                staff.DisplayName = txbName.Text;
+                staff.PhoneNumber = int.Parse(txbPhoneNumber.Text);
+                staff.IdCard = txbIDcard.Text;
+                staff.DateOfBirth = datepickerDateOfBirth.Value;
+                staff.StartDay = datePickerStartDay.Value;
+                staff.Sex = comboBoxSex.Text;
+                staff.IdStaffType = (int)row.Cells[colIDStaffType.Name].Value;
+                groupStaff.Tag = staff;
                 //bindingNavigatorMoveFirstItem.Enabled = true;
                 //bindingNavigatorMovePreviousItem.Enabled = true;
             }
@@ -242,7 +335,23 @@ namespace HotelManager
                 ChangeText(row);
             }
         }
-
         #endregion
+
+        #region Enter & Leave
+        private void Txb_Enter(object sender, EventArgs e)
+        {
+            Bunifu.Framework.UI.BunifuMetroTextbox textbox = sender as Bunifu.Framework.UI.BunifuMetroTextbox;
+            textbox.Tag = textbox.Text;
+        }
+        private void Txb_Leave(object sender, EventArgs e)
+        {
+            Bunifu.Framework.UI.BunifuMetroTextbox textbox = sender as Bunifu.Framework.UI.BunifuMetroTextbox;
+            if(textbox.Text == string.Empty)
+            {
+                textbox.Text = textbox.Tag as string;
+            }
+        }
+        #endregion
+
     }
 }

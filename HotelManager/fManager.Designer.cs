@@ -229,6 +229,7 @@
             this.titleManageRoom.UseSelectable = true;
             this.titleManageRoom.UseStyleColors = true;
             this.titleManageRoom.UseTileImage = true;
+            this.titleManageRoom.Click += new System.EventHandler(this.titleManageRoom_Click);
             // 
             // metroTile2
             // 
@@ -247,6 +248,7 @@
             this.metroTile2.UseSelectable = true;
             this.metroTile2.UseStyleColors = true;
             this.metroTile2.UseTileImage = true;
+            this.metroTile2.Click += new System.EventHandler(this.metroTile2_Click);
             // 
             // metroTile8
             // 
@@ -265,6 +267,7 @@
             this.metroTile8.UseSelectable = true;
             this.metroTile8.UseStyleColors = true;
             this.metroTile8.UseTileImage = true;
+            this.metroTile8.Click += new System.EventHandler(this.metroTile8_Click);
             // 
             // titlePay
             // 

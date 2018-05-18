@@ -43,7 +43,6 @@
             this.dataGridStaff = new System.Windows.Forms.DataGridView();
             this.colUserName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colIDStaffType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colNameStaffType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colIDCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colDateOfBirth = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -51,6 +50,7 @@
             this.colPhone = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colStartDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colIDStaffType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bindingStaff = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
@@ -63,19 +63,16 @@
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.groupStaff = new System.Windows.Forms.GroupBox();
-            this.label8 = new System.Windows.Forms.Label();
+            this.datePickerStartDay = new Bunifu.Framework.UI.BunifuDatepicker();
             this.label16 = new System.Windows.Forms.Label();
-            this.txbPassword = new Bunifu.Framework.UI.BunifuMetroTextbox();
-            this.txbPassword2 = new Bunifu.Framework.UI.BunifuMetroTextbox();
-            this.label15 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.txbUserName = new Bunifu.Framework.UI.BunifuMetroTextbox();
             this.comboBoxStaffType = new MetroFramework.Controls.MetroComboBox();
             this.label20 = new System.Windows.Forms.Label();
-            this.btnRoomType = new Bunifu.Framework.UI.BunifuThinButton2();
+            this.btnClose1 = new Bunifu.Framework.UI.BunifuThinButton2();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.datePickerStartDay = new Bunifu.Framework.UI.BunifuDatepicker();
-            this.label7 = new System.Windows.Forms.Label();
             this.txbAddress = new Bunifu.Framework.UI.BunifuMetroTextbox();
             this.txbPhoneNumber = new Bunifu.Framework.UI.BunifuMetroTextbox();
             this.label14 = new System.Windows.Forms.Label();
@@ -91,9 +88,10 @@
             this.label6 = new System.Windows.Forms.Label();
             this.btnInsert = new Bunifu.Framework.UI.BunifuThinButton2();
             this.btnUpdate = new Bunifu.Framework.UI.BunifuThinButton2();
-            this.bunifuThinButton22 = new Bunifu.Framework.UI.BunifuThinButton2();
+            this.btnReset = new Bunifu.Framework.UI.BunifuThinButton2();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.bunifuSeparator1 = new Bunifu.Framework.UI.BunifuSeparator();
+            this.saveStaff = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -114,7 +112,7 @@
             this.btnClose.Location = new System.Drawing.Point(1272, 12);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(16, 16);
-            this.btnClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.btnClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.btnClose.TabIndex = 28;
             this.btnClose.TabStop = false;
             this.btnClose.Zoom = 10;
@@ -202,7 +200,7 @@
             this.groupBox1.ForeColor = System.Drawing.Color.SeaGreen;
             this.groupBox1.Location = new System.Drawing.Point(453, 73);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(835, 555);
+            this.groupBox1.Size = new System.Drawing.Size(835, 501);
             this.groupBox1.TabIndex = 35;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Danh Sách Nhân Viên";
@@ -228,14 +226,14 @@
             this.dataGridStaff.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colUserName,
             this.colname,
-            this.colIDStaffType,
             this.colNameStaffType,
             this.colIDCard,
             this.colDateOfBirth,
             this.colSex,
             this.colPhone,
             this.colStartDay,
-            this.colAddress});
+            this.colAddress,
+            this.colIDStaffType});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -246,7 +244,7 @@
             this.dataGridStaff.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridStaff.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridStaff.GridColor = System.Drawing.Color.SeaGreen;
-            this.dataGridStaff.Location = new System.Drawing.Point(3, 46);
+            this.dataGridStaff.Location = new System.Drawing.Point(3, 64);
             this.dataGridStaff.Name = "dataGridStaff";
             this.dataGridStaff.ReadOnly = true;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -261,7 +259,7 @@
             this.dataGridStaff.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dataGridStaff.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.dataGridStaff.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridStaff.Size = new System.Drawing.Size(829, 506);
+            this.dataGridStaff.Size = new System.Drawing.Size(829, 434);
             this.dataGridStaff.TabIndex = 28;
             this.dataGridStaff.SelectionChanged += new System.EventHandler(this.DataGridStaffType_SelectionChanged);
             // 
@@ -282,14 +280,6 @@
             this.colname.Name = "colname";
             this.colname.ReadOnly = true;
             this.colname.Width = 53;
-            // 
-            // colIDStaffType
-            // 
-            this.colIDStaffType.DataPropertyName = "IDStaffType";
-            this.colIDStaffType.HeaderText = "";
-            this.colIDStaffType.Name = "colIDStaffType";
-            this.colIDStaffType.ReadOnly = true;
-            this.colIDStaffType.Visible = false;
             // 
             // colNameStaffType
             // 
@@ -353,6 +343,14 @@
             this.colAddress.Name = "colAddress";
             this.colAddress.ReadOnly = true;
             // 
+            // colIDStaffType
+            // 
+            this.colIDStaffType.DataPropertyName = "IDStaffType";
+            this.colIDStaffType.HeaderText = "";
+            this.colIDStaffType.Name = "colIDStaffType";
+            this.colIDStaffType.ReadOnly = true;
+            this.colIDStaffType.Visible = false;
+            // 
             // bindingStaff
             // 
             this.bindingStaff.AddNewItem = null;
@@ -369,7 +367,8 @@
             this.bindingNavigatorMoveLastItem,
             this.bindingNavigatorSeparator2,
             this.bindingNavigatorAddNewItem,
-            this.bindingNavigatorDeleteItem});
+            this.bindingNavigatorDeleteItem,
+            this.toolStripLabel1});
             this.bindingStaff.Location = new System.Drawing.Point(3, 21);
             this.bindingStaff.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.bindingStaff.MoveLastItem = this.bindingNavigatorMoveLastItem;
@@ -378,102 +377,115 @@
             this.bindingStaff.Name = "bindingStaff";
             this.bindingStaff.PositionItem = this.bindingNavigatorPositionItem;
             this.bindingStaff.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.bindingStaff.Size = new System.Drawing.Size(829, 25);
+            this.bindingStaff.Size = new System.Drawing.Size(829, 43);
             this.bindingStaff.TabIndex = 29;
             this.bindingStaff.Text = "bindingNavigator1";
             // 
             // bindingNavigatorCountItem
             // 
+            this.bindingNavigatorCountItem.AutoSize = false;
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(35, 22);
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(80, 40);
             this.bindingNavigatorCountItem.Text = "of {0}";
             this.bindingNavigatorCountItem.ToolTipText = "Total number of items";
             // 
             // bindingNavigatorMoveFirstItem
             // 
+            this.bindingNavigatorMoveFirstItem.AutoSize = false;
             this.bindingNavigatorMoveFirstItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.bindingNavigatorMoveFirstItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveFirstItem.Image")));
             this.bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
             this.bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(40, 40);
             this.bindingNavigatorMoveFirstItem.Text = "Move first";
             // 
             // bindingNavigatorMovePreviousItem
             // 
+            this.bindingNavigatorMovePreviousItem.AutoSize = false;
             this.bindingNavigatorMovePreviousItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.bindingNavigatorMovePreviousItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMovePreviousItem.Image")));
             this.bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
             this.bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(40, 40);
             this.bindingNavigatorMovePreviousItem.Text = "Move previous";
             // 
             // bindingNavigatorSeparator
             // 
             this.bindingNavigatorSeparator.Name = "bindingNavigatorSeparator";
-            this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 25);
+            this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 43);
             // 
             // bindingNavigatorPositionItem
             // 
             this.bindingNavigatorPositionItem.AccessibleName = "Position";
             this.bindingNavigatorPositionItem.AutoSize = false;
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
-            this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
+            this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(80, 40);
             this.bindingNavigatorPositionItem.Text = "0";
             this.bindingNavigatorPositionItem.ToolTipText = "Current position";
             // 
             // bindingNavigatorSeparator1
             // 
             this.bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator1";
-            this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 25);
+            this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 43);
             // 
             // bindingNavigatorMoveNextItem
             // 
+            this.bindingNavigatorMoveNextItem.AutoSize = false;
             this.bindingNavigatorMoveNextItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.bindingNavigatorMoveNextItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveNextItem.Image")));
             this.bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
             this.bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(40, 40);
             this.bindingNavigatorMoveNextItem.Text = "Move next";
             // 
             // bindingNavigatorMoveLastItem
             // 
+            this.bindingNavigatorMoveLastItem.AutoSize = false;
             this.bindingNavigatorMoveLastItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.bindingNavigatorMoveLastItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveLastItem.Image")));
             this.bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
             this.bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(40, 40);
             this.bindingNavigatorMoveLastItem.Text = "Move last";
             // 
             // bindingNavigatorSeparator2
             // 
             this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
-            this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
+            this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 43);
             // 
             // bindingNavigatorAddNewItem
             // 
+            this.bindingNavigatorAddNewItem.AutoSize = false;
             this.bindingNavigatorAddNewItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.bindingNavigatorAddNewItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorAddNewItem.Image")));
             this.bindingNavigatorAddNewItem.Name = "bindingNavigatorAddNewItem";
             this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(40, 40);
             this.bindingNavigatorAddNewItem.Text = "Add new";
+            this.bindingNavigatorAddNewItem.Click += new System.EventHandler(this.BindingNavigatorAddNewItem_Click);
             // 
             // bindingNavigatorDeleteItem
             // 
+            this.bindingNavigatorDeleteItem.AutoSize = false;
             this.bindingNavigatorDeleteItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.bindingNavigatorDeleteItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorDeleteItem.Image")));
             this.bindingNavigatorDeleteItem.Name = "bindingNavigatorDeleteItem";
             this.bindingNavigatorDeleteItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorDeleteItem.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorDeleteItem.Size = new System.Drawing.Size(40, 40);
             this.bindingNavigatorDeleteItem.Text = "Delete";
+            // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(40, 40);
+            this.toolStripLabel1.Text = "Export";
+            this.toolStripLabel1.Click += new System.EventHandler(this.ToolStripLabel1_Click);
             // 
             // groupStaff
             // 
-            this.groupStaff.Controls.Add(this.label8);
+            this.groupStaff.Controls.Add(this.datePickerStartDay);
             this.groupStaff.Controls.Add(this.label16);
-            this.groupStaff.Controls.Add(this.txbPassword);
-            this.groupStaff.Controls.Add(this.txbPassword2);
-            this.groupStaff.Controls.Add(this.label15);
+            this.groupStaff.Controls.Add(this.label7);
             this.groupStaff.Controls.Add(this.txbUserName);
             this.groupStaff.Controls.Add(this.comboBoxStaffType);
             this.groupStaff.Controls.Add(this.label20);
@@ -482,21 +494,25 @@
             this.groupStaff.ForeColor = System.Drawing.Color.SeaGreen;
             this.groupStaff.Location = new System.Drawing.Point(12, 235);
             this.groupStaff.Name = "groupStaff";
-            this.groupStaff.Size = new System.Drawing.Size(220, 264);
+            this.groupStaff.Size = new System.Drawing.Size(220, 209);
             this.groupStaff.TabIndex = 21;
             this.groupStaff.TabStop = false;
             this.groupStaff.Text = "Tài khoản nhân viên";
             // 
-            // label8
+            // datePickerStartDay
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.SeaGreen;
-            this.label8.Location = new System.Drawing.Point(4, 138);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(133, 20);
-            this.label8.TabIndex = 55;
-            this.label8.Text = "Nhập lại mật khẩu:";
+            this.datePickerStartDay.BackColor = System.Drawing.Color.SeaGreen;
+            this.datePickerStartDay.BorderRadius = 0;
+            this.datePickerStartDay.ForeColor = System.Drawing.Color.White;
+            this.datePickerStartDay.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.datePickerStartDay.FormatCustom = null;
+            this.datePickerStartDay.Location = new System.Drawing.Point(23, 160);
+            this.datePickerStartDay.Margin = new System.Windows.Forms.Padding(151, 445, 151, 403);
+            this.datePickerStartDay.Name = "datePickerStartDay";
+            this.datePickerStartDay.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.datePickerStartDay.Size = new System.Drawing.Size(175, 29);
+            this.datePickerStartDay.TabIndex = 59;
+            this.datePickerStartDay.Value = new System.DateTime(2018, 5, 16, 0, 0, 0, 0);
             // 
             // label16
             // 
@@ -509,50 +525,16 @@
             this.label16.TabIndex = 22;
             this.label16.Text = "Tên đăng nhập:";
             // 
-            // txbPassword
+            // label7
             // 
-            this.txbPassword.BorderColorFocused = System.Drawing.Color.SeaGreen;
-            this.txbPassword.BorderColorIdle = System.Drawing.Color.SeaGreen;
-            this.txbPassword.BorderColorMouseHover = System.Drawing.Color.SeaGreen;
-            this.txbPassword.BorderThickness = 1;
-            this.txbPassword.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txbPassword.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txbPassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.txbPassword.isPassword = true;
-            this.txbPassword.Location = new System.Drawing.Point(23, 104);
-            this.txbPassword.Margin = new System.Windows.Forms.Padding(0);
-            this.txbPassword.Name = "txbPassword";
-            this.txbPassword.Size = new System.Drawing.Size(175, 29);
-            this.txbPassword.TabIndex = 2;
-            this.txbPassword.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            // 
-            // txbPassword2
-            // 
-            this.txbPassword2.BorderColorFocused = System.Drawing.Color.SeaGreen;
-            this.txbPassword2.BorderColorIdle = System.Drawing.Color.SeaGreen;
-            this.txbPassword2.BorderColorMouseHover = System.Drawing.Color.SeaGreen;
-            this.txbPassword2.BorderThickness = 1;
-            this.txbPassword2.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txbPassword2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txbPassword2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.txbPassword2.isPassword = true;
-            this.txbPassword2.Location = new System.Drawing.Point(23, 160);
-            this.txbPassword2.Margin = new System.Windows.Forms.Padding(0);
-            this.txbPassword2.Name = "txbPassword2";
-            this.txbPassword2.Size = new System.Drawing.Size(175, 29);
-            this.txbPassword2.TabIndex = 3;
-            this.txbPassword2.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.ForeColor = System.Drawing.Color.SeaGreen;
-            this.label15.Location = new System.Drawing.Point(4, 81);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(73, 20);
-            this.label15.TabIndex = 24;
-            this.label15.Text = "Mật khẩu:";
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.SeaGreen;
+            this.label7.Location = new System.Drawing.Point(4, 137);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(104, 20);
+            this.label7.TabIndex = 60;
+            this.label7.Text = "Ngày vào làm:";
             // 
             // txbUserName
             // 
@@ -570,6 +552,9 @@
             this.txbUserName.Size = new System.Drawing.Size(175, 29);
             this.txbUserName.TabIndex = 1;
             this.txbUserName.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txbUserName.Enter += new System.EventHandler(this.Txb_Enter);
+            this.txbUserName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxbUserName_KeyPress);
+            this.txbUserName.Leave += new System.EventHandler(this.Txb_Leave);
             // 
             // comboBoxStaffType
             // 
@@ -578,7 +563,7 @@
             this.comboBoxStaffType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.comboBoxStaffType.FormattingEnabled = true;
             this.comboBoxStaffType.ItemHeight = 23;
-            this.comboBoxStaffType.Location = new System.Drawing.Point(23, 216);
+            this.comboBoxStaffType.Location = new System.Drawing.Point(23, 104);
             this.comboBoxStaffType.Name = "comboBoxStaffType";
             this.comboBoxStaffType.Size = new System.Drawing.Size(175, 29);
             this.comboBoxStaffType.Style = MetroFramework.MetroColorStyle.Green;
@@ -593,42 +578,41 @@
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label20.ForeColor = System.Drawing.Color.SeaGreen;
-            this.label20.Location = new System.Drawing.Point(4, 195);
+            this.label20.Location = new System.Drawing.Point(4, 81);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(107, 20);
             this.label20.TabIndex = 52;
             this.label20.Text = "Loại nhân viên:";
             // 
-            // btnRoomType
+            // btnClose1
             // 
-            this.btnRoomType.ActiveBorderThickness = 1;
-            this.btnRoomType.ActiveCornerRadius = 20;
-            this.btnRoomType.ActiveFillColor = System.Drawing.Color.SeaGreen;
-            this.btnRoomType.ActiveForecolor = System.Drawing.Color.White;
-            this.btnRoomType.ActiveLineColor = System.Drawing.Color.SeaGreen;
-            this.btnRoomType.BackColor = System.Drawing.Color.White;
-            this.btnRoomType.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnRoomType.BackgroundImage")));
-            this.btnRoomType.ButtonText = "Đóng";
-            this.btnRoomType.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRoomType.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRoomType.ForeColor = System.Drawing.Color.SeaGreen;
-            this.btnRoomType.IdleBorderThickness = 1;
-            this.btnRoomType.IdleCornerRadius = 20;
-            this.btnRoomType.IdleFillColor = System.Drawing.Color.White;
-            this.btnRoomType.IdleForecolor = System.Drawing.Color.SeaGreen;
-            this.btnRoomType.IdleLineColor = System.Drawing.Color.SeaGreen;
-            this.btnRoomType.Location = new System.Drawing.Point(245, 75);
-            this.btnRoomType.Margin = new System.Windows.Forms.Padding(4);
-            this.btnRoomType.Name = "btnRoomType";
-            this.btnRoomType.Size = new System.Drawing.Size(175, 40);
-            this.btnRoomType.TabIndex = 53;
-            this.btnRoomType.TabStop = false;
-            this.btnRoomType.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnClose1.ActiveBorderThickness = 1;
+            this.btnClose1.ActiveCornerRadius = 20;
+            this.btnClose1.ActiveFillColor = System.Drawing.Color.SeaGreen;
+            this.btnClose1.ActiveForecolor = System.Drawing.Color.White;
+            this.btnClose1.ActiveLineColor = System.Drawing.Color.SeaGreen;
+            this.btnClose1.BackColor = System.Drawing.Color.White;
+            this.btnClose1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnClose1.BackgroundImage")));
+            this.btnClose1.ButtonText = "Đóng";
+            this.btnClose1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnClose1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClose1.ForeColor = System.Drawing.Color.SeaGreen;
+            this.btnClose1.IdleBorderThickness = 1;
+            this.btnClose1.IdleCornerRadius = 20;
+            this.btnClose1.IdleFillColor = System.Drawing.Color.White;
+            this.btnClose1.IdleForecolor = System.Drawing.Color.SeaGreen;
+            this.btnClose1.IdleLineColor = System.Drawing.Color.SeaGreen;
+            this.btnClose1.Location = new System.Drawing.Point(245, 75);
+            this.btnClose1.Margin = new System.Windows.Forms.Padding(4);
+            this.btnClose1.Name = "btnClose1";
+            this.btnClose1.Size = new System.Drawing.Size(175, 40);
+            this.btnClose1.TabIndex = 53;
+            this.btnClose1.TabStop = false;
+            this.btnClose1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnClose1.Click += new System.EventHandler(this.BtnClose_Click);
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.datePickerStartDay);
-            this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.txbAddress);
             this.groupBox2.Controls.Add(this.txbPhoneNumber);
             this.groupBox2.Controls.Add(this.label14);
@@ -646,36 +630,10 @@
             this.groupBox2.ForeColor = System.Drawing.Color.SeaGreen;
             this.groupBox2.Location = new System.Drawing.Point(238, 73);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(209, 426);
+            this.groupBox2.Size = new System.Drawing.Size(209, 371);
             this.groupBox2.TabIndex = 22;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Thông tin nhân viên";
-            // 
-            // datePickerStartDay
-            // 
-            this.datePickerStartDay.BackColor = System.Drawing.Color.SeaGreen;
-            this.datePickerStartDay.BorderRadius = 0;
-            this.datePickerStartDay.ForeColor = System.Drawing.Color.White;
-            this.datePickerStartDay.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.datePickerStartDay.FormatCustom = null;
-            this.datePickerStartDay.Location = new System.Drawing.Point(19, 378);
-            this.datePickerStartDay.Margin = new System.Windows.Forms.Padding(151, 445, 151, 403);
-            this.datePickerStartDay.Name = "datePickerStartDay";
-            this.datePickerStartDay.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.datePickerStartDay.Size = new System.Drawing.Size(175, 29);
-            this.datePickerStartDay.TabIndex = 59;
-            this.datePickerStartDay.Value = new System.DateTime(2018, 5, 16, 0, 0, 0, 0);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.SeaGreen;
-            this.label7.Location = new System.Drawing.Point(6, 355);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(104, 20);
-            this.label7.TabIndex = 60;
-            this.label7.Text = "Ngày vào làm:";
             // 
             // txbAddress
             // 
@@ -693,6 +651,8 @@
             this.txbAddress.Size = new System.Drawing.Size(175, 29);
             this.txbAddress.TabIndex = 58;
             this.txbAddress.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txbAddress.Enter += new System.EventHandler(this.Txb_Enter);
+            this.txbAddress.Leave += new System.EventHandler(this.Txb_Leave);
             // 
             // txbPhoneNumber
             // 
@@ -710,7 +670,9 @@
             this.txbPhoneNumber.Size = new System.Drawing.Size(175, 29);
             this.txbPhoneNumber.TabIndex = 8;
             this.txbPhoneNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txbPhoneNumber.Enter += new System.EventHandler(this.Txb_Enter);
             this.txbPhoneNumber.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxbPhoneNumber_KeyPress);
+            this.txbPhoneNumber.Leave += new System.EventHandler(this.Txb_Leave);
             // 
             // label14
             // 
@@ -742,7 +704,7 @@
             this.datepickerDateOfBirth.ForeColor = System.Drawing.Color.White;
             this.datepickerDateOfBirth.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.datepickerDateOfBirth.FormatCustom = null;
-            this.datepickerDateOfBirth.Location = new System.Drawing.Point(19, 210);
+            this.datepickerDateOfBirth.Location = new System.Drawing.Point(19, 209);
             this.datepickerDateOfBirth.Margin = new System.Windows.Forms.Padding(113, 289, 113, 262);
             this.datepickerDateOfBirth.Name = "datepickerDateOfBirth";
             this.datepickerDateOfBirth.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -809,6 +771,8 @@
             this.txbName.Size = new System.Drawing.Size(175, 29);
             this.txbName.TabIndex = 4;
             this.txbName.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txbName.Enter += new System.EventHandler(this.Txb_Enter);
+            this.txbName.Leave += new System.EventHandler(this.Txb_Leave);
             // 
             // label2
             // 
@@ -848,6 +812,8 @@
             this.txbIDcard.Size = new System.Drawing.Size(175, 29);
             this.txbIDcard.TabIndex = 5;
             this.txbIDcard.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txbIDcard.Enter += new System.EventHandler(this.Txb_Enter);
+            this.txbIDcard.Leave += new System.EventHandler(this.Txb_Leave);
             // 
             // label6
             // 
@@ -897,7 +863,7 @@
             this.btnUpdate.ActiveLineColor = System.Drawing.Color.SeaGreen;
             this.btnUpdate.BackColor = System.Drawing.Color.White;
             this.btnUpdate.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnUpdate.BackgroundImage")));
-            this.btnUpdate.ButtonText = "Cập Nhật Thông Tin";
+            this.btnUpdate.ButtonText = "Cập Nhật";
             this.btnUpdate.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnUpdate.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUpdate.ForeColor = System.Drawing.Color.SeaGreen;
@@ -906,7 +872,7 @@
             this.btnUpdate.IdleFillColor = System.Drawing.Color.White;
             this.btnUpdate.IdleForecolor = System.Drawing.Color.SeaGreen;
             this.btnUpdate.IdleLineColor = System.Drawing.Color.SeaGreen;
-            this.btnUpdate.Location = new System.Drawing.Point(23, 75);
+            this.btnUpdate.Location = new System.Drawing.Point(23, 22);
             this.btnUpdate.Margin = new System.Windows.Forms.Padding(4);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(175, 40);
@@ -915,42 +881,43 @@
             this.btnUpdate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.btnUpdate.Click += new System.EventHandler(this.BtnUpdate_Click);
             // 
-            // bunifuThinButton22
+            // btnReset
             // 
-            this.bunifuThinButton22.ActiveBorderThickness = 1;
-            this.bunifuThinButton22.ActiveCornerRadius = 20;
-            this.bunifuThinButton22.ActiveFillColor = System.Drawing.Color.SeaGreen;
-            this.bunifuThinButton22.ActiveForecolor = System.Drawing.Color.White;
-            this.bunifuThinButton22.ActiveLineColor = System.Drawing.Color.SeaGreen;
-            this.bunifuThinButton22.BackColor = System.Drawing.Color.White;
-            this.bunifuThinButton22.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("bunifuThinButton22.BackgroundImage")));
-            this.bunifuThinButton22.ButtonText = "Cập Nhật Tài Khoản";
-            this.bunifuThinButton22.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bunifuThinButton22.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bunifuThinButton22.ForeColor = System.Drawing.Color.SeaGreen;
-            this.bunifuThinButton22.IdleBorderThickness = 1;
-            this.bunifuThinButton22.IdleCornerRadius = 20;
-            this.bunifuThinButton22.IdleFillColor = System.Drawing.Color.White;
-            this.bunifuThinButton22.IdleForecolor = System.Drawing.Color.SeaGreen;
-            this.bunifuThinButton22.IdleLineColor = System.Drawing.Color.SeaGreen;
-            this.bunifuThinButton22.Location = new System.Drawing.Point(23, 22);
-            this.bunifuThinButton22.Margin = new System.Windows.Forms.Padding(4);
-            this.bunifuThinButton22.Name = "bunifuThinButton22";
-            this.bunifuThinButton22.Size = new System.Drawing.Size(175, 40);
-            this.bunifuThinButton22.TabIndex = 43;
-            this.bunifuThinButton22.TabStop = false;
-            this.bunifuThinButton22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnReset.ActiveBorderThickness = 1;
+            this.btnReset.ActiveCornerRadius = 20;
+            this.btnReset.ActiveFillColor = System.Drawing.Color.SeaGreen;
+            this.btnReset.ActiveForecolor = System.Drawing.Color.White;
+            this.btnReset.ActiveLineColor = System.Drawing.Color.SeaGreen;
+            this.btnReset.BackColor = System.Drawing.Color.White;
+            this.btnReset.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnReset.BackgroundImage")));
+            this.btnReset.ButtonText = "Đặt Lại Mật Khẩu";
+            this.btnReset.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnReset.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReset.ForeColor = System.Drawing.Color.SeaGreen;
+            this.btnReset.IdleBorderThickness = 1;
+            this.btnReset.IdleCornerRadius = 20;
+            this.btnReset.IdleFillColor = System.Drawing.Color.White;
+            this.btnReset.IdleForecolor = System.Drawing.Color.SeaGreen;
+            this.btnReset.IdleLineColor = System.Drawing.Color.SeaGreen;
+            this.btnReset.Location = new System.Drawing.Point(23, 75);
+            this.btnReset.Margin = new System.Windows.Forms.Padding(4);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(175, 40);
+            this.btnReset.TabIndex = 43;
+            this.btnReset.TabStop = false;
+            this.btnReset.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnReset.Click += new System.EventHandler(this.BtnReset_Click);
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.bunifuThinButton22);
+            this.groupBox4.Controls.Add(this.btnClose1);
+            this.groupBox4.Controls.Add(this.btnReset);
             this.groupBox4.Controls.Add(this.btnInsert);
-            this.groupBox4.Controls.Add(this.btnRoomType);
             this.groupBox4.Controls.Add(this.btnUpdate);
             this.groupBox4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox4.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.ForeColor = System.Drawing.Color.SeaGreen;
-            this.groupBox4.Location = new System.Drawing.Point(12, 504);
+            this.groupBox4.Location = new System.Drawing.Point(12, 450);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(435, 124);
             this.groupBox4.TabIndex = 45;
@@ -970,12 +937,17 @@
             this.bunifuSeparator1.Transparency = 255;
             this.bunifuSeparator1.Vertical = false;
             // 
+            // saveStaff
+            // 
+            this.saveStaff.FileName = "Danh sách Nhân viên";
+            this.saveStaff.Filter = "Excel File(*.xls)|*.xls|Excel File (*.xlsx) |.xlsx|PDF File(*.pdf)|*.pdf";
+            // 
             // fStaff
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1300, 637);
+            this.ClientSize = new System.Drawing.Size(1300, 586);
             this.Controls.Add(this.bunifuSeparator1);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.label6);
@@ -1006,7 +978,6 @@
             this.groupBox2.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -1035,8 +1006,6 @@
         private System.Windows.Forms.GroupBox groupStaff;
         private System.Windows.Forms.Label label16;
         private Bunifu.Framework.UI.BunifuMetroTextbox txbUserName;
-        private System.Windows.Forms.Label label15;
-        private Bunifu.Framework.UI.BunifuMetroTextbox txbPassword;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label1;
         private MetroFramework.Controls.MetroComboBox comboBoxSex;
@@ -1047,7 +1016,7 @@
         private System.Windows.Forms.Label label6;
         private Bunifu.Framework.UI.BunifuThinButton2 btnInsert;
         private Bunifu.Framework.UI.BunifuThinButton2 btnUpdate;
-        private Bunifu.Framework.UI.BunifuThinButton2 bunifuThinButton22;
+        private Bunifu.Framework.UI.BunifuThinButton2 btnReset;
         private System.Windows.Forms.GroupBox groupBox4;
         private Bunifu.Framework.UI.BunifuMetroTextbox txbAddress;
         private Bunifu.Framework.UI.BunifuMetroTextbox txbPhoneNumber;
@@ -1055,16 +1024,16 @@
         private System.Windows.Forms.Label label11;
         private Bunifu.Framework.UI.BunifuDatepicker datepickerDateOfBirth;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label8;
-        private Bunifu.Framework.UI.BunifuMetroTextbox txbPassword2;
         private Bunifu.Framework.UI.BunifuDatepicker datePickerStartDay;
         private System.Windows.Forms.Label label7;
-        private Bunifu.Framework.UI.BunifuThinButton2 btnRoomType;
+        private Bunifu.Framework.UI.BunifuThinButton2 btnClose1;
         private System.Windows.Forms.Label label20;
         private MetroFramework.Controls.MetroComboBox comboBoxStaffType;
+        private Bunifu.Framework.UI.BunifuSeparator bunifuSeparator1;
+        private System.Windows.Forms.SaveFileDialog saveStaff;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.DataGridViewTextBoxColumn colUserName;
         private System.Windows.Forms.DataGridViewTextBoxColumn colname;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colIDStaffType;
         private System.Windows.Forms.DataGridViewTextBoxColumn colNameStaffType;
         private System.Windows.Forms.DataGridViewTextBoxColumn colIDCard;
         private System.Windows.Forms.DataGridViewTextBoxColumn colDateOfBirth;
@@ -1072,6 +1041,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colPhone;
         private System.Windows.Forms.DataGridViewTextBoxColumn colStartDay;
         private System.Windows.Forms.DataGridViewTextBoxColumn colAddress;
-        private Bunifu.Framework.UI.BunifuSeparator bunifuSeparator1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colIDStaffType;
     }
 }

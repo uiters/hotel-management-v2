@@ -52,18 +52,15 @@ namespace HotelManager.DAO
         }
         public bool UpdateAccount(Account account)
         {
-            string pass = "";
-            if (account.PassWord != "")
-                pass = HashPass(account.PassWord);
-            string query = "EXEC USP_UpdateStaff @user , @name , @pass , @idStaffType , @idCard , @dateOfBirth , @sex , @address , @phoneNumber , @startDay";
-            object[] parameter = new object[] {account.UserName, account.DisplayName, pass,
-                                                account.IdStaffType, account.IdCard, account.DateOfBirth, account.Sex,
+            string query = "EXEC USP_UpdateStaff @user , @name , @idStaffType , @idCard , @dateOfBirth , @sex , @address , @phoneNumber , @startDay";
+            object[] parameter = new object[] {account.UserName, account.DisplayName, account.IdStaffType,
+                                               account.IdCard, account.DateOfBirth, account.Sex,
                                                 account.Address, account.PhoneNumber, account.StartDay};
             return DataProvider.Instance.ExecuteNoneQuery(query, parameter) > 0;
         }
-        public bool UpdatePassword(string user, string hashPass)
+        public bool ResetPassword(string user, string hashPass)
         {
-            string query = "USP_UpdatePassword @user , @hashPass)";
+            string query = "USP_UpdateAccount2 @user , @hashPass";
             return DataProvider.Instance.ExecuteNoneQuery(query, new object[] { user, hashPass }) > 0;
         }
         public bool DeleteAccount(string userName)
