@@ -199,6 +199,5 @@ namespace HotelManager
 
 
         #endregion
-
     }
 }

@@ -461,12 +461,9 @@ GO
 --------------------------------------------------------------
 --Surcharge
 --------------------------------------------------------------
-
-GO
---CREATE PROC USP_InsertSurcharge
---@name NVARCHAR(200), @value FLOAT, @describe NVARCHAR(200)
---AS
---INSERT INTO surcharge(name, Value, Describe) VALUES(@name, @value, @describe)
+CREATE PROC USP_LoadFullSurcharge
+AS
+SELECT * FROM dbo.SURCHARGE
 GO
 CREATE PROC USP_UpdateSurcharge
 @name NVARCHAR(200), @value float, @describe NVARCHAR(200)
@@ -478,15 +475,7 @@ UPDATE dbo.Surcharge
 	Describe = @describe
 	WHERE name = @name
 END
-GO
---CREATE PROC USP_DeleteSurcharge
---@name NVARCHAR(200)
---AS
---BEGIN
---	DELETE FROM dbo.Surcharge
---	WHERE Name = @name
---END
-GO
+go
 --------------------------------------------------------------
 --Customer
 --------------------------------------------------------------

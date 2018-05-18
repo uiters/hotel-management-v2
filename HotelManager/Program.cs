@@ -13,7 +13,7 @@ namespace HotelManager
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new fSurcharge());
+            Application.Run(new fService());
         }
     }
 }

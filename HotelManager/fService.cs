@@ -2,6 +2,8 @@
 using HotelManager.DTO;
 using System;
 using System.Data;
+using System.Globalization;
+using System.Text;
 using System.Windows.Forms;
 
 namespace HotelManager
@@ -19,6 +21,7 @@ namespace HotelManager
             InitializeComponent();
             LoadFullService();
             LoadFullServiceType();
+            comboboxID.DisplayMember = "id";
         }
         #endregion
 
@@ -27,9 +30,11 @@ namespace HotelManager
         {
             DataTable table = GetFullService();
             BindingSource source = new BindingSource();
+            ChangePrice(table);
             source.DataSource = table;
             dataGridViewService.DataSource = source;
             bindingService.BindingSource = source;
+            comboboxID.DataSource = source;
         }
         private void LoadFullServiceType()
         {
@@ -49,12 +54,14 @@ namespace HotelManager
             DialogResult result = MetroFramework.MetroMessageBox.Show(this, "Bạn có muốn thêm mới dịch vụ?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
             if (result == DialogResult.OK)
                 InsertService();
+            comboboxID.Focus();
         }
         private void BtnUpdate_Click(object sender, EventArgs e)
         {
             DialogResult result = MetroFramework.MetroMessageBox.Show(this, "Bạn có muốn cập nhật lại dịch vụ?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
             if (result == DialogResult.OK)
                 UpdateService();
+            comboboxID.Focus();
         }
         private void BtnClose_Click(object sender, EventArgs e)
         {
@@ -70,7 +77,6 @@ namespace HotelManager
         }
         private void BindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
-            txbID.Text = "Tự Động";
             txbName.Text = string.Empty;
             txbPrice.Text = string.Empty;
         }
@@ -119,16 +125,14 @@ namespace HotelManager
             {
                 bindingNavigatorMoveFirstItem.Enabled = false;
                 bindingNavigatorMovePreviousItem.Enabled = false;
-                txbID.Text = "Tự Động";
                 txbName.Text = string.Empty;
                 txbPrice.Text = string.Empty;
             }
             else
             {
-                txbID.Text = row.Cells["colID"].Value.ToString();
                 txbName.Text = row.Cells["colName"].Value.ToString();
                 comboBoxServiceType.SelectedIndex = (int)row.Cells["colIdServiceType"].Value - 1;
-                txbPrice.Text = row.Cells["colPrice"].Value.ToString();
+                txbPrice.Text = ((int)row.Cells[col.Name].Value).ToString("c0", CultureInfo.CreateSpecificCulture("vi-vn"));
                 Service room = new Service(((DataRowView)row.DataBoundItem).Row);
                 groupService.Tag = room;
                 bindingNavigatorMoveFirstItem.Enabled = true;
@@ -149,6 +153,7 @@ namespace HotelManager
                 {
                    MetroFramework.MetroMessageBox.Show(this, "Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LoadFullService();
+                    comboboxID.SelectedIndex = dataGridViewService.RowCount - 1;
                 }
                 else
                     MetroFramework.MetroMessageBox.Show(this, "Dịch vụ đã tồn tại", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -182,7 +187,9 @@ namespace HotelManager
                         {
                             MetroFramework.MetroMessageBox.Show(this, "Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             groupService.Tag = serviceNow;
+                            int index = dataGridViewService.SelectedRows[0].Index;
                             LoadFullService();
+                            comboboxID.SelectedIndex = index;
                         }
                         else
                             MetroFramework.MetroMessageBox.Show(this, "Dịch vụ không tồn tại", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -208,16 +215,9 @@ namespace HotelManager
         private Service GetServiceNow()
         {
             Service service = new Service();
-            try
-            {
-                service.Id = int.Parse(txbID.Text);
-            }
-            catch
-            {
-                service.Id = -1;
-            }
+            service.Id = int.Parse(comboboxID.Text);
             service.Name = txbName.Text;
-            service.Price = int.Parse(txbPrice.Text);
+            service.Price = int.Parse(StringToInt(txbPrice.Text));
             int index = comboBoxServiceType.SelectedIndex;
             service.IdServiceType = (int)((DataTable)comboBoxServiceType.DataSource).Rows[index]["id"];
             return service;
@@ -225,7 +225,7 @@ namespace HotelManager
         #endregion
 
         #region Change
-        private void dataGridViewService_SelectionChanged(object sender, EventArgs e)
+        private void DataGridViewService_SelectionChanged(object sender, EventArgs e)
         {
             if (dataGridViewService.SelectedRows.Count > 0)
             {
@@ -233,10 +233,38 @@ namespace HotelManager
                 ChangeText(row);
             }
         }
+        private void ChangePrice(DataTable table)
+        {
+            table.Columns.Add("price_New", typeof(string));
+            for (int i = 0; i < table.Rows.Count; i++)
+            {
+                table.Rows[i]["price_New"] = ((int)table.Rows[i]["price"]).ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN"));
+            }
+        }
 
-
-
-
+        private string StringToInt(string text)
+        {
+            if (text.Contains(".") || text.Contains(" "))
+            {
+                string[] vs = text.Split(new char[] { '.', ' ' });
+                StringBuilder textNow = new StringBuilder();
+                for (int i = 0; i < vs.Length - 1; i++)
+                {
+                    textNow.Append(vs[i]);
+                }
+                return textNow.ToString();
+            }
+            else return text;
+        }
+        private string IntToString(string text)
+        {
+            if (text == string.Empty)
+                return 0.ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN"));
+            if (text.Contains(".") || text.Contains(" "))
+                return text;
+            else
+                return (int.Parse(text).ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN")));
+        }
         #endregion
 
         #region Key
@@ -250,6 +278,34 @@ namespace HotelManager
 
         #endregion
 
+        #region Enter
+        private void TxbPrice_Enter(object sender, EventArgs e)
+        {
+            txbPrice.Tag = txbPrice.Text;
+            txbPrice.Text = StringToInt(txbPrice.Text);
+        }
+        private void TxbName_Enter(object sender, EventArgs e)
+        {
+            txbName.Tag = txbName.Text;
+        }
+
+        #endregion
+
+        #region Leave
+        private void TxbPrice_Leave(object sender, EventArgs e)
+        {
+            if (txbPrice.Text == string.Empty)
+                txbPrice.Text = txbPrice.Tag as string;
+            else
+                txbPrice.Text = IntToString(txbPrice.Text);
+        }
+        private void TxbName_Leave(object sender, EventArgs e)
+        {
+            if (txbName.Text == string.Empty)
+                txbName.Text = txbName.Tag as string;
+        }
+
+        #endregion
 
     }
 }

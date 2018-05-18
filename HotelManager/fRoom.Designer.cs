@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fRoom));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.bunifuDragControl1 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.btnClose = new Bunifu.Framework.UI.BunifuImageButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -40,6 +40,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.txbSreach = new Bunifu.Framework.UI.BunifuMetroTextbox();
             this.groupRoom = new System.Windows.Forms.GroupBox();
+            this.comboboxID = new MetroFramework.Controls.MetroComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
@@ -50,7 +51,6 @@
             this.comboBoxStatusRoom = new MetroFramework.Controls.MetroComboBox();
             this.txbNameRoom = new Bunifu.Framework.UI.BunifuMetroTextbox();
             this.txbPrice = new Bunifu.Framework.UI.BunifuMetroTextbox();
-            this.txbID = new Bunifu.Framework.UI.BunifuMetroTextbox();
             this.comboBoxRoomType = new MetroFramework.Controls.MetroComboBox();
             this.btnCLose1 = new Bunifu.Framework.UI.BunifuThinButton2();
             this.btnRoomType = new Bunifu.Framework.UI.BunifuThinButton2();
@@ -108,7 +108,7 @@
             this.btnClose.Location = new System.Drawing.Point(872, 12);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(16, 16);
-            this.btnClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.btnClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.btnClose.TabIndex = 27;
             this.btnClose.TabStop = false;
             this.btnClose.Zoom = 10;
@@ -183,6 +183,7 @@
             // 
             // groupRoom
             // 
+            this.groupRoom.Controls.Add(this.comboboxID);
             this.groupRoom.Controls.Add(this.label2);
             this.groupRoom.Controls.Add(this.label16);
             this.groupRoom.Controls.Add(this.label20);
@@ -193,7 +194,6 @@
             this.groupRoom.Controls.Add(this.comboBoxStatusRoom);
             this.groupRoom.Controls.Add(this.txbNameRoom);
             this.groupRoom.Controls.Add(this.txbPrice);
-            this.groupRoom.Controls.Add(this.txbID);
             this.groupRoom.Controls.Add(this.comboBoxRoomType);
             this.groupRoom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupRoom.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -205,6 +205,17 @@
             this.groupRoom.TabStop = false;
             this.groupRoom.Text = "Thông tin phòng";
             // 
+            // comboboxID
+            // 
+            this.comboboxID.FormattingEnabled = true;
+            this.comboboxID.ItemHeight = 23;
+            this.comboboxID.Location = new System.Drawing.Point(22, 44);
+            this.comboboxID.Name = "comboboxID";
+            this.comboboxID.Size = new System.Drawing.Size(175, 29);
+            this.comboboxID.Style = MetroFramework.MetroColorStyle.Green;
+            this.comboboxID.TabIndex = 46;
+            this.comboboxID.UseSelectable = true;
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -212,9 +223,9 @@
             this.label2.ForeColor = System.Drawing.Color.SeaGreen;
             this.label2.Location = new System.Drawing.Point(12, 245);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(116, 20);
+            this.label2.Size = new System.Drawing.Size(115, 20);
             this.label2.TabIndex = 45;
-            this.label2.Text = "Giới Hạn Người:";
+            this.label2.Text = "Số người tối đa:";
             // 
             // label16
             // 
@@ -323,6 +334,8 @@
             this.txbNameRoom.Size = new System.Drawing.Size(175, 29);
             this.txbNameRoom.TabIndex = 1;
             this.txbNameRoom.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txbNameRoom.Enter += new System.EventHandler(this.TxbNameRoom_Enter);
+            this.txbNameRoom.Leave += new System.EventHandler(this.TxbNameRoom_Leave);
             // 
             // txbPrice
             // 
@@ -343,26 +356,6 @@
             this.txbPrice.TabIndex = 42;
             this.txbPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             // 
-            // txbID
-            // 
-            this.txbID.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.txbID.BorderColorFocused = System.Drawing.Color.SeaGreen;
-            this.txbID.BorderColorIdle = System.Drawing.Color.SeaGreen;
-            this.txbID.BorderColorMouseHover = System.Drawing.Color.SeaGreen;
-            this.txbID.BorderThickness = 1;
-            this.txbID.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txbID.Enabled = false;
-            this.txbID.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txbID.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.txbID.isPassword = false;
-            this.txbID.Location = new System.Drawing.Point(22, 44);
-            this.txbID.Margin = new System.Windows.Forms.Padding(0);
-            this.txbID.Name = "txbID";
-            this.txbID.Size = new System.Drawing.Size(175, 29);
-            this.txbID.TabIndex = 0;
-            this.txbID.Text = "Tự Động";
-            this.txbID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // comboBoxRoomType
             // 
             this.comboBoxRoomType.BackColor = System.Drawing.Color.White;
@@ -379,6 +372,7 @@
             this.comboBoxRoomType.UseCustomForeColor = true;
             this.comboBoxRoomType.UseSelectable = true;
             this.comboBoxRoomType.UseStyleColors = true;
+            this.comboBoxRoomType.SelectedIndexChanged += new System.EventHandler(this.ComboBoxRoomType_SelectedIndexChanged);
             // 
             // btnCLose1
             // 
@@ -476,16 +470,19 @@
             // 
             // dataGridViewRoom
             // 
+            this.dataGridViewRoom.AllowUserToAddRows = false;
+            this.dataGridViewRoom.AllowUserToDeleteRows = false;
+            this.dataGridViewRoom.AllowUserToResizeRows = false;
             this.dataGridViewRoom.BackgroundColor = System.Drawing.Color.White;
             this.dataGridViewRoom.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.SeaGreen;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.SeaGreen;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewRoom.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.SeaGreen;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.SeaGreen;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewRoom.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewRoom.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewRoom.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colIDRoom,
@@ -496,27 +493,27 @@
             this.colStatus,
             this.colIdRoomType,
             this.colIdStatus});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.SeaGreen;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewRoom.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.SeaGreen;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.SeaGreen;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewRoom.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewRoom.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewRoom.GridColor = System.Drawing.Color.SeaGreen;
             this.dataGridViewRoom.Location = new System.Drawing.Point(3, 64);
             this.dataGridViewRoom.Name = "dataGridViewRoom";
             this.dataGridViewRoom.ReadOnly = true;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.SeaGreen;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.SeaGreen;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewRoom.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.SeaGreen;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.SeaGreen;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewRoom.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewRoom.RowHeadersVisible = false;
             this.dataGridViewRoom.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.dataGridViewRoom.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -527,6 +524,7 @@
             // 
             this.colIDRoom.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.colIDRoom.DataPropertyName = "id";
+            this.colIDRoom.FillWeight = 90F;
             this.colIDRoom.HeaderText = "Mã phòng";
             this.colIDRoom.Name = "colIDRoom";
             this.colIDRoom.ReadOnly = true;
@@ -548,12 +546,12 @@
             this.colNameRoomType.HeaderText = "Loại Phòng";
             this.colNameRoomType.Name = "colNameRoomType";
             this.colNameRoomType.ReadOnly = true;
-            this.colNameRoomType.Width = 98;
+            this.colNameRoomType.Width = 90;
             // 
             // colPrice
             // 
             this.colPrice.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colPrice.DataPropertyName = "price";
+            this.colPrice.DataPropertyName = "price_New";
             this.colPrice.HeaderText = "Giá";
             this.colPrice.Name = "colPrice";
             this.colPrice.ReadOnly = true;
@@ -563,10 +561,9 @@
             // 
             this.colLimitPerson.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.colLimitPerson.DataPropertyName = "limitPerson";
-            this.colLimitPerson.HeaderText = "Giới hạn người";
+            this.colLimitPerson.HeaderText = "Số người tối đa";
             this.colLimitPerson.Name = "colLimitPerson";
             this.colLimitPerson.ReadOnly = true;
-            this.colLimitPerson.Width = 109;
             // 
             // colStatus
             // 
@@ -721,10 +718,10 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.btnUpdate);
             this.groupBox2.Controls.Add(this.btnCLose1);
-            this.groupBox2.Controls.Add(this.btnAddRoom);
             this.groupBox2.Controls.Add(this.btnRoomType);
+            this.groupBox2.Controls.Add(this.btnUpdate);
+            this.groupBox2.Controls.Add(this.btnAddRoom);
             this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.Color.SeaGreen;
@@ -839,7 +836,6 @@
         private Bunifu.Framework.UI.BunifuThinButton2 btnAddRoom;
         private System.Windows.Forms.Label label16;
         private MetroFramework.Controls.MetroComboBox comboBoxRoomType;
-        private Bunifu.Framework.UI.BunifuMetroTextbox txbID;
         private MetroFramework.Controls.MetroComboBox comboBoxStatusRoom;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label20;
@@ -860,14 +856,6 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private Bunifu.Framework.UI.BunifuThinButton2 btnCLose1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colIDRoom;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colNameRoomType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colPrice;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colLimitPerson;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colStatus;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colIdRoomType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colIdStatus;
         private System.Windows.Forms.GroupBox groupBox2;
         private Bunifu.Framework.UI.BunifuThinButton2 btnUpdate;
         private System.Windows.Forms.Label label2;
@@ -877,5 +865,14 @@
         private System.Windows.Forms.Label labelName;
         private Bunifu.Framework.UI.BunifuSeparator bunifuSeparator1;
         private System.Windows.Forms.SaveFileDialog saveRoom;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colIDRoom;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colNameRoomType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colPrice;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colLimitPerson;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colStatus;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colIdRoomType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colIdStatus;
+        private MetroFramework.Controls.MetroComboBox comboboxID;
     }
 }

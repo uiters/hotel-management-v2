@@ -29,17 +29,17 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fService));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fService));
             this.bunifuDragControl1 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.groupService = new System.Windows.Forms.GroupBox();
-            this.txbID = new Bunifu.Framework.UI.BunifuMetroTextbox();
+            this.comboboxID = new MetroFramework.Controls.MetroComboBox();
+            this.comboBoxServiceType = new MetroFramework.Controls.MetroComboBox();
             this.txbName = new Bunifu.Framework.UI.BunifuMetroTextbox();
             this.txbPrice = new Bunifu.Framework.UI.BunifuMetroTextbox();
             this.label16 = new System.Windows.Forms.Label();
-            this.comboBoxServiceType = new MetroFramework.Controls.MetroComboBox();
             this.label15 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
@@ -51,11 +51,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dataGridViewService = new System.Windows.Forms.DataGridView();
-            this.colID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colNameServiceType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colIdServiceType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bindingService = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
@@ -70,11 +65,17 @@
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.btnClose = new Bunifu.Framework.UI.BunifuImageButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.btnCLose1 = new Bunifu.Framework.UI.BunifuThinButton2();
             this.btnUpdate = new Bunifu.Framework.UI.BunifuThinButton2();
+            this.btnCLose1 = new Bunifu.Framework.UI.BunifuThinButton2();
             this.label6 = new System.Windows.Forms.Label();
             this.bunifuSeparator1 = new Bunifu.Framework.UI.BunifuSeparator();
             this.saveService = new System.Windows.Forms.SaveFileDialog();
+            this.colID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colNameServiceType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colIdServiceType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupService.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -94,11 +95,11 @@
             // 
             // groupService
             // 
-            this.groupService.Controls.Add(this.txbID);
+            this.groupService.Controls.Add(this.comboboxID);
+            this.groupService.Controls.Add(this.comboBoxServiceType);
             this.groupService.Controls.Add(this.txbName);
             this.groupService.Controls.Add(this.txbPrice);
             this.groupService.Controls.Add(this.label16);
-            this.groupService.Controls.Add(this.comboBoxServiceType);
             this.groupService.Controls.Add(this.label15);
             this.groupService.Controls.Add(this.label13);
             this.groupService.Controls.Add(this.label20);
@@ -112,71 +113,16 @@
             this.groupService.TabStop = false;
             this.groupService.Text = "Thông tin dịch vụ";
             // 
-            // txbID
+            // comboboxID
             // 
-            this.txbID.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.txbID.BorderColorFocused = System.Drawing.Color.SeaGreen;
-            this.txbID.BorderColorIdle = System.Drawing.Color.SeaGreen;
-            this.txbID.BorderColorMouseHover = System.Drawing.Color.SeaGreen;
-            this.txbID.BorderThickness = 1;
-            this.txbID.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txbID.Enabled = false;
-            this.txbID.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txbID.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.txbID.isPassword = false;
-            this.txbID.Location = new System.Drawing.Point(22, 44);
-            this.txbID.Margin = new System.Windows.Forms.Padding(0);
-            this.txbID.Name = "txbID";
-            this.txbID.Size = new System.Drawing.Size(175, 29);
-            this.txbID.TabIndex = 0;
-            this.txbID.Text = "Tự Động";
-            this.txbID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // txbName
-            // 
-            this.txbName.BorderColorFocused = System.Drawing.Color.SeaGreen;
-            this.txbName.BorderColorIdle = System.Drawing.Color.SeaGreen;
-            this.txbName.BorderColorMouseHover = System.Drawing.Color.SeaGreen;
-            this.txbName.BorderThickness = 1;
-            this.txbName.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txbName.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txbName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.txbName.isPassword = false;
-            this.txbName.Location = new System.Drawing.Point(22, 104);
-            this.txbName.Margin = new System.Windows.Forms.Padding(0);
-            this.txbName.Name = "txbName";
-            this.txbName.Size = new System.Drawing.Size(175, 29);
-            this.txbName.TabIndex = 1;
-            this.txbName.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            // 
-            // txbPrice
-            // 
-            this.txbPrice.BorderColorFocused = System.Drawing.Color.SeaGreen;
-            this.txbPrice.BorderColorIdle = System.Drawing.Color.SeaGreen;
-            this.txbPrice.BorderColorMouseHover = System.Drawing.Color.SeaGreen;
-            this.txbPrice.BorderThickness = 1;
-            this.txbPrice.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txbPrice.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txbPrice.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.txbPrice.isPassword = false;
-            this.txbPrice.Location = new System.Drawing.Point(22, 224);
-            this.txbPrice.Margin = new System.Windows.Forms.Padding(0);
-            this.txbPrice.Name = "txbPrice";
-            this.txbPrice.Size = new System.Drawing.Size(175, 29);
-            this.txbPrice.TabIndex = 59;
-            this.txbPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txbPrice.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxbPrice_KeyPress);
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.ForeColor = System.Drawing.Color.SeaGreen;
-            this.label16.Location = new System.Drawing.Point(15, 21);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(84, 20);
-            this.label16.TabIndex = 22;
-            this.label16.Text = "Mã dịch vụ:";
+            this.comboboxID.FormattingEnabled = true;
+            this.comboboxID.ItemHeight = 23;
+            this.comboboxID.Location = new System.Drawing.Point(22, 44);
+            this.comboboxID.Name = "comboboxID";
+            this.comboboxID.Size = new System.Drawing.Size(175, 29);
+            this.comboboxID.Style = MetroFramework.MetroColorStyle.Green;
+            this.comboboxID.TabIndex = 60;
+            this.comboboxID.UseSelectable = true;
             // 
             // comboBoxServiceType
             // 
@@ -195,12 +141,62 @@
             this.comboBoxServiceType.UseSelectable = true;
             this.comboBoxServiceType.UseStyleColors = true;
             // 
+            // txbName
+            // 
+            this.txbName.BorderColorFocused = System.Drawing.Color.SeaGreen;
+            this.txbName.BorderColorIdle = System.Drawing.Color.SeaGreen;
+            this.txbName.BorderColorMouseHover = System.Drawing.Color.SeaGreen;
+            this.txbName.BorderThickness = 1;
+            this.txbName.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txbName.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txbName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.txbName.isPassword = false;
+            this.txbName.Location = new System.Drawing.Point(22, 104);
+            this.txbName.Margin = new System.Windows.Forms.Padding(0);
+            this.txbName.Name = "txbName";
+            this.txbName.Size = new System.Drawing.Size(175, 29);
+            this.txbName.TabIndex = 1;
+            this.txbName.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txbName.Enter += new System.EventHandler(this.TxbName_Enter);
+            this.txbName.Leave += new System.EventHandler(this.TxbName_Leave);
+            // 
+            // txbPrice
+            // 
+            this.txbPrice.BorderColorFocused = System.Drawing.Color.SeaGreen;
+            this.txbPrice.BorderColorIdle = System.Drawing.Color.SeaGreen;
+            this.txbPrice.BorderColorMouseHover = System.Drawing.Color.SeaGreen;
+            this.txbPrice.BorderThickness = 1;
+            this.txbPrice.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txbPrice.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txbPrice.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.txbPrice.isPassword = false;
+            this.txbPrice.Location = new System.Drawing.Point(22, 224);
+            this.txbPrice.Margin = new System.Windows.Forms.Padding(0);
+            this.txbPrice.Name = "txbPrice";
+            this.txbPrice.Size = new System.Drawing.Size(175, 29);
+            this.txbPrice.TabIndex = 59;
+            this.txbPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txbPrice.Enter += new System.EventHandler(this.TxbPrice_Enter);
+            this.txbPrice.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxbPrice_KeyPress);
+            this.txbPrice.Leave += new System.EventHandler(this.TxbPrice_Leave);
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.ForeColor = System.Drawing.Color.SeaGreen;
+            this.label16.Location = new System.Drawing.Point(15, 21);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(84, 20);
+            this.label16.TabIndex = 22;
+            this.label16.Text = "Mã dịch vụ:";
+            // 
             // label15
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label15.ForeColor = System.Drawing.Color.SeaGreen;
-            this.label15.Location = new System.Drawing.Point(15, 82);
+            this.label15.Location = new System.Drawing.Point(15, 81);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(86, 20);
             this.label15.TabIndex = 24;
@@ -211,7 +207,7 @@
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.ForeColor = System.Drawing.Color.SeaGreen;
-            this.label13.Location = new System.Drawing.Point(15, 204);
+            this.label13.Location = new System.Drawing.Point(15, 201);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(34, 20);
             this.label13.TabIndex = 57;
@@ -222,7 +218,7 @@
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label20.ForeColor = System.Drawing.Color.SeaGreen;
-            this.label20.Location = new System.Drawing.Point(15, 143);
+            this.label20.Location = new System.Drawing.Point(15, 141);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(91, 20);
             this.label20.TabIndex = 58;
@@ -364,6 +360,9 @@
             // 
             // dataGridViewService
             // 
+            this.dataGridViewService.AllowUserToAddRows = false;
+            this.dataGridViewService.AllowUserToDeleteRows = false;
+            this.dataGridViewService.AllowUserToResizeRows = false;
             this.dataGridViewService.BackgroundColor = System.Drawing.Color.White;
             this.dataGridViewService.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridViewService.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
@@ -380,6 +379,7 @@
             this.colID,
             this.colName,
             this.colPrice,
+            this.col,
             this.colNameServiceType,
             this.colIdServiceType});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -407,50 +407,7 @@
             this.dataGridViewService.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewService.Size = new System.Drawing.Size(547, 579);
             this.dataGridViewService.TabIndex = 28;
-            this.dataGridViewService.SelectionChanged += new System.EventHandler(this.dataGridViewService_SelectionChanged);
-            // 
-            // colID
-            // 
-            this.colID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colID.DataPropertyName = "id";
-            this.colID.HeaderText = "Mã";
-            this.colID.Name = "colID";
-            this.colID.ReadOnly = true;
-            this.colID.Width = 52;
-            // 
-            // colName
-            // 
-            this.colName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colName.DataPropertyName = "name";
-            this.colName.HeaderText = "Tên";
-            this.colName.Name = "colName";
-            this.colName.ReadOnly = true;
-            this.colName.Width = 53;
-            // 
-            // colPrice
-            // 
-            this.colPrice.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colPrice.DataPropertyName = "price";
-            this.colPrice.HeaderText = "Giá";
-            this.colPrice.Name = "colPrice";
-            this.colPrice.ReadOnly = true;
-            this.colPrice.Width = 52;
-            // 
-            // colNameServiceType
-            // 
-            this.colNameServiceType.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.colNameServiceType.DataPropertyName = "nameServiceType";
-            this.colNameServiceType.HeaderText = "Loại dịch vụ";
-            this.colNameServiceType.Name = "colNameServiceType";
-            this.colNameServiceType.ReadOnly = true;
-            // 
-            // colIdServiceType
-            // 
-            this.colIdServiceType.DataPropertyName = "idServiceType";
-            this.colIdServiceType.HeaderText = "";
-            this.colIdServiceType.Name = "colIdServiceType";
-            this.colIdServiceType.ReadOnly = true;
-            this.colIdServiceType.Visible = false;
+            this.dataGridViewService.SelectionChanged += new System.EventHandler(this.DataGridViewService_SelectionChanged);
             // 
             // bindingService
             // 
@@ -596,10 +553,10 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.btnCLose1);
-            this.groupBox2.Controls.Add(this.btnUpdate);
             this.groupBox2.Controls.Add(this.btnInsert);
+            this.groupBox2.Controls.Add(this.btnUpdate);
             this.groupBox2.Controls.Add(this.btnServiceType);
+            this.groupBox2.Controls.Add(this.btnCLose1);
             this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.Color.SeaGreen;
@@ -609,33 +566,6 @@
             this.groupBox2.TabIndex = 43;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Chức Năng";
-            // 
-            // btnCLose1
-            // 
-            this.btnCLose1.ActiveBorderThickness = 1;
-            this.btnCLose1.ActiveCornerRadius = 20;
-            this.btnCLose1.ActiveFillColor = System.Drawing.Color.SeaGreen;
-            this.btnCLose1.ActiveForecolor = System.Drawing.Color.White;
-            this.btnCLose1.ActiveLineColor = System.Drawing.Color.SeaGreen;
-            this.btnCLose1.BackColor = System.Drawing.Color.White;
-            this.btnCLose1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCLose1.BackgroundImage")));
-            this.btnCLose1.ButtonText = "Đóng";
-            this.btnCLose1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCLose1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCLose1.ForeColor = System.Drawing.Color.SeaGreen;
-            this.btnCLose1.IdleBorderThickness = 1;
-            this.btnCLose1.IdleCornerRadius = 20;
-            this.btnCLose1.IdleFillColor = System.Drawing.Color.White;
-            this.btnCLose1.IdleForecolor = System.Drawing.Color.SeaGreen;
-            this.btnCLose1.IdleLineColor = System.Drawing.Color.SeaGreen;
-            this.btnCLose1.Location = new System.Drawing.Point(22, 163);
-            this.btnCLose1.Margin = new System.Windows.Forms.Padding(4);
-            this.btnCLose1.Name = "btnCLose1";
-            this.btnCLose1.Size = new System.Drawing.Size(175, 40);
-            this.btnCLose1.TabIndex = 52;
-            this.btnCLose1.TabStop = false;
-            this.btnCLose1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.btnCLose1.Click += new System.EventHandler(this.BtnCLose1_Click);
             // 
             // btnUpdate
             // 
@@ -663,6 +593,33 @@
             this.btnUpdate.TabStop = false;
             this.btnUpdate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.btnUpdate.Click += new System.EventHandler(this.BtnUpdate_Click);
+            // 
+            // btnCLose1
+            // 
+            this.btnCLose1.ActiveBorderThickness = 1;
+            this.btnCLose1.ActiveCornerRadius = 20;
+            this.btnCLose1.ActiveFillColor = System.Drawing.Color.SeaGreen;
+            this.btnCLose1.ActiveForecolor = System.Drawing.Color.White;
+            this.btnCLose1.ActiveLineColor = System.Drawing.Color.SeaGreen;
+            this.btnCLose1.BackColor = System.Drawing.Color.White;
+            this.btnCLose1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCLose1.BackgroundImage")));
+            this.btnCLose1.ButtonText = "Đóng";
+            this.btnCLose1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCLose1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCLose1.ForeColor = System.Drawing.Color.SeaGreen;
+            this.btnCLose1.IdleBorderThickness = 1;
+            this.btnCLose1.IdleCornerRadius = 20;
+            this.btnCLose1.IdleFillColor = System.Drawing.Color.White;
+            this.btnCLose1.IdleForecolor = System.Drawing.Color.SeaGreen;
+            this.btnCLose1.IdleLineColor = System.Drawing.Color.SeaGreen;
+            this.btnCLose1.Location = new System.Drawing.Point(22, 163);
+            this.btnCLose1.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCLose1.Name = "btnCLose1";
+            this.btnCLose1.Size = new System.Drawing.Size(175, 40);
+            this.btnCLose1.TabIndex = 52;
+            this.btnCLose1.TabStop = false;
+            this.btnCLose1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnCLose1.Click += new System.EventHandler(this.BtnCLose1_Click);
             // 
             // label6
             // 
@@ -692,6 +649,57 @@
             // 
             this.saveService.FileName = "Danh sách dịch vụ";
             this.saveService.Filter = "Excel File(*.xls)|*.xls|Excel File (*.xlsx) |.xlsx|PDF File(*.pdf)|*.pdf";
+            // 
+            // colID
+            // 
+            this.colID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colID.DataPropertyName = "id";
+            this.colID.HeaderText = "Mã";
+            this.colID.Name = "colID";
+            this.colID.ReadOnly = true;
+            this.colID.Width = 52;
+            // 
+            // colName
+            // 
+            this.colName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colName.DataPropertyName = "name";
+            this.colName.HeaderText = "Tên";
+            this.colName.Name = "colName";
+            this.colName.ReadOnly = true;
+            this.colName.Width = 53;
+            // 
+            // colPrice
+            // 
+            this.colPrice.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colPrice.DataPropertyName = "price_new";
+            this.colPrice.HeaderText = "Giá";
+            this.colPrice.Name = "colPrice";
+            this.colPrice.ReadOnly = true;
+            this.colPrice.Width = 52;
+            // 
+            // col
+            // 
+            this.col.DataPropertyName = "price";
+            this.col.HeaderText = "price";
+            this.col.Name = "col";
+            this.col.ReadOnly = true;
+            this.col.Visible = false;
+            // 
+            // colNameServiceType
+            // 
+            this.colNameServiceType.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.colNameServiceType.DataPropertyName = "nameServiceType";
+            this.colNameServiceType.HeaderText = "Loại dịch vụ";
+            this.colNameServiceType.Name = "colNameServiceType";
+            this.colNameServiceType.ReadOnly = true;
+            // 
+            // colIdServiceType
+            // 
+            this.colIdServiceType.DataPropertyName = "idServiceType";
+            this.colIdServiceType.HeaderText = "";
+            this.colIdServiceType.Name = "colIdServiceType";
+            this.colIdServiceType.ReadOnly = true;
+            this.colIdServiceType.Visible = false;
             // 
             // fService
             // 
@@ -738,7 +746,6 @@
         private Bunifu.Framework.UI.BunifuThinButton2 btnServiceType;
         private Bunifu.Framework.UI.BunifuThinButton2 btnInsert;
         private System.Windows.Forms.Label label16;
-        private Bunifu.Framework.UI.BunifuMetroTextbox txbID;
         private System.Windows.Forms.Label label15;
         private Bunifu.Framework.UI.BunifuMetroTextbox txbName;
         private System.Windows.Forms.GroupBox groupBox3;
@@ -769,11 +776,13 @@
         private System.Windows.Forms.Label label20;
         private Bunifu.Framework.UI.BunifuThinButton2 btnCLose1;
         private Bunifu.Framework.UI.BunifuSeparator bunifuSeparator1;
+        private System.Windows.Forms.SaveFileDialog saveService;
+        private MetroFramework.Controls.MetroComboBox comboboxID;
         private System.Windows.Forms.DataGridViewTextBoxColumn colID;
         private System.Windows.Forms.DataGridViewTextBoxColumn colName;
         private System.Windows.Forms.DataGridViewTextBoxColumn colPrice;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col;
         private System.Windows.Forms.DataGridViewTextBoxColumn colNameServiceType;
         private System.Windows.Forms.DataGridViewTextBoxColumn colIdServiceType;
-        private System.Windows.Forms.SaveFileDialog saveService;
     }
 }

@@ -209,6 +209,9 @@
             // 
             // dataGridStaff
             // 
+            this.dataGridStaff.AllowUserToAddRows = false;
+            this.dataGridStaff.AllowUserToDeleteRows = false;
+            this.dataGridStaff.AllowUserToResizeRows = false;
             this.dataGridStaff.BackgroundColor = System.Drawing.Color.White;
             this.dataGridStaff.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridStaff.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;

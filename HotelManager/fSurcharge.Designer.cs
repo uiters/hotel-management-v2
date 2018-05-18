@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fSurcharge));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnClose = new Bunifu.Framework.UI.BunifuImageButton();
             this.bunifuDragControl1 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -40,6 +40,9 @@
             this.btnUpdate = new Bunifu.Framework.UI.BunifuThinButton2();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dataGridViewSurcharge = new System.Windows.Forms.DataGridView();
+            this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colDescribe = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bindingSurcharge = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
@@ -56,7 +59,7 @@
             this.btnSearch = new Bunifu.Framework.UI.BunifuThinButton2();
             this.txbSreach = new Bunifu.Framework.UI.BunifuMetroTextbox();
             this.label5 = new System.Windows.Forms.Label();
-            this.groupServiceType = new System.Windows.Forms.GroupBox();
+            this.groupSurcharge = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txbDescribe = new Bunifu.Framework.UI.BunifuMetroTextbox();
             this.label1 = new System.Windows.Forms.Label();
@@ -65,9 +68,6 @@
             this.txbName = new Bunifu.Framework.UI.BunifuMetroTextbox();
             this.labelName = new System.Windows.Forms.Label();
             this.bunifuSeparator1 = new Bunifu.Framework.UI.BunifuSeparator();
-            this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colDescribe = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -75,7 +75,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.bindingSurcharge)).BeginInit();
             this.bindingSurcharge.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.groupServiceType.SuspendLayout();
+            this.groupSurcharge.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnClose
@@ -183,47 +183,76 @@
             // 
             // dataGridViewSurcharge
             // 
+            this.dataGridViewSurcharge.AllowUserToAddRows = false;
+            this.dataGridViewSurcharge.AllowUserToDeleteRows = false;
+            this.dataGridViewSurcharge.AllowUserToResizeRows = false;
             this.dataGridViewSurcharge.BackgroundColor = System.Drawing.Color.White;
             this.dataGridViewSurcharge.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewSurcharge.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewSurcharge.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewSurcharge.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewSurcharge.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colName,
             this.colValue,
             this.colDescribe});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.SeaGreen;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.SeaGreen;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewSurcharge.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.SeaGreen;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.SeaGreen;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewSurcharge.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewSurcharge.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewSurcharge.Location = new System.Drawing.Point(3, 46);
             this.dataGridViewSurcharge.Name = "dataGridViewSurcharge";
             this.dataGridViewSurcharge.ReadOnly = true;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewSurcharge.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewSurcharge.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewSurcharge.RowHeadersVisible = false;
             this.dataGridViewSurcharge.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.dataGridViewSurcharge.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewSurcharge.Size = new System.Drawing.Size(543, 471);
             this.dataGridViewSurcharge.TabIndex = 28;
             this.dataGridViewSurcharge.SelectionChanged += new System.EventHandler(this.DataGridSurcharge_SelectionChanged);
+            // 
+            // colName
+            // 
+            this.colName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colName.DataPropertyName = "name";
+            this.colName.HeaderText = "Tên";
+            this.colName.Name = "colName";
+            this.colName.ReadOnly = true;
+            this.colName.Width = 53;
+            // 
+            // colValue
+            // 
+            this.colValue.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colValue.DataPropertyName = "value";
+            this.colValue.HeaderText = "Giá trị";
+            this.colValue.Name = "colValue";
+            this.colValue.ReadOnly = true;
+            this.colValue.Width = 68;
+            // 
+            // colDescribe
+            // 
+            this.colDescribe.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.colDescribe.DataPropertyName = "describe";
+            this.colDescribe.HeaderText = "Miêu tả";
+            this.colDescribe.Name = "colDescribe";
+            this.colDescribe.ReadOnly = true;
             // 
             // bindingSurcharge
             // 
@@ -407,23 +436,23 @@
             this.label5.TabIndex = 28;
             this.label5.Text = "Mã/Tên:";
             // 
-            // groupServiceType
+            // groupSurcharge
             // 
-            this.groupServiceType.Controls.Add(this.label2);
-            this.groupServiceType.Controls.Add(this.txbDescribe);
-            this.groupServiceType.Controls.Add(this.label1);
-            this.groupServiceType.Controls.Add(this.txbValue);
-            this.groupServiceType.Controls.Add(this.label16);
-            this.groupServiceType.Controls.Add(this.txbName);
-            this.groupServiceType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupServiceType.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupServiceType.ForeColor = System.Drawing.Color.SeaGreen;
-            this.groupServiceType.Location = new System.Drawing.Point(13, 220);
-            this.groupServiceType.Name = "groupServiceType";
-            this.groupServiceType.Size = new System.Drawing.Size(220, 225);
-            this.groupServiceType.TabIndex = 65;
-            this.groupServiceType.TabStop = false;
-            this.groupServiceType.Text = "Thông tin phụ thu";
+            this.groupSurcharge.Controls.Add(this.label2);
+            this.groupSurcharge.Controls.Add(this.txbDescribe);
+            this.groupSurcharge.Controls.Add(this.label1);
+            this.groupSurcharge.Controls.Add(this.txbValue);
+            this.groupSurcharge.Controls.Add(this.label16);
+            this.groupSurcharge.Controls.Add(this.txbName);
+            this.groupSurcharge.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupSurcharge.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupSurcharge.ForeColor = System.Drawing.Color.SeaGreen;
+            this.groupSurcharge.Location = new System.Drawing.Point(13, 220);
+            this.groupSurcharge.Name = "groupSurcharge";
+            this.groupSurcharge.Size = new System.Drawing.Size(220, 225);
+            this.groupSurcharge.TabIndex = 65;
+            this.groupSurcharge.TabStop = false;
+            this.groupSurcharge.Text = "Thông tin phụ thu";
             // 
             // label2
             // 
@@ -538,32 +567,6 @@
             this.bunifuSeparator1.Transparency = 255;
             this.bunifuSeparator1.Vertical = false;
             // 
-            // colName
-            // 
-            this.colName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colName.DataPropertyName = "name";
-            this.colName.HeaderText = "Tên";
-            this.colName.Name = "colName";
-            this.colName.ReadOnly = true;
-            this.colName.Width = 53;
-            // 
-            // colValue
-            // 
-            this.colValue.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colValue.DataPropertyName = "value";
-            this.colValue.HeaderText = "Giá trị";
-            this.colValue.Name = "colValue";
-            this.colValue.ReadOnly = true;
-            this.colValue.Width = 68;
-            // 
-            // colDescribe
-            // 
-            this.colDescribe.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.colDescribe.DataPropertyName = "describe";
-            this.colDescribe.HeaderText = "Miêu tả";
-            this.colDescribe.Name = "colDescribe";
-            this.colDescribe.ReadOnly = true;
-            // 
             // fSurcharge
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -573,7 +576,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupServiceType);
+            this.Controls.Add(this.groupSurcharge);
             this.Controls.Add(this.labelName);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.bunifuSeparator1);
@@ -593,8 +596,8 @@
             this.bindingSurcharge.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            this.groupServiceType.ResumeLayout(false);
-            this.groupServiceType.PerformLayout();
+            this.groupSurcharge.ResumeLayout(false);
+            this.groupSurcharge.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -625,7 +628,7 @@
         private Bunifu.Framework.UI.BunifuThinButton2 btnSearch;
         private Bunifu.Framework.UI.BunifuMetroTextbox txbSreach;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.GroupBox groupServiceType;
+        private System.Windows.Forms.GroupBox groupSurcharge;
         private System.Windows.Forms.Label label2;
         private Bunifu.Framework.UI.BunifuMetroTextbox txbDescribe;
         private System.Windows.Forms.Label label1;

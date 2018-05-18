@@ -9,7 +9,6 @@ namespace HotelManager
     {
         #region Properties
         private fCustomerType customerType;
-        private int id;
         #endregion
 
         #region Constructor
@@ -20,6 +19,7 @@ namespace HotelManager
             LoadFullCustomerType();
             comboBoxSex.SelectedIndex = 0;
             SaveCustomer.OverwritePrompt = true;
+            comboboxID.DisplayMember = "id";
         }
 
         #endregion
@@ -31,7 +31,8 @@ namespace HotelManager
             BindingSource source = new BindingSource();
             source.DataSource = table;
             dataGridViewCustomer.DataSource = source;
-            bindingCustomer.BindingSource = source;           
+            bindingCustomer.BindingSource = source;
+            comboboxID.DataSource = source;
         }
         private void LoadFullCustomerType()
         {
@@ -106,11 +107,15 @@ namespace HotelManager
             DialogResult result = MetroFramework.MetroMessageBox.Show(this, "Bạn có muốn cập nhật khách hàng này không?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
             if (result == DialogResult.OK)
                 if (CheckDate())
+                {
                     UpdateCustomer();
+                    comboboxID.Focus();
+                }
                 else
                     MetroFramework.MetroMessageBox.Show(this, "Ngày sinh phải nhỏ hơn ngày hiện tại", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
         }
+
         #endregion
 
         #region Method
@@ -137,6 +142,7 @@ namespace HotelManager
                 {
                     MetroFramework.MetroMessageBox.Show(this, "Thêm thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LoadFullCustomer();
+                    comboboxID.SelectedIndex = dataGridViewCustomer.RowCount - 1;
                 }
                 else
                     MetroFramework.MetroMessageBox.Show(this, "Khách Hàng đã tồn tại\nTrùng số chứng minh nhân dân", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -168,7 +174,9 @@ namespace HotelManager
                         {
                             MetroFramework.MetroMessageBox.Show(this, "Cập nhật thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             groupCustomer.Tag = customerNow;
+                            int index = dataGridViewCustomer.SelectedRows[0].Index;
                             LoadFullCustomer();
+                            comboboxID.SelectedIndex = index;
                         }
                         else
                             MetroFramework.MetroMessageBox.Show(this, "Khách hàng này đã tồn tại(Trùng số chứng minh nhân dân)", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -196,7 +204,6 @@ namespace HotelManager
             {
                 bindingNavigatorMoveFirstItem.Enabled = true;
                 bindingNavigatorMovePreviousItem.Enabled = true;
-                id = (int)row.Cells["colid"].Value;
                 txbFullName.Text = row.Cells["colNameCustomer"].Value.ToString();
                 txbAddress.Text = row.Cells["colAddress"].Value.ToString();
                 txbIDCard.Text = row.Cells["colIDCard"].Value.ToString();
@@ -216,7 +223,7 @@ namespace HotelManager
         private Customer GetCustomerNow()
         {
             Customer customer = new Customer();
-            customer.Id = this.id;
+            customer.Id = int.Parse(comboboxID.Text);
             customer.IdCard = txbIDCard.Text;
             int id = comboBoxCustomerType.SelectedIndex;
             customer.IdCustomerType = (int)customerType.Table.Rows[id]["id"];
@@ -262,7 +269,24 @@ namespace HotelManager
                 return false;
             else return true;
         }
+
         #endregion
 
+        #region Enter
+        private void Txb_Enter(object sender, EventArgs e)
+        {
+            Bunifu.Framework.UI.BunifuMetroTextbox text = sender as Bunifu.Framework.UI.BunifuMetroTextbox;
+            text.Tag = text.Text;
+        }
+        #endregion
+
+        #region Leave
+        private void Txb_Leave(object sender, EventArgs e)
+        {
+            Bunifu.Framework.UI.BunifuMetroTextbox text = sender as Bunifu.Framework.UI.BunifuMetroTextbox;
+            if (text.Text == string.Empty)
+                text.Text = text.Tag as string;
+        }
+        #endregion
     }
 }

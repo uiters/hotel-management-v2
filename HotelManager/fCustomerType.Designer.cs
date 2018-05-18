@@ -190,6 +190,9 @@
             // 
             // dataGridViewCustomerType
             // 
+            this.dataGridViewCustomerType.AllowUserToAddRows = false;
+            this.dataGridViewCustomerType.AllowUserToDeleteRows = false;
+            this.dataGridViewCustomerType.AllowUserToResizeRows = false;
             this.dataGridViewCustomerType.BackgroundColor = System.Drawing.Color.White;
             this.dataGridViewCustomerType.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridViewCustomerType.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;

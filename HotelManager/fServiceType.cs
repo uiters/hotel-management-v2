@@ -20,6 +20,7 @@ namespace HotelManager
                 source.DataSource = _tableSerViceType;
                 dataGridViewServiceType.DataSource = source;
                 bindingServiceType.BindingSource = source;
+                comboboxID.DataSource = source;
             }
         }
 
@@ -34,6 +35,7 @@ namespace HotelManager
         {
             InitializeComponent();
             this.TableSerViceType = table;
+            this.comboboxID.DisplayMember = "id";
         }
         #endregion
 
@@ -54,6 +56,7 @@ namespace HotelManager
             DialogResult result = MetroFramework.MetroMessageBox.Show(this, "Bạn có muốn cập nhật loại dịch vụ này không?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
             if (result == DialogResult.OK)
                 UpdateServiceType();
+            comboboxID.Focus();
         }
         private void BtnCLose1_Click(object sender, EventArgs e)
         {
@@ -64,11 +67,11 @@ namespace HotelManager
             DialogResult result = MetroFramework.MetroMessageBox.Show(this, "Bạn có muốn thêm mới loại dịch vụ không?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
             if (result == DialogResult.OK)
                 InsertServiceType();
+            comboboxID.Focus();
         }
         private void BtnAdd_Click(object sender, EventArgs e)
         {
             txbName.Text = string.Empty;
-            txbID.Text = "Tự Động";
         }
         private void ToolStripLabel1_Click(object sender, EventArgs e)
         {
@@ -110,14 +113,7 @@ namespace HotelManager
         private ServiceType GetServiceTypeNow()
         {
             ServiceType serviceType = new ServiceType();
-            try
-            {
-                serviceType.Id = int.Parse(txbID.Text);
-            }
-            catch
-            {
-                serviceType.Id = -1;
-            }
+            serviceType.Id = int.Parse(comboboxID.Text);
             serviceType.Name = txbName.Text;
             return serviceType;
         }
@@ -135,6 +131,7 @@ namespace HotelManager
                     {
                         MetroFramework.MetroMessageBox.Show(this, "Thêm thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         this.LoadFullServiceType();
+                        comboboxID.SelectedIndex = dataGridViewServiceType.RowCount -1;
                     }
                     else
                         MetroFramework.MetroMessageBox.Show(this, "Lỗi nhập dữ liệu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -170,7 +167,9 @@ namespace HotelManager
                         {
                             MetroFramework.MetroMessageBox.Show(this, "Cập nhật thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             groupServiceType.Tag = serviceTypeNow;
+                            int index = dataGridViewServiceType.SelectedRows[0].Index;
                             LoadFullServiceType();
+                            comboboxID.SelectedIndex = index;
                         }
                         else
                         {
@@ -190,12 +189,10 @@ namespace HotelManager
             {
                 bindingNavigatorMoveFirstItem.Enabled = false;
                 bindingNavigatorMovePreviousItem.Enabled = false;
-                txbID.Text = "Tự Động";
                 txbName.Text = string.Empty;
             }
             else
             {
-                txbID.Text = row.Cells["colID"].Value.ToString();
                 txbName.Text = row.Cells["colName"].Value.ToString();
                 ServiceType roomType = new ServiceType(((DataRowView)row.DataBoundItem).Row);
                 groupServiceType.Tag = roomType;

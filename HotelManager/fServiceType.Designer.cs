@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fServiceType));
             this.bunifuDragControl1 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.btnClose = new Bunifu.Framework.UI.BunifuImageButton();
@@ -43,7 +43,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txbName = new Bunifu.Framework.UI.BunifuMetroTextbox();
             this.label16 = new System.Windows.Forms.Label();
-            this.txbID = new Bunifu.Framework.UI.BunifuMetroTextbox();
             this.btnUpdateServiceType = new Bunifu.Framework.UI.BunifuThinButton2();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dataGridViewServiceType = new System.Windows.Forms.DataGridView();
@@ -67,6 +66,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnInsert = new Bunifu.Framework.UI.BunifuThinButton2();
             this.saveServiceType = new System.Windows.Forms.SaveFileDialog();
+            this.comboboxID = new MetroFramework.Controls.MetroComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupServiceType.SuspendLayout();
@@ -168,10 +168,10 @@
             // 
             // groupServiceType
             // 
+            this.groupServiceType.Controls.Add(this.comboboxID);
             this.groupServiceType.Controls.Add(this.label1);
             this.groupServiceType.Controls.Add(this.txbName);
             this.groupServiceType.Controls.Add(this.label16);
-            this.groupServiceType.Controls.Add(this.txbID);
             this.groupServiceType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupServiceType.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupServiceType.ForeColor = System.Drawing.Color.SeaGreen;
@@ -221,25 +221,6 @@
             this.label16.TabIndex = 22;
             this.label16.Text = "Mã loại dịch vụ:";
             // 
-            // txbID
-            // 
-            this.txbID.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.txbID.BorderColorFocused = System.Drawing.Color.SeaGreen;
-            this.txbID.BorderColorIdle = System.Drawing.Color.SeaGreen;
-            this.txbID.BorderColorMouseHover = System.Drawing.Color.SeaGreen;
-            this.txbID.BorderThickness = 1;
-            this.txbID.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txbID.Enabled = false;
-            this.txbID.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txbID.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.txbID.isPassword = false;
-            this.txbID.Location = new System.Drawing.Point(26, 45);
-            this.txbID.Margin = new System.Windows.Forms.Padding(0);
-            this.txbID.Name = "txbID";
-            this.txbID.Size = new System.Drawing.Size(175, 29);
-            this.txbID.TabIndex = 0;
-            this.txbID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // btnUpdateServiceType
             // 
             this.btnUpdateServiceType.ActiveBorderThickness = 1;
@@ -282,40 +263,43 @@
             // 
             // dataGridViewServiceType
             // 
+            this.dataGridViewServiceType.AllowUserToAddRows = false;
+            this.dataGridViewServiceType.AllowUserToDeleteRows = false;
+            this.dataGridViewServiceType.AllowUserToResizeRows = false;
             this.dataGridViewServiceType.BackgroundColor = System.Drawing.Color.White;
             this.dataGridViewServiceType.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewServiceType.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewServiceType.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
             this.dataGridViewServiceType.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewServiceType.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colID,
             this.colName});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.SeaGreen;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.SeaGreen;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewServiceType.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.SeaGreen;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.SeaGreen;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewServiceType.DefaultCellStyle = dataGridViewCellStyle11;
             this.dataGridViewServiceType.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewServiceType.Location = new System.Drawing.Point(3, 46);
             this.dataGridViewServiceType.Name = "dataGridViewServiceType";
             this.dataGridViewServiceType.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewServiceType.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewServiceType.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
             this.dataGridViewServiceType.RowHeadersVisible = false;
             this.dataGridViewServiceType.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.dataGridViewServiceType.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -513,8 +497,8 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.btnInsert);
-            this.groupBox2.Controls.Add(this.btnCLose1);
             this.groupBox2.Controls.Add(this.btnUpdateServiceType);
+            this.groupBox2.Controls.Add(this.btnCLose1);
             this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.Color.SeaGreen;
@@ -556,6 +540,17 @@
             // 
             this.saveServiceType.FileName = "Danh sách loại dịch vụ";
             this.saveServiceType.Filter = "Excel File(*.xls)|*.xls|Excel File (*.xlsx) |.xlsx|PDF File(*.pdf)|*.pdf";
+            // 
+            // comboboxID
+            // 
+            this.comboboxID.FormattingEnabled = true;
+            this.comboboxID.ItemHeight = 23;
+            this.comboboxID.Location = new System.Drawing.Point(26, 43);
+            this.comboboxID.Name = "comboboxID";
+            this.comboboxID.Size = new System.Drawing.Size(175, 29);
+            this.comboboxID.Style = MetroFramework.MetroColorStyle.Green;
+            this.comboboxID.TabIndex = 0;
+            this.comboboxID.UseSelectable = true;
             // 
             // fServiceType
             // 
@@ -627,10 +622,10 @@
         private Bunifu.Framework.UI.BunifuThinButton2 btnCLose1;
         private System.Windows.Forms.GroupBox groupBox2;
         private Bunifu.Framework.UI.BunifuMetroTextbox txbName;
-        private Bunifu.Framework.UI.BunifuMetroTextbox txbID;
         private Bunifu.Framework.UI.BunifuThinButton2 btnInsert;
         private System.Windows.Forms.ToolStripButton btnAdd;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.SaveFileDialog saveServiceType;
+        private MetroFramework.Controls.MetroComboBox comboboxID;
     }
 }

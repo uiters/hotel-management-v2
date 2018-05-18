@@ -2,6 +2,7 @@
 using HotelManager.DTO;
 using System;
 using System.Data;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace HotelManager
@@ -20,6 +21,7 @@ namespace HotelManager
             LoadFullRoomType();
             LoadFullStatusRoom();
             dataGridViewRoom.SelectionChanged += DataGridViewRoom_SelectionChanged;
+            comboboxID.DisplayMember = "id";
         }
 
         #endregion
@@ -34,6 +36,7 @@ namespace HotelManager
             DialogResult result = MetroFramework.MetroMessageBox.Show(this, "Bạn có muốn thêm phòng mới?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
             if (result == DialogResult.OK)
                 InsertRoom();
+            comboboxID.Focus();
         }
         private void BtnRoomType_Click(object sender, EventArgs e)
         {
@@ -43,7 +46,7 @@ namespace HotelManager
             comboBoxRoomType.DataSource = _fRoomtType.TableRoomType;
             txbPrice.DataBindings.Clear();
             txbLimitPerson.DataBindings.Clear();
-            txbPrice.DataBindings.Add(new Binding("Text", comboBoxRoomType.DataSource, "price"));
+            txbPrice.DataBindings.Add(new Binding("Text", comboBoxRoomType.DataSource, "price_new"));
             txbLimitPerson.DataBindings.Add(new Binding("Text", comboBoxRoomType.DataSource, "limitPerson"));
             this.Show();
         }
@@ -53,7 +56,6 @@ namespace HotelManager
         }
         private void BindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
-            txbID.Text = "Tự Động";
             txbNameRoom.Text = string.Empty;
         }
         private void BtnUpdate_Click(object sender, EventArgs e)
@@ -61,6 +63,7 @@ namespace HotelManager
             DialogResult result = MetroFramework.MetroMessageBox.Show(this, "Bạn có muốn cập nhật lại phòng?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
             if (result == DialogResult.OK)
                 UpdateRoom();
+            comboboxID.Focus();
         }
         private void ToolStripLabel1_Click(object sender, EventArgs e)
         {
@@ -102,9 +105,11 @@ namespace HotelManager
         {
             DataTable table = GetFullRoom();
             BindingSource source = new BindingSource();
+            ChangePrice(table);
             source.DataSource = table;
             dataGridViewRoom.DataSource = source;
             bindingRoom.BindingSource = source;
+            comboboxID.DataSource = source;
         }
         private void LoadFullStatusRoom()
         {
@@ -122,7 +127,7 @@ namespace HotelManager
             if (table.Rows.Count > 0)
                 comboBoxRoomType.SelectedIndex = 0;
             _fRoomtType = new fRoomType(table);
-            txbPrice.DataBindings.Add(new Binding("Text", comboBoxRoomType.DataSource, "price"));
+            //txbPrice.DataBindings.Add(new Binding("Text", comboBoxRoomType.DataSource, "price"));
             txbLimitPerson.DataBindings.Add(new Binding("Text", comboBoxRoomType.DataSource, "limitPerson"));
         }
         #endregion
@@ -142,6 +147,7 @@ namespace HotelManager
                 {
                     MetroFramework.MetroMessageBox.Show(this, "Thêm Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LoadFullRoom();
+                    comboboxID.SelectedIndex = dataGridViewRoom.RowCount - 1;
                 }
                 else
                     MetroFramework.MetroMessageBox.Show(this, "Phòng này đã tồn tại(Trùng mã số phòng)", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -175,7 +181,9 @@ namespace HotelManager
                         {
                             MetroFramework.MetroMessageBox.Show(this, "Cập Nhật Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             groupRoom.Tag = roomNow;
+                            int index = dataGridViewRoom.SelectedRows[0].Index;
                             LoadFullRoom();
+                            comboboxID.SelectedIndex = index;
                         }
                         else
                             MetroFramework.MetroMessageBox.Show(this, "Phòng này chưa tồn tại\n", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -191,7 +199,6 @@ namespace HotelManager
         {
             if(row.IsNewRow)
             {
-                txbID.Text = "Tự Động";
                 txbNameRoom.Text = string.Empty;
                 bindingNavigatorMoveFirstItem.Enabled = false;
                 bindingNavigatorMovePreviousItem.Enabled = false;
@@ -200,7 +207,6 @@ namespace HotelManager
             {
                 bindingNavigatorMoveFirstItem.Enabled = true;
                 bindingNavigatorMovePreviousItem.Enabled = true;
-                txbID.Text = row.Cells["colIDRoom"].Value.ToString();
                 txbNameRoom.Text = row.Cells["colName"].Value.ToString();
                 comboBoxRoomType.SelectedIndex = (int)row.Cells["colIdRoomType"].Value - 1;
                 comboBoxStatusRoom.SelectedIndex = (int)row.Cells["colIdStatus"].Value - 1;
@@ -226,14 +232,7 @@ namespace HotelManager
         private Room GetRoomNow()
         {
             Room room = new Room();
-            try
-            {
-                room.Id = int.Parse(txbID.Text);
-            }
-            catch
-            {
-                room.Id = -1;
-            }
+            room.Id = int.Parse(comboboxID.Text);
             room.RoomName = txbNameRoom.Text;
             int index = comboBoxRoomType.SelectedIndex;
             room.IdRoomType = (int)((DataTable)comboBoxRoomType.DataSource).Rows[index]["id"];
@@ -252,7 +251,39 @@ namespace HotelManager
                 ChangeText(row);
             }
         }
+
+        private void ChangePrice(DataTable table)
+        {
+            table.Columns.Add("price_New", typeof(string));
+            for (int i = 0; i < table.Rows.Count ; i++)
+            {
+                table.Rows[i]["price_New"] = ((int)table.Rows[i]["price"]).ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN"));
+            }
+            table.Columns.Remove("price");
+        }
+
+        private void ComboBoxRoomType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int index = comboBoxRoomType.SelectedIndex;
+
+            if (((DataTable)comboBoxRoomType.DataSource).Rows[index]["Price"].ToString().Contains("."))
+                return;
+            txbPrice.Text = ((int)((DataTable)comboBoxRoomType.DataSource).Rows[index]["Price"]).ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN"));
+        }
         #endregion
+
+        #region Enter & leave
+        private void TxbNameRoom_Enter(object sender, EventArgs e)
+        {
+            txbNameRoom.Tag = txbNameRoom.Text;
+        }
+        private void TxbNameRoom_Leave(object sender, EventArgs e)
+        {
+            if (txbNameRoom.Text == string.Empty)
+                txbNameRoom.Text = txbNameRoom.Tag as string;
+        }
+        #endregion
+
 
     }
 }

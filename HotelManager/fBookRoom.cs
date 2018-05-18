@@ -56,7 +56,6 @@ namespace HotelManager
             cbRoom.DataSource = RoomDAO.Instance.LoadEmptyListRoomByRoomType(id);
             cbRoom.DisplayMember = "RoomName";
         }
-        int price = 0;
         public void ShowRoomInfo(int id)
         {
             Room room = RoomDAO.Instance.ShowRoomInfo(id);

@@ -44,11 +44,53 @@ namespace HotelManager
         }
         private void BtnUpdate_Click(object sender, EventArgs e)
         {
-            if(SurchargeDAO.Instance.UpdateSurcharge(GetSurchargeNow()))
-                LoadFullSurcharge();
+            DialogResult result = MetroFramework.MetroMessageBox.Show(this, "Bạn có muốn cập nhật nhân viên này không?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+            if (result == DialogResult.OK)
+            {
+                UpdateSurcharge();
+            }
         }
         #endregion
 
+        #region Method
+        private void UpdateSurcharge()
+        {
+            bool isFill = fCustomer.CheckFillInText(new Control[] { txbValue, txbDescribe });
+            if (!isFill)
+            {
+                MetroFramework.MetroMessageBox.Show(this, "Không được để trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else
+            {
+                Surcharge surchargePre = groupSurcharge.Tag as Surcharge;
+                try
+                {
+                    Surcharge surchargeNow = GetSurchargeNow();
+                    if (surchargeNow.Equals(surchargePre))
+                    {
+                        MetroFramework.MetroMessageBox.Show(this, "bạn chưa thay đổi dữ liệu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    else
+                    {
+                        bool check = SurchargeDAO.Instance.UpdateSurcharge(surchargeNow);
+                        if (check)
+                        {
+                            MetroFramework.MetroMessageBox.Show(this, "Cập nhật thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            groupSurcharge.Tag = surchargeNow;
+                            LoadFullSurcharge();
+                        }
+                        else
+                            MetroFramework.MetroMessageBox.Show(this, "Không thể cập nhật", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    }
+                }
+                catch
+                {
+                    MetroFramework.MetroMessageBox.Show(this, "Lỗi không xác định", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        #endregion
 
         #region GetData
         private DataTable GetFullSurcharge()
@@ -100,7 +142,5 @@ namespace HotelManager
         }
 
         #endregion
-
-
     }
 }
