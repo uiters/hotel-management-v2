@@ -110,5 +110,13 @@ namespace HotelManager
             room.ShowDialog();
             this.Show();
         }
+
+        private void metroTile13_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            fParameter parameter = new fParameter();
+            parameter.ShowDialog();
+            this.Show();
+        }
     }
 }

@@ -40,9 +40,9 @@ namespace HotelManager
         #endregion
 
         #region Load
-        private void LoadFullServiceType()
+        private void LoadFullServiceType(DataTable table)
         {
-            this.TableSerViceType = GetFullServiceType();
+            this.TableSerViceType = table;
         }
         #endregion
 
@@ -102,6 +102,23 @@ namespace HotelManager
                 MetroFramework.MetroMessageBox.Show(this, "Lỗi (Cần cài đặt Office)", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void BtnSearch_Click(object sender, EventArgs e)
+        {
+            txbSearch.Text = txbSearch.Text.Trim();
+            if (txbSearch.Text != string.Empty)
+            {
+                txbName.Text = string.Empty;
+                Search();
+                btnSearch.Visible = false;
+                btnCancel.Visible = true;
+            }
+        }
+        private void BtnCancel_Click(object sender, EventArgs e)
+        {
+            LoadFullServiceType(GetFullServiceType());
+            btnCancel.Visible = false;
+            btnSearch.Visible = true;
+        }
 
         #endregion
 
@@ -113,10 +130,22 @@ namespace HotelManager
         private ServiceType GetServiceTypeNow()
         {
             ServiceType serviceType = new ServiceType();
-            serviceType.Id = int.Parse(comboboxID.Text);
+            if (comboboxID.Text == string.Empty)
+                serviceType.Id = 0;
+            else
+                serviceType.Id = int.Parse(comboboxID.Text);
+            txbName.Text = txbName.Text.Trim();
             serviceType.Name = txbName.Text;
             return serviceType;
         }
+        private DataTable GetSearchServiceType(string text)
+        {
+            if (int.TryParse(text, out int id))
+                return ServiceTypeDAO.Instance.Search(text, id);
+            else
+                return ServiceTypeDAO.Instance.Search(text, 0);
+        }
+
         #endregion
 
         #region Method
@@ -130,7 +159,10 @@ namespace HotelManager
                     if (ServiceTypeDAO.Instance.InsertServiceType(serviceTypeNow))
                     {
                         MetroFramework.MetroMessageBox.Show(this, "Thêm thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        this.LoadFullServiceType();
+                        if (btnCancel.Visible == false)
+                            LoadFullServiceType(GetFullServiceType());
+                        else
+                            BtnCancel_Click(null, null);
                         comboboxID.SelectedIndex = dataGridViewServiceType.RowCount -1;
                     }
                     else
@@ -147,6 +179,9 @@ namespace HotelManager
         }
         private void UpdateServiceType()
         {
+            if(comboboxID.Text == string.Empty)
+                MetroFramework.MetroMessageBox.Show(this, "Loại dịch vụ này chưa tồn tại", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else
             if (!fCustomer.CheckFillInText(new Control[] { txbName }))
             {
                 MetroFramework.MetroMessageBox.Show(this, "Không được để trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -162,14 +197,21 @@ namespace HotelManager
                         MetroFramework.MetroMessageBox.Show(this, "Bạn chưa thay đổi dữ liệu", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     else
                     {
-                        bool check = ServiceTypeDAO.Instance.UpdateServiceType(serviceTypeNow, serviceTypePre);
+                        bool check = ServiceTypeDAO.Instance.UpdateServiceType(serviceTypeNow);
                         if (check)
                         {
                             MetroFramework.MetroMessageBox.Show(this, "Cập nhật thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            if (btnCancel.Visible == false)
+                            {
+                                int index = dataGridViewServiceType.SelectedRows[0].Index;
+                                LoadFullServiceType(GetFullServiceType());
+                                comboboxID.SelectedIndex = index;
+                            }
+                            else
+                            {
+                                BtnCancel_Click(null, null);
+                            }
                             groupServiceType.Tag = serviceTypeNow;
-                            int index = dataGridViewServiceType.SelectedRows[0].Index;
-                            LoadFullServiceType();
-                            comboboxID.SelectedIndex = index;
                         }
                         else
                         {
@@ -200,10 +242,14 @@ namespace HotelManager
                 bindingNavigatorMovePreviousItem.Enabled = true;
             }
         }
+        private void Search()
+        {
+            LoadFullServiceType(GetSearchServiceType(txbSearch.Text));
+        }
         #endregion
 
         #region Change
-        private void dataGridViewServiceType_SelectionChanged(object sender, EventArgs e)
+        private void DataGridViewServiceType_SelectionChanged(object sender, EventArgs e)
         {
             if (dataGridViewServiceType.SelectedRows.Count > 0)
             {
@@ -222,7 +268,23 @@ namespace HotelManager
                 BtnUpdateServiceType_Click(sender, e);
             }
         }
+        private void TxbSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+                BtnSearch_Click(sender, null);
+            else
+                if (e.KeyChar == 27 && btnCancel.Visible == true)
+                BtnCancel_Click(sender, null);
+        }
 
+        #endregion
+
+        #region Close
+        private void FServiceType_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.BtnCancel_Click(sender, null);
+            this.txbSearch.Text = string.Empty;
+        }
 
         #endregion
     }

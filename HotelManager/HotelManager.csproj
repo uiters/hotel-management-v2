@@ -105,12 +105,6 @@
     <Compile Include="fCustomer.Designer.cs">
       <DependentUpon>fCustomer.cs</DependentUpon>
     </Compile>
-    <Compile Include="fCustomerType.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="fCustomerType.Designer.cs">
-      <DependentUpon>fCustomerType.cs</DependentUpon>
-    </Compile>
     <Compile Include="fManager.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -184,9 +178,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="fCustomer.resx">
       <DependentUpon>fCustomer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="fCustomerType.resx">
-      <DependentUpon>fCustomerType.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fManager.resx">
       <DependentUpon>fManager.cs</DependentUpon>

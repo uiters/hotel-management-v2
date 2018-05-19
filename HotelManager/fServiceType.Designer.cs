@@ -36,8 +36,9 @@
             this.bunifuDragControl1 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.btnClose = new Bunifu.Framework.UI.BunifuImageButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.btnCancel = new Bunifu.Framework.UI.BunifuThinButton2();
             this.btnSearch = new Bunifu.Framework.UI.BunifuThinButton2();
-            this.txbSreach = new Bunifu.Framework.UI.BunifuMetroTextbox();
+            this.txbSearch = new Bunifu.Framework.UI.BunifuMetroTextbox();
             this.label5 = new System.Windows.Forms.Label();
             this.groupServiceType = new System.Windows.Forms.GroupBox();
             this.comboboxID = new MetroFramework.Controls.MetroComboBox();
@@ -102,8 +103,9 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.btnSearch);
-            this.groupBox3.Controls.Add(this.txbSreach);
+            this.groupBox3.Controls.Add(this.txbSearch);
             this.groupBox3.Controls.Add(this.label5);
+            this.groupBox3.Controls.Add(this.btnCancel);
             this.groupBox3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.ForeColor = System.Drawing.Color.SeaGreen;
             this.groupBox3.Location = new System.Drawing.Point(12, 65);
@@ -112,6 +114,34 @@
             this.groupBox3.TabIndex = 45;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Tìm kiếm";
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.ActiveBorderThickness = 1;
+            this.btnCancel.ActiveCornerRadius = 20;
+            this.btnCancel.ActiveFillColor = System.Drawing.Color.Red;
+            this.btnCancel.ActiveForecolor = System.Drawing.Color.White;
+            this.btnCancel.ActiveLineColor = System.Drawing.Color.Red;
+            this.btnCancel.BackColor = System.Drawing.Color.White;
+            this.btnCancel.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCancel.BackgroundImage")));
+            this.btnCancel.ButtonText = "Huỷ Tìm";
+            this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancel.ForeColor = System.Drawing.Color.SeaGreen;
+            this.btnCancel.IdleBorderThickness = 1;
+            this.btnCancel.IdleCornerRadius = 20;
+            this.btnCancel.IdleFillColor = System.Drawing.Color.White;
+            this.btnCancel.IdleForecolor = System.Drawing.Color.Red;
+            this.btnCancel.IdleLineColor = System.Drawing.Color.Red;
+            this.btnCancel.Location = new System.Drawing.Point(26, 85);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(175, 40);
+            this.btnCancel.TabIndex = 47;
+            this.btnCancel.TabStop = false;
+            this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnCancel.Visible = false;
+            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
             // btnSearch
             // 
@@ -137,23 +167,25 @@
             this.btnSearch.Size = new System.Drawing.Size(175, 40);
             this.btnSearch.TabIndex = 46;
             this.btnSearch.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnSearch.Click += new System.EventHandler(this.BtnSearch_Click);
             // 
-            // txbSreach
+            // txbSearch
             // 
-            this.txbSreach.BorderColorFocused = System.Drawing.Color.SeaGreen;
-            this.txbSreach.BorderColorIdle = System.Drawing.Color.SeaGreen;
-            this.txbSreach.BorderColorMouseHover = System.Drawing.Color.SeaGreen;
-            this.txbSreach.BorderThickness = 1;
-            this.txbSreach.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txbSreach.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txbSreach.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.txbSreach.isPassword = false;
-            this.txbSreach.Location = new System.Drawing.Point(26, 46);
-            this.txbSreach.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            this.txbSreach.Name = "txbSreach";
-            this.txbSreach.Size = new System.Drawing.Size(175, 29);
-            this.txbSreach.TabIndex = 0;
-            this.txbSreach.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txbSearch.BorderColorFocused = System.Drawing.Color.SeaGreen;
+            this.txbSearch.BorderColorIdle = System.Drawing.Color.SeaGreen;
+            this.txbSearch.BorderColorMouseHover = System.Drawing.Color.SeaGreen;
+            this.txbSearch.BorderThickness = 1;
+            this.txbSearch.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txbSearch.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txbSearch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.txbSearch.isPassword = false;
+            this.txbSearch.Location = new System.Drawing.Point(26, 46);
+            this.txbSearch.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
+            this.txbSearch.Name = "txbSearch";
+            this.txbSearch.Size = new System.Drawing.Size(175, 29);
+            this.txbSearch.TabIndex = 0;
+            this.txbSearch.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txbSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxbSearch_KeyPress);
             // 
             // label5
             // 
@@ -162,9 +194,9 @@
             this.label5.ForeColor = System.Drawing.Color.SeaGreen;
             this.label5.Location = new System.Drawing.Point(16, 22);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(55, 17);
+            this.label5.Size = new System.Drawing.Size(125, 17);
             this.label5.TabIndex = 28;
-            this.label5.Text = "Mã/Tên:";
+            this.label5.Text = "Mã/Tên loại dịch vụ:";
             // 
             // groupServiceType
             // 
@@ -316,7 +348,7 @@
             this.dataGridViewServiceType.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewServiceType.Size = new System.Drawing.Size(543, 450);
             this.dataGridViewServiceType.TabIndex = 28;
-            this.dataGridViewServiceType.SelectionChanged += new System.EventHandler(this.dataGridViewServiceType_SelectionChanged);
+            this.dataGridViewServiceType.SelectionChanged += new System.EventHandler(this.DataGridViewServiceType_SelectionChanged);
             // 
             // colID
             // 
@@ -459,7 +491,7 @@
             this.labelName.BackColor = System.Drawing.Color.Transparent;
             this.labelName.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelName.ForeColor = System.Drawing.Color.SeaGreen;
-            this.labelName.Location = new System.Drawing.Point(350, 12);
+            this.labelName.Location = new System.Drawing.Point(318, 12);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(166, 37);
             this.labelName.TabIndex = 48;
@@ -507,9 +539,9 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btnCLose1);
             this.groupBox2.Controls.Add(this.btnInsert);
             this.groupBox2.Controls.Add(this.btnUpdateServiceType);
-            this.groupBox2.Controls.Add(this.btnCLose1);
             this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.Color.SeaGreen;
@@ -573,7 +605,7 @@
             this.Name = "fServiceType";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "fServiceType";
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fServiceType_KeyDown);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FServiceType_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
@@ -597,7 +629,7 @@
         private Bunifu.Framework.UI.BunifuImageButton btnClose;
         private System.Windows.Forms.GroupBox groupBox3;
         private Bunifu.Framework.UI.BunifuThinButton2 btnSearch;
-        private Bunifu.Framework.UI.BunifuMetroTextbox txbSreach;
+        private Bunifu.Framework.UI.BunifuMetroTextbox txbSearch;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.GroupBox groupServiceType;
         private System.Windows.Forms.Label label1;
@@ -627,5 +659,6 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.SaveFileDialog saveServiceType;
         private MetroFramework.Controls.MetroComboBox comboboxID;
+        private Bunifu.Framework.UI.BunifuThinButton2 btnCancel;
     }
 }

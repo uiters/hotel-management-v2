@@ -7,27 +7,25 @@ namespace HotelManager
 {
     public partial class fCustomer : Form
     {
-        #region Properties
-        private fCustomerType customerType;
-        #endregion
 
         #region Constructor
-        public fCustomer()
+        internal fCustomer()
         {
             InitializeComponent();
-            LoadFullCustomer();
+            LoadFullCustomer(GetFullCustomer());
             LoadFullCustomerType();
             comboBoxSex.SelectedIndex = 0;
             SaveCustomer.OverwritePrompt = true;
             comboboxID.DisplayMember = "id";
+            FormClosing += FCustomer_FormClosing;
+            txbSearch.KeyPress += TxbSearch_KeyPress;
         }
 
         #endregion
 
         #region Load
-        private void LoadFullCustomer()
+        private void LoadFullCustomer(DataTable table)
         {
-            DataTable table = GetFullCustomer();
             BindingSource source = new BindingSource();
             source.DataSource = table;
             dataGridViewCustomer.DataSource = source;
@@ -41,11 +39,20 @@ namespace HotelManager
             comboBoxCustomerType.DisplayMember = "Name";
             if(table.Rows.Count > 0)
                 comboBoxCustomerType.SelectedIndex = 0;
-            customerType = new fCustomerType(table);
         }
         #endregion
 
         #region Click
+        //private void BtnCustomerType_Click(object sender, EventArgs e)
+        //{
+        //    this.Hide();
+        //    customerType.ShowDialog();
+        //    comboBoxCustomerType.DataSource = customerType.Table;
+        //    comboBoxCustomerType.Refresh();
+        //    LoadFullCustomer(GetFullCustomer());
+        //    this.Show();
+        //}
+
         private void BtnClose_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -81,15 +88,6 @@ namespace HotelManager
                 else
                     MetroFramework.MetroMessageBox.Show(this, "Ngày sinh phải nhỏ hơn ngày hiện tại", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-        private void BtnCustomerType_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            customerType.ShowDialog();
-            comboBoxCustomerType.DataSource = customerType.Table;
-            comboBoxCustomerType.Refresh();
-            LoadFullCustomer();
-            this.Show();
-        }
         private void BindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
             txbFullName.Text = string.Empty;
@@ -115,7 +113,28 @@ namespace HotelManager
                     MetroFramework.MetroMessageBox.Show(this, "Ngày sinh phải nhỏ hơn ngày hiện tại", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
         }
+        private void BtnSearch_Click(object sender, EventArgs e)
+        {
+            txbSearch.Text = txbSearch.Text.Trim();
+            if (txbSearch.Text != string.Empty)
+            {
+                txbAddress.Text = string.Empty;
+                txbFullName.Text = string.Empty;
+                txbIDCard.Text = string.Empty;
+                txbPhoneNumber.Text = string.Empty;
+                txbNationality.Text = string.Empty;
 
+                btnSearch.Visible = false;
+                btnCancel.Visible = true;
+                Search();
+            }
+        }
+        private void BtnCancel_Click(object sender, EventArgs e)
+        {
+            LoadFullCustomer(GetFullCustomer());
+            btnCancel.Visible = false;
+            btnSearch.Visible = true;
+        }
         #endregion
 
         #region Method
@@ -141,7 +160,10 @@ namespace HotelManager
                 if (CustomerDAO.Instance.InsertCustomer(customer))
                 {
                     MetroFramework.MetroMessageBox.Show(this, "Thêm thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LoadFullCustomer();
+                    if (btnCancel.Visible == false)
+                        LoadFullCustomer(GetFullCustomer());
+                    else
+                        BtnCancel_Click(null, null);
                     comboboxID.SelectedIndex = dataGridViewCustomer.RowCount - 1;
                 }
                 else
@@ -154,6 +176,11 @@ namespace HotelManager
         }
         private void UpdateCustomer()
         {
+            if(comboboxID.Text == string.Empty)
+            {
+                MetroFramework.MetroMessageBox.Show(this, "Khách hàng này chưa tồn tại", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            else
             if (!CheckFillInText(new Control[] { txbPhoneNumber, txbFullName, txbIDCard, txbNationality, txbAddress, comboBoxCustomerType }))
             {
                 MetroFramework.MetroMessageBox.Show(this, "Không được để trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -175,7 +202,7 @@ namespace HotelManager
                             MetroFramework.MetroMessageBox.Show(this, "Cập nhật thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             groupCustomer.Tag = customerNow;
                             int index = dataGridViewCustomer.SelectedRows[0].Index;
-                            LoadFullCustomer();
+                            LoadFullCustomer(GetFullCustomer());
                             comboboxID.SelectedIndex = index;
                         }
                         else
@@ -216,17 +243,25 @@ namespace HotelManager
                 groupCustomer.Tag = customer;              
             }
         }
+        private void Search()
+        {
+            LoadFullCustomer(GetSearchCustomer());
+        }
 
         #endregion
 
         #region GetData
         private Customer GetCustomerNow()
         {
+            fStaff.Trim(new Bunifu.Framework.UI.BunifuMetroTextbox[] { txbAddress, txbFullName, txbIDCard, txbNationality });
             Customer customer = new Customer();
-            customer.Id = int.Parse(comboboxID.Text);
+            if (comboboxID.Text == string.Empty)
+                customer.Id = 0;
+            else
+                customer.Id = int.Parse(comboboxID.Text);
             customer.IdCard = txbIDCard.Text;
             int id = comboBoxCustomerType.SelectedIndex;
-            customer.IdCustomerType = (int)customerType.Table.Rows[id]["id"];
+            customer.IdCustomerType = (int)((DataTable) comboBoxCustomerType.DataSource).Rows[id]["id"];
             customer.CustomerName = txbFullName.Text;
             customer.Sex = comboBoxSex.Text;
             customer.PhoneNumber = int.Parse(txbPhoneNumber.Text);
@@ -242,6 +277,13 @@ namespace HotelManager
         private DataTable GetFullCustomerType()
         {
             return CustomerTypeDAO.Instance.LoadFullCustomerType();
+        }
+        private DataTable GetSearchCustomer()
+        {
+            if (int.TryParse(txbSearch.Text, out int phoneNumber))
+                return CustomerDAO.Instance.Search(txbSearch.Text, phoneNumber);
+            else
+                return CustomerDAO.Instance.Search(txbSearch.Text, -1);
         }
 
         #endregion
@@ -286,6 +328,29 @@ namespace HotelManager
             Bunifu.Framework.UI.BunifuMetroTextbox text = sender as Bunifu.Framework.UI.BunifuMetroTextbox;
             if (text.Text == string.Empty)
                 text.Text = text.Tag as string;
+        }
+        #endregion
+
+        #region Key
+        private void TxbSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+                BtnSearch_Click(sender, null);
+            else
+                if (e.KeyChar == 27 && btnCancel.Visible == true)
+                BtnCancel_Click(sender, null);
+        }
+        private void FCustomer_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 27 && btnCancel.Visible == true)
+                BtnCancel_Click(sender, null);
+        }
+        #endregion
+
+        #region Close
+        private void FCustomer_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            LoadFullCustomer(GetFullCustomer());
         }
         #endregion
     }

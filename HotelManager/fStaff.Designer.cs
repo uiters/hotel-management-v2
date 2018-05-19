@@ -36,9 +36,10 @@
             this.btnClose = new Bunifu.Framework.UI.BunifuImageButton();
             this.bunifuDragControl1 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.btnSearch = new Bunifu.Framework.UI.BunifuThinButton2();
             this.label5 = new System.Windows.Forms.Label();
-            this.txbSreach = new Bunifu.Framework.UI.BunifuMetroTextbox();
+            this.txbSearch = new Bunifu.Framework.UI.BunifuMetroTextbox();
+            this.btnSearch = new Bunifu.Framework.UI.BunifuThinButton2();
+            this.btnCancel = new Bunifu.Framework.UI.BunifuThinButton2();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dataGridStaff = new System.Windows.Forms.DataGridView();
             this.colUserName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -127,9 +128,10 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.btnSearch);
             this.groupBox3.Controls.Add(this.label5);
-            this.groupBox3.Controls.Add(this.txbSreach);
+            this.groupBox3.Controls.Add(this.txbSearch);
+            this.groupBox3.Controls.Add(this.btnSearch);
+            this.groupBox3.Controls.Add(this.btnCancel);
             this.groupBox3.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.ForeColor = System.Drawing.Color.SeaGreen;
             this.groupBox3.Location = new System.Drawing.Point(12, 71);
@@ -138,6 +140,33 @@
             this.groupBox3.TabIndex = 20;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Tìm kiếm";
+            // 
+            // label5
+            // 
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.SeaGreen;
+            this.label5.Location = new System.Drawing.Point(11, 19);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(119, 47);
+            this.label5.TabIndex = 28;
+            this.label5.Text = "Tài khoản/ Tên/ CMND/ SĐT:";
+            // 
+            // txbSearch
+            // 
+            this.txbSearch.BorderColorFocused = System.Drawing.Color.SeaGreen;
+            this.txbSearch.BorderColorIdle = System.Drawing.Color.SeaGreen;
+            this.txbSearch.BorderColorMouseHover = System.Drawing.Color.SeaGreen;
+            this.txbSearch.BorderThickness = 1;
+            this.txbSearch.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txbSearch.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.txbSearch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.txbSearch.isPassword = false;
+            this.txbSearch.Location = new System.Drawing.Point(23, 66);
+            this.txbSearch.Margin = new System.Windows.Forms.Padding(4);
+            this.txbSearch.Name = "txbSearch";
+            this.txbSearch.Size = new System.Drawing.Size(175, 29);
+            this.txbSearch.TabIndex = 0;
+            this.txbSearch.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             // 
             // btnSearch
             // 
@@ -157,40 +186,40 @@
             this.btnSearch.IdleFillColor = System.Drawing.Color.White;
             this.btnSearch.IdleForecolor = System.Drawing.Color.SeaGreen;
             this.btnSearch.IdleLineColor = System.Drawing.Color.SeaGreen;
-            this.btnSearch.Location = new System.Drawing.Point(23, 88);
+            this.btnSearch.Location = new System.Drawing.Point(23, 108);
             this.btnSearch.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(175, 40);
             this.btnSearch.TabIndex = 46;
             this.btnSearch.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnSearch.Click += new System.EventHandler(this.BtnSearch_Click);
             // 
-            // label5
+            // btnCancel
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.SeaGreen;
-            this.label5.Location = new System.Drawing.Point(11, 23);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(112, 20);
-            this.label5.TabIndex = 28;
-            this.label5.Text = "Tên Đăng Nhập";
-            // 
-            // txbSreach
-            // 
-            this.txbSreach.BorderColorFocused = System.Drawing.Color.SeaGreen;
-            this.txbSreach.BorderColorIdle = System.Drawing.Color.SeaGreen;
-            this.txbSreach.BorderColorMouseHover = System.Drawing.Color.SeaGreen;
-            this.txbSreach.BorderThickness = 1;
-            this.txbSreach.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txbSreach.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.txbSreach.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.txbSreach.isPassword = false;
-            this.txbSreach.Location = new System.Drawing.Point(23, 44);
-            this.txbSreach.Margin = new System.Windows.Forms.Padding(4);
-            this.txbSreach.Name = "txbSreach";
-            this.txbSreach.Size = new System.Drawing.Size(175, 29);
-            this.txbSreach.TabIndex = 0;
-            this.txbSreach.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnCancel.ActiveBorderThickness = 1;
+            this.btnCancel.ActiveCornerRadius = 20;
+            this.btnCancel.ActiveFillColor = System.Drawing.Color.Red;
+            this.btnCancel.ActiveForecolor = System.Drawing.Color.White;
+            this.btnCancel.ActiveLineColor = System.Drawing.Color.Red;
+            this.btnCancel.BackColor = System.Drawing.Color.White;
+            this.btnCancel.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCancel.BackgroundImage")));
+            this.btnCancel.ButtonText = "Huỷ Tìm";
+            this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancel.ForeColor = System.Drawing.Color.SeaGreen;
+            this.btnCancel.IdleBorderThickness = 1;
+            this.btnCancel.IdleCornerRadius = 20;
+            this.btnCancel.IdleFillColor = System.Drawing.Color.White;
+            this.btnCancel.IdleForecolor = System.Drawing.Color.Red;
+            this.btnCancel.IdleLineColor = System.Drawing.Color.Red;
+            this.btnCancel.Location = new System.Drawing.Point(23, 108);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(175, 40);
+            this.btnCancel.TabIndex = 48;
+            this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnCancel.Visible = false;
+            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
             // groupBox1
             // 
@@ -792,9 +821,9 @@
             this.label3.ForeColor = System.Drawing.Color.SeaGreen;
             this.label3.Location = new System.Drawing.Point(6, 75);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(56, 20);
+            this.label3.Size = new System.Drawing.Size(77, 20);
             this.label3.TabIndex = 24;
-            this.label3.Text = "CMND:";
+            this.label3.Text = "Số CMND:";
             // 
             // txbIDcard
             // 
@@ -911,8 +940,8 @@
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.btnClose1);
-            this.groupBox4.Controls.Add(this.btnReset);
             this.groupBox4.Controls.Add(this.btnInsert);
+            this.groupBox4.Controls.Add(this.btnReset);
             this.groupBox4.Controls.Add(this.btnUpdate);
             this.groupBox4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox4.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -948,24 +977,25 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1300, 586);
-            this.Controls.Add(this.bunifuSeparator1);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox4);
+            this.Controls.Add(this.bunifuSeparator1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.groupStaff);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnClose);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.SeaGreen;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "fStaff";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "fStaff";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FStaff_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).EndInit();
             this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridStaff)).EndInit();
@@ -987,7 +1017,7 @@
         private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl1;
         private System.Windows.Forms.GroupBox groupBox3;
         private Bunifu.Framework.UI.BunifuThinButton2 btnSearch;
-        private Bunifu.Framework.UI.BunifuMetroTextbox txbSreach;
+        private Bunifu.Framework.UI.BunifuMetroTextbox txbSearch;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView dataGridStaff;
@@ -1042,5 +1072,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colStartDay;
         private System.Windows.Forms.DataGridViewTextBoxColumn colAddress;
         private System.Windows.Forms.DataGridViewTextBoxColumn colIDStaffType;
+        private Bunifu.Framework.UI.BunifuThinButton2 btnCancel;
     }
 }

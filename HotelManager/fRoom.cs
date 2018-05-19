@@ -17,7 +17,7 @@ namespace HotelManager
         public fRoom()
         {
             InitializeComponent();
-            LoadFullRoom();
+            LoadFullRoom(GetFullRoom());
             LoadFullRoomType();
             LoadFullStatusRoom();
             dataGridViewRoom.SelectionChanged += DataGridViewRoom_SelectionChanged;
@@ -42,7 +42,7 @@ namespace HotelManager
         {
             this.Hide();
             _fRoomtType.ShowDialog();
-            this.LoadFullRoom();
+            LoadFullRoom(GetFullRoom());
             comboBoxRoomType.DataSource = _fRoomtType.TableRoomType;
             txbPrice.DataBindings.Clear();
             txbLimitPerson.DataBindings.Clear();
@@ -101,9 +101,8 @@ namespace HotelManager
         #endregion
 
         #region Load
-        private void LoadFullRoom()
+        private void LoadFullRoom(DataTable table)
         {
-            DataTable table = GetFullRoom();
             BindingSource source = new BindingSource();
             ChangePrice(table);
             source.DataSource = table;
@@ -127,7 +126,6 @@ namespace HotelManager
             if (table.Rows.Count > 0)
                 comboBoxRoomType.SelectedIndex = 0;
             _fRoomtType = new fRoomType(table);
-            //txbPrice.DataBindings.Add(new Binding("Text", comboBoxRoomType.DataSource, "price"));
             txbLimitPerson.DataBindings.Add(new Binding("Text", comboBoxRoomType.DataSource, "limitPerson"));
         }
         #endregion
@@ -146,7 +144,9 @@ namespace HotelManager
                 if (RoomDAO.Instance.InsertRoom(roomNow))
                 {
                     MetroFramework.MetroMessageBox.Show(this, "Thêm Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LoadFullRoom();
+                    if (btnCancel.Visible == false)
+                        LoadFullRoom(GetFullRoom());
+                    else BtnCancel_Click(null, null);
                     comboboxID.SelectedIndex = dataGridViewRoom.RowCount - 1;
                 }
                 else
@@ -159,6 +159,11 @@ namespace HotelManager
         }
         private void UpdateRoom()
         {
+            if(comboboxID.Text == string.Empty)
+            {
+                MetroFramework.MetroMessageBox.Show(this, "Phòng này chưa tồn tại\n", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            else
             if (!fCustomer.CheckFillInText(new Control[] { txbNameRoom, comboBoxStatusRoom, comboBoxRoomType }))
             {
                 MetroFramework.MetroMessageBox.Show(this, "Không được để trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -176,14 +181,18 @@ namespace HotelManager
                     }
                     else
                     {
-                        bool check = RoomDAO.Instance.UpdateCustomer(roomNow, roomPre);
+                        bool check = RoomDAO.Instance.UpdateCustomer(roomNow);
                         if (check)
                         {
                             MetroFramework.MetroMessageBox.Show(this, "Cập Nhật Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             groupRoom.Tag = roomNow;
-                            int index = dataGridViewRoom.SelectedRows[0].Index;
-                            LoadFullRoom();
-                            comboboxID.SelectedIndex = index;
+                            if (btnCancel.Visible == false)
+                            {
+                                int index = dataGridViewRoom.SelectedRows[0].Index;
+                                LoadFullRoom(GetFullRoom());
+                                comboboxID.SelectedIndex = index;
+                            }
+                            else BtnCancel_Click(null, null);
                         }
                         else
                             MetroFramework.MetroMessageBox.Show(this, "Phòng này chưa tồn tại\n", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -214,6 +223,27 @@ namespace HotelManager
                 groupRoom.Tag = room;
             }
         }
+        private void Search()
+        {
+            LoadFullRoom(GetSearchRoom());
+        }
+        private void BtnSearch_Click(object sender, EventArgs e)
+        {
+            txbSearch.Text = txbSearch.Text.Trim();
+            if (txbSearch.Text != string.Empty)
+            {
+                txbNameRoom.Text = string.Empty;
+                btnSearch.Visible = false;
+                btnCancel.Visible = true;
+                Search();
+            }
+        }
+        private void BtnCancel_Click(object sender, EventArgs e)
+        {
+            LoadFullRoom(GetFullRoom());
+            btnCancel.Visible = false;
+            btnSearch.Visible = true;
+        }
         #endregion
 
         #region Get Data
@@ -232,7 +262,11 @@ namespace HotelManager
         private Room GetRoomNow()
         {
             Room room = new Room();
-            room.Id = int.Parse(comboboxID.Text);
+            if (comboboxID.Text == string.Empty)
+                room.Id = 0;
+            else
+                room.Id = int.Parse(comboboxID.Text);
+            fStaff.Trim(new Bunifu.Framework.UI.BunifuMetroTextbox[] { txbNameRoom });
             room.RoomName = txbNameRoom.Text;
             int index = comboBoxRoomType.SelectedIndex;
             room.IdRoomType = (int)((DataTable)comboBoxRoomType.DataSource).Rows[index]["id"];
@@ -240,6 +274,14 @@ namespace HotelManager
             room.IdStatusRoom = (int)((DataTable)comboBoxStatusRoom.DataSource).Rows[index]["id"];
             return room;
         }
+        private DataTable GetSearchRoom()
+        {
+            if (int.TryParse(txbSearch.Text, out int id))
+                return RoomDAO.Instance.Search(txbSearch.Text, id);
+            else
+                return RoomDAO.Instance.Search(txbSearch.Text, 0);
+        }
+
         #endregion
 
         #region Change
@@ -251,7 +293,6 @@ namespace HotelManager
                 ChangeText(row);
             }
         }
-
         private void ChangePrice(DataTable table)
         {
             table.Columns.Add("price_New", typeof(string));
@@ -261,7 +302,6 @@ namespace HotelManager
             }
             table.Columns.Remove("price");
         }
-
         private void ComboBoxRoomType_SelectedIndexChanged(object sender, EventArgs e)
         {
             int index = comboBoxRoomType.SelectedIndex;
@@ -284,6 +324,27 @@ namespace HotelManager
         }
         #endregion
 
+        #region Key
+        private void TxbSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+                BtnSearch_Click(sender, null);
+            else
+                if (e.KeyChar == 27 && btnCancel.Visible == true)
+                BtnCancel_Click(sender, null);
+        }
+        private void FRoom_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 27 && btnCancel.Visible == true)
+                BtnCancel_Click(sender, null);
+        }
+        #endregion
 
+        #region Close
+        private void FRoom_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            BtnCancel_Click(sender, null);
+        }
+        #endregion
     }
 }

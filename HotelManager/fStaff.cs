@@ -13,12 +13,16 @@ namespace HotelManager
         #endregion
 
         #region Constructor
-        public fStaff()
+        internal fStaff()
         {
             InitializeComponent();
             LoadFullStaffType();
-            LoadFullStaff();
+            LoadFullStaff(GetFullStaff());
+            txbSearch.KeyPress += TxbSearch_KeyPress;
+            KeyPress += FStaff_KeyPress;
         }
+
+
         #endregion
 
         #region Click
@@ -105,7 +109,28 @@ namespace HotelManager
             txbPhoneNumber.Text = string.Empty;
             txbAddress.Text = string.Empty;
         }
+        private void BtnSearch_Click(object sender, EventArgs e)
+        {
+            txbSearch.Text = txbSearch.Text.Trim();
+            if (txbSearch.Text != string.Empty)
+            {
+                txbUserName.Text = string.Empty;
+                txbName.Text = string.Empty;
+                txbIDcard.Text = string.Empty;
+                txbPhoneNumber.Text = string.Empty;
+                txbAddress.Text = string.Empty;
 
+                btnSearch.Visible = false;
+                btnCancel.Visible = true;
+                Search();
+            }
+        }
+        private void BtnCancel_Click(object sender, EventArgs e)
+        {
+            LoadFullStaff(GetFullStaff());
+            btnCancel.Visible = false;
+            btnSearch.Visible = true;
+        }
         #endregion
 
         #region Method
@@ -123,7 +148,10 @@ namespace HotelManager
                     {
                         MetroFramework.MetroMessageBox.Show(this, "Thêm Thành Công\n Mật khẩu mặc đinh cho tài khảon " + txbUserName.Text +
                             ": 123456", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        LoadFullStaff();
+                        if (btnCancel.Visible == false)
+                            LoadFullStaff(GetFullStaff());
+                        else
+                            BtnCancel_Click(null, null);
 
                     }
                     else
@@ -165,10 +193,15 @@ namespace HotelManager
                         {
                             MetroFramework.MetroMessageBox.Show(this, "Cập nhật thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             groupStaff.Tag = accountnow;
-                            int index = dataGridStaff.SelectedRows[0].Index;                      
-                            LoadFullStaff();
-                            dataGridStaff.SelectedRows[0].Selected = false;
-                            dataGridStaff.Rows[index].Selected = true;
+                            if (btnCancel.Visible == false)
+                            {
+                                int index = dataGridStaff.SelectedRows[0].Index;
+                                LoadFullStaff(GetFullStaff());
+                                dataGridStaff.SelectedRows[0].Selected = false;
+                                dataGridStaff.Rows[index].Selected = true;
+                            }
+                            else
+                                BtnCancel_Click(null, null);
                         }
                         else
                         {
@@ -203,12 +236,60 @@ namespace HotelManager
                 MetroFramework.MetroMessageBox.Show(this, "Lỗi không xác định", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void Search()
+        {
+            LoadFullStaff(GetSearchStaff());
+        }
+        private void ChangeText(DataGridViewRow row)
+        {
+            if (row.IsNewRow)
+            {
+                txbUserName.Text = string.Empty;
+                txbName.Text = string.Empty;
+                txbIDcard.Text = string.Empty;
+                txbPhoneNumber.Text = string.Empty;
+                txbAddress.Text = string.Empty;
+            }
+            else
+            {
+                txbUserName.Text = row.Cells[colUserName.Name].Value as string;
+                txbAddress.Text = row.Cells[colAddress.Name].Value as string;
+                txbName.Text = row.Cells[colname.Name].Value as string;
+                txbPhoneNumber.Text = row.Cells[colPhone.Name].Value.ToString();
+                txbIDcard.Text = row.Cells[colIDCard.Name].Value as string;
+                datepickerDateOfBirth.Text = row.Cells[colDateOfBirth.Name].Value as string;
+                datePickerStartDay.Text = row.Cells[colStartDay.Name].Value as string;
+                comboBoxSex.Text = row.Cells[colSex.Name].Value as string;
+                comboBoxStaffType.SelectedIndex = (int)row.Cells[colIDStaffType.Name].Value - 1;
+
+
+                Account staff = new Account();
+                staff.UserName = txbUserName.Text;
+                staff.Address = txbAddress.Text;
+                staff.DisplayName = txbName.Text;
+                staff.PhoneNumber = int.Parse(txbPhoneNumber.Text);
+                staff.IdCard = txbIDcard.Text;
+                staff.DateOfBirth = datepickerDateOfBirth.Value;
+                staff.StartDay = datePickerStartDay.Value;
+                staff.Sex = comboBoxSex.Text;
+                staff.IdStaffType = (int)row.Cells[colIDStaffType.Name].Value;
+                groupStaff.Tag = staff;
+                //bindingNavigatorMoveFirstItem.Enabled = true;
+                //bindingNavigatorMovePreviousItem.Enabled = true;
+            }
+        }
+        internal static void Trim(Bunifu.Framework.UI.BunifuMetroTextbox[] textboxes)
+        {
+            for (int i = 0; i < textboxes.Length; i++)
+            {
+                textboxes[i].Text = textboxes[i].Text.Trim();
+            }
+        }
         #endregion
 
         #region Load data
-        private void LoadFullStaff()
+        private void LoadFullStaff(DataTable table)
         {
-            DataTable table = GetFullStaff();
             BindingSource source = new BindingSource();
             source.DataSource = table;
             dataGridStaff.DataSource = source;
@@ -237,6 +318,11 @@ namespace HotelManager
         private Account GetStaffNow()
         {
             Account account = new Account();
+
+            #region Format
+            Trim(new Bunifu.Framework.UI.BunifuMetroTextbox[] { txbName, txbIDcard, txbAddress });
+            #endregion
+
             account.UserName = txbUserName.Text.ToLower();
             int index = comboBoxStaffType.SelectedIndex;
             account.IdStaffType = (int)((DataTable)comboBoxStaffType.DataSource).Rows[index]["id"];
@@ -248,6 +334,13 @@ namespace HotelManager
             account.Address = txbAddress.Text;
             account.StartDay = datePickerStartDay.Value;
             return account;
+        }
+        private DataTable GetSearchStaff()
+        {
+            if (int.TryParse(txbSearch.Text, out int phoneNumber))
+                return AccountDAO.Instance.Search(txbSearch.Text, phoneNumber);
+            else
+                return AccountDAO.Instance.Search(txbSearch.Text, -1);
         }
         #endregion
 
@@ -289,44 +382,6 @@ namespace HotelManager
         #endregion
 
         #region ChangeText
-        private void ChangeText(DataGridViewRow row)
-        {
-            if (row.IsNewRow)
-            {
-                txbUserName.Text = string.Empty;
-                txbName.Text = string.Empty;
-                txbIDcard.Text = string.Empty;
-                txbPhoneNumber.Text = string.Empty;
-                txbAddress.Text = string.Empty;
-            }
-            else
-            {
-                txbUserName.Text = row.Cells[colUserName.Name].Value as string;
-                txbAddress.Text = row.Cells[colAddress.Name].Value as string;
-                txbName.Text = row.Cells[colname.Name].Value as string;
-                txbPhoneNumber.Text = row.Cells[colPhone.Name].Value.ToString();
-                txbIDcard.Text = row.Cells[colIDCard.Name].Value as string;
-                datepickerDateOfBirth.Text = row.Cells[colDateOfBirth.Name].Value as string;
-                datePickerStartDay.Text = row.Cells[colStartDay.Name].Value as string;
-                comboBoxSex.Text = row.Cells[colSex.Name].Value as string;
-                comboBoxStaffType.SelectedIndex =(int) row.Cells[colIDStaffType.Name].Value - 1;
-
-
-                Account staff = new Account();
-                staff.UserName= txbUserName.Text;
-                staff.Address = txbAddress.Text;
-                staff.DisplayName = txbName.Text;
-                staff.PhoneNumber = int.Parse(txbPhoneNumber.Text);
-                staff.IdCard = txbIDcard.Text;
-                staff.DateOfBirth = datepickerDateOfBirth.Value;
-                staff.StartDay = datePickerStartDay.Value;
-                staff.Sex = comboBoxSex.Text;
-                staff.IdStaffType = (int)row.Cells[colIDStaffType.Name].Value;
-                groupStaff.Tag = staff;
-                //bindingNavigatorMoveFirstItem.Enabled = true;
-                //bindingNavigatorMovePreviousItem.Enabled = true;
-            }
-        }
         private void DataGridStaffType_SelectionChanged(object sender, EventArgs e)
         {
             if (dataGridStaff.SelectedRows.Count > 0)
@@ -334,6 +389,22 @@ namespace HotelManager
                 DataGridViewRow row = dataGridStaff.SelectedRows[0];
                 ChangeText(row);
             }
+        }
+        #endregion
+
+        #region Key
+        private void TxbSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+                BtnSearch_Click(sender, null);
+            else
+                if (e.KeyChar == 27 && btnCancel.Visible == true)
+                BtnCancel_Click(sender, null);
+        }
+        private void FStaff_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 27 && btnCancel.Visible == true)
+                BtnCancel_Click(sender, null);
         }
         #endregion
 
@@ -353,5 +424,11 @@ namespace HotelManager
         }
         #endregion
 
+        #region Close
+        private void FStaff_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            BtnCancel_Click(null, null);
+        }
+        #endregion
     }
 }

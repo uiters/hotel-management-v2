@@ -18,20 +18,21 @@ namespace HotelManager
         public fParameter()
         {
             InitializeComponent();
-            LoadFullSurcharge();
+            LoadFullParameter(GetFullParameter());
             comboboxName.DisplayMember = "Name";
         }
         #endregion
 
         #region Load
-        private void LoadFullSurcharge()
+        private void LoadFullParameter(DataTable table)
         {
-            DataTable table = GetFullSurcharge();
             BindingSource source = new BindingSource();
             source.DataSource = table;
             dataGridViewParameter.DataSource = source;
             bindingSurcharge.BindingSource = source;
             comboboxName.DataSource = source;
+            txbValue.Enter += Txb_Enter;
+            txbValue.Leave += Txb_Leave;
         }
         #endregion
 
@@ -90,11 +91,33 @@ namespace HotelManager
             txbDescribe.Text = string.Empty;
             txbValue.Text = "0";
         }
+        private void BtnSearch_Click(object sender, EventArgs e)
+        {
+            txbSearch.Text = txbSearch.Text.Trim();
+            if (txbSearch.Text != string.Empty)
+            {
+                txbValue.Text = string.Empty;
+                btnSearch.Visible = false;
+                btnCancel.Visible = true;
+                Search();
+            }
+        }
+        private void BtnCancel_Click(object sender, EventArgs e)
+        {
+            LoadFullParameter(GetFullParameter());
+            btnCancel.Visible = false;
+            btnSearch.Visible = true;
+        }
         #endregion
 
         #region Method
         private void UpdateSurcharge()
         {
+            if(comboboxName.Text == string.Empty)
+            {
+                MetroFramework.MetroMessageBox.Show(this, "Không thể cập nhật (Không có phụ thu này)", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
             bool isFill = fCustomer.CheckFillInText(new Control[] { txbValue });
             if (isFill)
             {
@@ -113,12 +136,16 @@ namespace HotelManager
                         {
                             MetroFramework.MetroMessageBox.Show(this, "Cập nhật thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             groupParameter.Tag = surchargeNow;
-                            int index = dataGridViewParameter.SelectedRows[0].Index;
-                            LoadFullSurcharge();
-                            comboboxName.SelectedIndex = index;
+                            if (btnCancel.Visible == false)
+                            {
+                                int index = dataGridViewParameter.SelectedRows[0].Index;
+                                LoadFullParameter(GetFullParameter());
+                                comboboxName.SelectedIndex = index;
+                            }
+                            else BtnCancel_Click(null, null);
                         }
                         else
-                            MetroFramework.MetroMessageBox.Show(this, "Không thể cập nhật", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            MetroFramework.MetroMessageBox.Show(this, "Không thể cập nhật (Không có phụ thu này)", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     }
                 }
                 catch
@@ -146,17 +173,25 @@ namespace HotelManager
                 groupParameter.Tag = parameter;
             }
         }
-
+        private void Search()
+        {
+            LoadFullParameter(GetSearchParameter());
+        }
         #endregion
 
         #region GetData
-        private DataTable GetFullSurcharge()
+        private DataTable GetFullParameter()
         {
             return ParameterDAO.Instance.LoadFullParameter();
         }
         private Parameter GetSurchargeNow()
         {
+            fStaff.Trim(new Bunifu.Framework.UI.BunifuMetroTextbox[] { txbDescribe });
             return new Parameter(comboboxName.Text, double.Parse(txbValue.Text), txbDescribe.Text);
+        }
+        private DataTable GetSearchParameter()
+        {
+            return ParameterDAO.Instance.Search(txbSearch.Text);
         }
         #endregion
 
@@ -178,10 +213,45 @@ namespace HotelManager
                 ChangeText(row);
             }
         }
-
-
         #endregion
 
+        #region Key
+        private void TxbSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+                BtnSearch_Click(sender, null);
+            else
+                if (e.KeyChar == 27 && btnCancel.Visible == true)
+                BtnCancel_Click(sender, null);
+        }
+        private void FParameter_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 27 && btnCancel.Visible == true)
+                BtnCancel_Click(sender, null);
+        }
+        #endregion
 
+        #region Enter & Leave
+        private void Txb_Enter(object sender, EventArgs e)
+        {
+            var textBox = sender as Bunifu.Framework.UI.BunifuMetroTextbox;
+            textBox.Tag = textBox.Text;
+        }
+        private void Txb_Leave(object sender, EventArgs e)
+        {
+            var textBox = sender as Bunifu.Framework.UI.BunifuMetroTextbox;
+            if(textBox.Text == string.Empty)
+            {
+                textBox.Text = textBox.Tag as string;
+            }
+        }
+        #endregion
+
+        #region Close
+        private void FParameter_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            BtnCancel_Click(sender, null);
+        }
+        #endregion
     }
 }

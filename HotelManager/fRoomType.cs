@@ -43,9 +43,8 @@ namespace HotelManager
         #endregion
 
         #region Load
-        private void LoadFullRoomType()
+        private void LoadFullRoomType(DataTable table)
         {
-            DataTable table = GetFullRoomType();
             this.TableRoomType = table;
         }
         #endregion
@@ -111,7 +110,24 @@ namespace HotelManager
                 }
             }
         }
-
+        private void BtnSearch_Click(object sender, EventArgs e)
+        {
+            txbSearch.Text = txbSearch.Text.Trim();
+            if (txbSearch.Text != string.Empty)
+            {
+                txbName.Text = string.Empty;
+                txbPrice.Text = string.Empty;
+                btnSearch.Visible = false;
+                btnCancel.Visible = true;
+                Search();
+            }
+        }
+        private void BtnCancel_Click(object sender, EventArgs e)
+        {
+            LoadFullRoomType(GetFullRoomType());
+            btnCancel.Visible = false;
+            btnSearch.Visible = true;
+        }
         #endregion
 
         #region GetData
@@ -122,14 +138,24 @@ namespace HotelManager
         private RoomType GetRoomTypeNow()
         {
             RoomType roomType = new RoomType();
-            roomType.Id = int.Parse(comboboxID.Text);
+            if (comboboxID.Text == string.Empty)
+                roomType.Id = 0;
+            else
+                roomType.Id = int.Parse(comboboxID.Text);
 
             roomType.Name = txbName.Text;
             roomType.Price = int.Parse(StringToInt(txbPrice.Text));
-
             roomType.LimitPerson = int.Parse(txbLimitPerson.Text);
             return roomType;
         }
+        private DataTable GetSearchRoomType()
+        {
+            if (int.TryParse(txbSearch.Text, out int id))
+                return RoomTypeDAO.Instance.Search(txbSearch.Text, id);
+            else
+                return RoomTypeDAO.Instance.Search(txbSearch.Text, 0);
+        }
+
         #endregion
 
         #region Method
@@ -158,6 +184,11 @@ namespace HotelManager
         //}
         private void UpdateRoomType()
         {
+            if(comboboxID.Text == string.Empty)
+            {
+                MetroFramework.MetroMessageBox.Show(this, "Loại phòng này chưa tồn tại", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            else
             if (!fCustomer.CheckFillInText(new Control[] { txbName, txbPrice }))
             {
                 MetroFramework.MetroMessageBox.Show(this, "Không được để trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -178,11 +209,14 @@ namespace HotelManager
                         {
                             MetroFramework.MetroMessageBox.Show(this, "Cập nhật thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             groupRoomType.Tag = roomTypeNow;
-                            int index = dataGridViewRoomType.SelectedRows[0].Index;
-                            LoadFullRoomType();
-                            //dataGridViewRoomType.SelectedRows[0].Selected = false;
-                            //dataGridViewRoomType.Rows[index].Selected = true;
-                            comboboxID.SelectedIndex = index;
+                            if (btnCancel.Visible == false)
+                            {
+                                int index = dataGridViewRoomType.SelectedRows[0].Index;
+                                LoadFullRoomType(GetFullRoomType());
+                                comboboxID.SelectedIndex = index;
+                            }
+                            else
+                                BtnCancel_Click(null, null);
                         }
                         else
                             MetroFramework.MetroMessageBox.Show(this, "Loại phòng này chưa tồn tại", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -211,6 +245,10 @@ namespace HotelManager
                 RoomType roomType = new RoomType(((DataRowView) row.DataBoundItem).Row);
                 groupRoomType.Tag = roomType;
             }
+        }
+        private void Search()
+        {
+            LoadFullRoomType(GetSearchRoomType());
         }
 
         #endregion
@@ -269,6 +307,22 @@ namespace HotelManager
         }
         #endregion
 
+        #region Key
+        private void TxbSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+                BtnSearch_Click(sender, null);
+            else
+                if (e.KeyChar == 27 && btnCancel.Visible == true)
+                BtnCancel_Click(sender, null);
+        }
+        private void FRoomType_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 27 && btnCancel.Visible == true)
+                BtnCancel_Click(sender, null);
+        }
+        #endregion
+
         #region Leave
         private void TxbName_Leave(object sender, EventArgs e)
         {
@@ -309,5 +363,11 @@ namespace HotelManager
 
         #endregion
 
+        #region Close
+        private void FRoomType_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            BtnCancel_Click(sender, null);
+        }
+        #endregion
     }
 }

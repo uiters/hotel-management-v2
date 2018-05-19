@@ -91,9 +91,9 @@ namespace HotelManager
         }
         public void ShowRoomInfo(int id)
         {
-            Room room = RoomDAO.Instance.ShowRoomInfo(id);
-            txbRoomID.Text = room.Id.ToString();
-            txbRoomName.Text = room.RoomName;
+            //Room room = RoomDAO.Instance.ShowRoomInfo(id);
+            //txbRoomID.Text = room.Id.ToString();
+            //txbRoomName.Text = room.RoomName;
             //txbRoomTypeName.Text = room.RoomTypeName;
             //txbNote.Text = room.Note;
             //CultureInfo culture = new CultureInfo("vi-VN");

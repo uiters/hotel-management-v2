@@ -129,7 +129,7 @@ TotalPrice int not null default 0
 constraint PK_BillInfo primary key(IDService,IDBill)
 )
 GO
-create table SURCHARGE
+create table PARAMETER
 (
 Name nvarchar(200) not null default N'No Name',
 Value float not null,
@@ -261,13 +261,35 @@ go
 
 CREATE PROC USP_LoadFullStaffType
 AS
+begin
 SELECT * FROM dbo.StaffType
+end
 go
 --------------------------------------------------------------
 
 --Staff 
 --------------------------------------------------------------
-
+ALTER PROC USP_SearchStaff
+@string NVARCHAR(100), @int int
+AS
+BEGIN
+	SELECT @string = '%' + [dbo].[ConvertString](@string) + '%'
+	DECLARE @table TABLE( username NVARCHAR(100))
+	IF(@int < 1)
+	begin
+		INSERT INTO @table SELECT username FROM staff 
+		WHERE username LIKE @string OR [dbo].[ConvertString](DisplayName) LIKE @string
+		OR  idcard LIKE @string
+	END
+	ELSE
+    BEGIN
+		INSERT INTO @table SELECT username FROM staff 
+		WHERE username LIKE @string OR [dbo].[ConvertString](DisplayName) LIKE @string
+		OR  idcard LIKE @string OR cast(PhoneNumber AS NVARCHAR(100)) LIKE @string
+	END
+	SELECT Staff.UserName, DisplayName, Name, IDCard, DateOfBirth, Sex, PhoneNumber, StartDay, Address, IDStaffType
+    FROM dbo.Staff INNER JOIN  @table ON [@table].username = STAFF.UserName INNER JOIN dbo.StaffType ON StaffType.ID = Staff.IDStaffType
+end
 GO
 ALTER PROC USP_LoadFullStaff
 AS
@@ -307,8 +329,7 @@ BEGIN
 	Address = @address, PhoneNumber = @phoneNumber, StartDay = @startDay
 	WHERE UserName = @user
 END
---------------------------------------------------------------
-GO
+go
 CREATE PROC USP_UpdatePassword
 @user NVARCHAR(100), @pass NVARCHAR(100)
 AS
@@ -319,22 +340,22 @@ BEGIN
 	WHERE username=@user
 END
 GO
-CREATE PROC USP_DeleteStaff
-@username NVARCHAR(100)
-AS
-BEGIN
-	DELETE FROM dbo.Staff
-	WHERE UserName = @username
-END
-GO
 ---------------------------
 
 --------------------------------------------------------------
 
 --Service Type
 --------------------------------------------------------------
-
-
+ALTER PROC USP_SearchServiceType
+@string NVARCHAR(100), @int INT
+AS
+BEGIN
+	DECLARE @table table( id int)
+	SELECT @string ='%' + [dbo].[ConvertString](@string) + '%'
+	INSERT INTO @table SELECT id FROM ServiceType WHERE [dbo].[ConvertString](name) LIKE @string OR id = @int
+	SELECT dbo.SERVICETYPE.ID, Name FROM @table INNER JOIN servicetype ON  SERVICETYPE.ID = [@table].id
+END
+go
 CREATE PROC USP_InsertServiceType
 @name NVARCHAR(100)
 AS
@@ -362,7 +383,21 @@ GO
 
 --Service
 --------------------------------------------------------------
-
+GO
+ALTER PROC USP_SearchService
+@string NVARCHAR(100), @int int
+AS
+BEGIN
+		DECLARE @table TABLE
+		(
+			id INT
+		)
+		SELECT @string = '%' + [dbo].[ConvertString](@string) + '%'
+		INSERT INTO @table
+			SELECT id FROM dbo.SERVICE WHERE [dbo].[ConvertString](name) like @string OR id = @int
+		SELECT Service.ID, Service.Name, Price, ServiceType.Name AS [nameServiceType], IDServiceType
+		FROM @table INNER JOIN dbo.SERVICE ON SERVICE.ID = [@table].id INNER JOIN dbo.ServiceType ON ServiceType.ID = Service.IDServiceType
+END
 GO
 CREATE PROC USP_InsertService
 @name NVARCHAR(200), @idServiceType INT, @price int
@@ -393,7 +428,17 @@ GO
 
 --Room
 --------------------------------------------------------------
-
+CREATE PROC USP_SearchRoom
+@string NVARCHAR(100), @int INT
+AS
+BEGIN
+	SELECT @string = '%' + [dbo].[convertString](@string) + '%'
+	SELECT Room.ID, Room.Name,RoomType.Name AS [nameRoomType], Price, LimitPerson,
+	StatusRoom.Name AS [nameStatusRoom], IDRoomType, IDStatusRoom
+	FROM dbo.Room INNER JOIN dbo.RoomType ON roomtype.id = room.IDRoomType INNER JOIN dbo.StatusRoom ON statusroom.id = room.IDStatusRoom
+	WHERE dbo.ConvertString(dbo.Room.name) LIKE @string OR dbo.Room.id = @int
+END
+go
 CREATE PROC USP_LoadFullRoom
 AS
 SELECT Room.ID, Room.Name,RoomType.Name AS [nameRoomType], Price, LimitPerson,
@@ -420,15 +465,18 @@ go
 
 --Room Type
 --------------------------------------------------------------
-
+CREATE PROC USP_SearchRoomType
+@string NVARCHAR(100), @int INT
+AS
+BEGIN
+	SELECT @string = '%' + [dbo].[convertstring](@string) + '%'
+	SELECT * FROM dbo.ROOMTYPE
+	WHERE [dbo].[convertstring](name) LIKE @string OR id = @int
+end
+go
 CREATE PROC USP_LoadFullRoomType
 AS
 SELECT * FROM dbo.RoomType
-GO
-CREATE PROC USP_InsertRoomType
-@name NVARCHAR(100), @price int, @limitPerson int
-AS
-INSERT INTO RoomType(Name, Price, LimitPerson) VALUES(@name, @price, @limitPerson)
 GO
 CREATE PROC USP_UpdateRoomType
 @id INT, @name NVARCHAR(100), @price int, @limitPerson int
@@ -447,17 +495,26 @@ AS
 SELECT * FROM dbo.StatusRoom
 GO
 --------------------------------------------------------------
---Surcharge
+--parameter
 --------------------------------------------------------------
-CREATE PROC USP_LoadFullSurcharge
+CREATE PROC USP_SearchParameter
+@string NVARCHAR(200)
 AS
-SELECT * FROM dbo.SURCHARGE
+BEGIN
+	SELECT @string = '%' + [dbo].[convertstring](@string) + '%'
+	SELECT * FROM dbo.PARAMETER
+	WHERE [dbo].[convertstring](name) like @string
+END
 GO
-CREATE PROC USP_UpdateSurcharge
+CREATE PROC USP_LoadFullParameter
+AS
+SELECT * FROM dbo.PARAMETER
+GO
+CREATE PROC USP_UpdateParameter
 @name NVARCHAR(200), @value float, @describe NVARCHAR(200)
 AS
 BEGIN
-UPDATE dbo.Surcharge
+UPDATE dbo.PARAMETER
 	SET
 	Value = @value,
 	Describe = @describe
@@ -467,10 +524,32 @@ go
 --------------------------------------------------------------
 --Customer
 --------------------------------------------------------------
-
+GO
+ALTER PROC USP_SearchCustomer
+@string NVARCHAR(100), @int INT
+AS
+BEGIN
+	SELECT @string = '%' + [dbo].[ConvertString](@string) +'%'
+	DECLARE @table TABLE(id INT)
+	IF(@int>0)
+	BEGIN
+		INSERT INTO @table
+		SELECT id FROM dbo.CUSTOMER
+		WHERE id = @int OR [dbo].[ConvertString](name) LIKE @string OR idcard LIKE @string OR CAST(PhoneNumber AS NVARCHAR(100)) LIKE @string
+	END
+	ELSE
+    BEGIN
+		INSERT INTO @table 
+		SELECT id FROM customer
+		WHERE [dbo].[ConvertString](name) LIKE @string OR idcard LIKE @string
+	END
+    SELECT CUSTOMER.ID, Customer.Name, IDCard, CustomerType.Name as [NameCustomerType], Sex, DateOfBirth, PhoneNumber, Address, Nationality, IDCustomerType 
+	FROM dbo.Customer INNER JOIN @table ON [@table].id = CUSTOMER.ID INNER JOIN dbo.CustomerType ON CustomerType.ID = Customer.IDCustomerType
+END
+go
 CREATE PROC USP_LoadFullCustomer
 AS
-SELECT TOP(100) CUSTOMER.ID, Customer.Name, IDCard, CustomerType.Name as [NameCustomerType], Sex, DateOfBirth, PhoneNumber, Address, Nationality, IDCustomerType 
+SELECT CUSTOMER.ID, Customer.Name, IDCard, CustomerType.Name as [NameCustomerType], Sex, DateOfBirth, PhoneNumber, Address, Nationality, IDCustomerType 
 FROM dbo.Customer INNER JOIN dbo.CustomerType ON CustomerType.ID = Customer.IDCustomerType
 GO
 CREATE PROC USP_InsertCustomer
@@ -486,7 +565,6 @@ INSERT INTO dbo.Customer(IDCard,IDCustomerType, Name, DateOfBirth, Address, Phon
 	VALUES(@idCard, @idCustomerType, @customerName, @dateOfBirth, @address, @phoneNumber, @sex, @nationality)
 end
 GO
---------------------------------------
 CREATE PROC USP_UpdateCustomer
 @id INT, @customerName NVARCHAR(100), @idCustomerType int, @idCardNow NVARCHAR(100), @address NVARCHAR(200),
 @dateOfBirth date, @phoneNumber int, @sex NVARCHAR(100), @nationality NVARCHAR(100), @idCardPre NVARCHAR(100)
@@ -518,7 +596,6 @@ BEGIN
 			WHERE ID = @id
 	end
 END
-----------------------------------
 go
 --------------------------------------------------------------
 
@@ -528,21 +605,3 @@ go
 CREATE PROC USP_LoadFullCustomerType
 AS
 SELECT * FROM dbo.CustomerType
-GO
-CREATE PROC USP_InsertCustomerType
-@name NVARCHAR(100)
-AS
-INSERT INTO dbo.CustomerType(Name) VALUES(@name)
-GO
-CREATE PROC USP_UpdateCustomerType
-@id int, @name NVARCHAR(100)
-AS
-BEGIN
-	UPDATE dbo.CustomerType
-	SET
-    Name = @name
-	WHERE id = @id
-END
-
-
-

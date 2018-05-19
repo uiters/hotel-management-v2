@@ -47,20 +47,20 @@ namespace HotelManager
         }
         public void LoadListRoomType()
         {
-            cbRoomType.DataSource= RoomTypeDAO.Instance.LoadRoomType();
-            cbRoomType.DisplayMember = "Name";
+            //cbRoomType.DataSource= RoomTypeDAO.Instance.LoadRoomType();
+            //cbRoomType.DisplayMember = "Name";
 
         }
         public void LoadEmptyListRoomByRoomType(int id)
         {
-            cbRoom.DataSource = RoomDAO.Instance.LoadEmptyListRoomByRoomType(id);
-            cbRoom.DisplayMember = "RoomName";
+            //cbRoom.DataSource = RoomDAO.Instance.LoadEmptyListRoomByRoomType(id);
+            //cbRoom.DisplayMember = "RoomName";
         }
         public void ShowRoomInfo(int id)
         {
-            Room room = RoomDAO.Instance.ShowRoomInfo(id);
-            txbRoomID.Text = room.Id.ToString();
-            txbRoomName.Text = room.RoomName;
+            //Room room = RoomDAO.Instance.ShowRoomInfo(id);
+            //txbRoomID.Text = room.Id.ToString();
+            //txbRoomName.Text = room.RoomName;
             //txbRoomTypeName.Text = room.RoomTypeName;
             //txbNote.Text = room.Note;
             //price = room.Price;
