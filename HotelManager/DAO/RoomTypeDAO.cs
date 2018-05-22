@@ -1,45 +1,45 @@
 ﻿using HotelManager.DTO;
+using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace HotelManager.DAO
 {
     public class RoomTypeDAO
     {
-        #region Properties & Constructor
         private static RoomTypeDAO instance;
-        internal static RoomTypeDAO Instance
-        {
-            get { if (instance == null) instance = new RoomTypeDAO(); return instance; }
-            private set => instance = value;
-        }
+
+        public static RoomTypeDAO Instance { get { if (instance == null) instance = new RoomTypeDAO(); return instance; }
+            private set => instance = value; }
         public RoomTypeDAO() { }
-        #endregion
-
-        #region Method
-        internal DataTable LoadFullRoomType()
+        public RoomType LoadRoomTypeInfo(int id)
         {
-            return DataProvider.Instance.ExecuteQuery("USP_LoadFullRoomType");
+            string query = "USP_RoomTypeInfo @id";
+            DataTable data = DataProvider.Instance.ExecuteQuery(query, new object[] { id });
+            RoomType roomType = new RoomType(data.Rows[0]);
+            return roomType;
         }
-        internal bool InsertRoomType(string name, int price, int limitPerson)
+        public List<RoomType> LoadListRoomType()
         {
-            string query = "USP_InsertRoomType @name , @price , @limitPerson";
-            return DataProvider.Instance.ExecuteNoneQuery(query, new object[] { name, price, limitPerson }) > 0;
-
+            string query = "select * from RoomType";
+            DataTable data = DataProvider.Instance.ExecuteQuery(query);
+            List<RoomType> listRoomType = new List<RoomType>();
+            foreach (DataRow item in data.Rows)
+            {
+                RoomType roomType = new RoomType(item);
+                listRoomType.Add(roomType);
+            }
+            return listRoomType;
         }
-        internal bool InsertRoomType(RoomType roomTypeNow)
+        public RoomType GetRoomTypeByIdRoom(int idRoom)
         {
-            return InsertRoomType(roomTypeNow.Name, roomTypeNow.Price, roomTypeNow.LimitPerson);
+            string query = "USP_GetRoomTypeByIdRoom @idRoom";
+            DataTable data = DataProvider.Instance.ExecuteQuery(query,new object[] { idRoom });
+            RoomType roomType = new RoomType(data.Rows[0]);
+            return roomType;
         }
-        internal bool UpdateRoomType(RoomType roomNow, RoomType roomPre)
-        {
-            string query = "USP_UpdateRoomType @id , @name , @price , @limitPerson";
-            return DataProvider.Instance.ExecuteNoneQuery(query, new object[] { roomNow.Id, roomNow.Name, roomNow.Price, roomNow.LimitPerson }) > 0;
-        }
-        internal DataTable Search(string text, int id)
-        {
-            string query = "USP_SearchRoomType @string , @id";
-            return DataProvider.Instance.ExecuteQuery(query, new object[] { text, id });
-        }
-        #endregion
     }
 }

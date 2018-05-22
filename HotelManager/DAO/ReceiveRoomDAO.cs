@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HotelManager.DTO;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -11,23 +12,28 @@ namespace HotelManager.DAO
     {
         private static ReceiveRoomDAO instance;
         private ReceiveRoomDAO() { }
-        public bool InsertReceiveRoom(int idBookRoom, int idCustomer, DateTime dateOfReceive, DateTime dateOfPay)
+        public bool InsertReceiveRoom(int idBookRoom, int idRoom)
         {
-            string query = "exec USP_InsertReceiveRoom  @idBookRoom , @idCustomer , @DateOfReceive , @DateOfPay";
-            int count = DataProvider.Instance.ExecuteNoneQuery(query, new object[] { idBookRoom, idCustomer, dateOfReceive, dateOfPay });
+            string query = "InsertReceiveRoom @idBookRoom , @idRoom";
+            int count = DataProvider.Instance.ExecuteNoneQuery(query, new object[] { idBookRoom, idRoom });
             return count > 0;
         }
-        public int GetIDReceiveRoom(int idBookRoom, int idCustomer)
+        public int GetIDCurrent()
         {
-            string query = "exec USP_GetIDReceiveRoom @idBookRoom , @idCustomer";
-            object id = DataProvider.Instance.ExecuteScalar(query, new object[] { idBookRoom, idCustomer });
-            return (int)id;
-
+            string query = "GetIDReceiveRoomCurrent";
+            return (int)DataProvider.Instance.ExecuteScalar(query);
         }
-        public DataTable ShowReceiveInfo()
+        public DataTable LoadReceiveRoomInfo()
         {
-            DataTable data = DataProvider.Instance.ExecuteQuery("USP_ShowReceiveRoomInfo");
-            return data;
+            string query = "USP_LoadReceiveRoomsByDate @date";
+            return DataProvider.Instance.ExecuteQuery(query, new object[] { DateTime.Now.Date });
+        }
+        public int GetIdReceiveRoomFromIdRoom(int idRoom)
+        {
+            string query = "USP_GetIdReceiRoomFromIdRoom @idRoom";
+            DataTable dataTable = DataProvider.Instance.ExecuteQuery(query, new object[] { idRoom });
+            ReceiveRoom receiveRoom = new ReceiveRoom(dataTable.Rows[0]);
+            return receiveRoom.Id;
         }
         public static ReceiveRoomDAO Instance { get { if (instance == null) instance = new ReceiveRoomDAO(); return instance; }
             private set => instance = value; }

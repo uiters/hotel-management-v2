@@ -39,7 +39,7 @@ namespace HotelManager
             if (Login())
             {
                 this.Hide();
-                fManager f = new fManager();
+                fManagement f = new fManagement(txbUserName.Text);
                 f.ShowDialog();
                 this.Show();
                 txbUserName.Text = String.Empty;

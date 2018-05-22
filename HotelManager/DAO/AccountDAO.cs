@@ -1,25 +1,19 @@
 ﻿using HotelManager.DTO;
+using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace HotelManager.DAO
 {
     public class AccountDAO
     {
-        #region Properties & Constructor
+
         private static AccountDAO instance;
-        private AccountDAO() { }
-        internal static AccountDAO Instance
-        {
-            get { if (instance == null) instance = new AccountDAO(); return instance; }
-            private set => instance = value;
-        }
-
-        #endregion
-
-        #region Method
-        internal string HashPass(string text)
+        public string HashPass(string text)
         {
             MD5 md5 = MD5.Create();
             byte[] temp = Encoding.ASCII.GetBytes(text);
@@ -31,47 +25,51 @@ namespace HotelManager.DAO
             }
             return hashPass;
         }
-        internal bool Login(string userName, string passWord)
+        public bool Login(string userName, string passWord)
         {
             string hashPass = HashPass(passWord);
-            string query = "exec USP_Login @userName , @passWord";
+            string query = "USP_Login @userName , @passWord";
             DataTable data = DataProvider.Instance.ExecuteQuery(query, new object[] { userName, hashPass });
-            return data.Rows.Count > 0;
+            return data.Rows.Count>0;
         }
-        internal DataTable LoadFullStaff()
+        public Account LoadStaffInforByUserName(string username)
         {
-            string query = "USP_LoadFullStaff";
-            return DataProvider.Instance.ExecuteQuery(query);
+            //string query = "USP_GetNameStaffTypeByUserName @username";
+            //DataTable dataTable = DataProvider.Instance.ExecuteQuery(query, new object[] { username });
+            string query = "select * from Staff where UserName='" + username + "'";
+            DataTable dataTable = DataProvider.Instance.ExecuteQuery(query);
+            Account account = new Account(dataTable.Rows[0]);
+            return account;
         }
-        internal bool InsertAccount(Account account)
+        public bool IsIdCardExists(string idCard)
         {
-            string query = "EXEC USP_InsertStaff @user , @name , @pass , @idStaffType , @idCard , @dateOfBirth , @sex , @address , @phoneNumber , @startDay";
-            string pass = HashPass(account.PassWord);
-            object[] parameter = new object[] {account.UserName, account.DisplayName, pass, account.IdStaffType,
-                                                account.IdCard, account.DateOfBirth, account.Sex,
-                                                account.Address, account.PhoneNumber, account.StartDay};
-            return DataProvider.Instance.ExecuteNoneQuery(query, parameter) > 0;
+            string query = "USP_IsIdCardExistsAcc @idCard";
+            return DataProvider.Instance.ExecuteQuery(query, new object[] { idCard }).Rows.Count > 0;
         }
-        internal bool UpdateAccount(Account account)
+        public bool UpdateDisplayName(string username,string displayname)
         {
-            string query = "EXEC USP_UpdateStaff @user , @name , @idStaffType , @idCard , @dateOfBirth , @sex , @address , @phoneNumber , @startDay";
-            object[] parameter = new object[] {account.UserName, account.DisplayName, account.IdStaffType,
-                                               account.IdCard, account.DateOfBirth, account.Sex,
-                                                account.Address, account.PhoneNumber, account.StartDay};
-            return DataProvider.Instance.ExecuteNoneQuery(query, parameter) > 0;
+            string query = "USP_UpdateDisplayName @username , @displayname";
+            return DataProvider.Instance.ExecuteNoneQuery(query, new object[] { username, displayname }) > 0;
         }
-        internal bool ResetPassword(string user, string hashPass)
+        public bool UpdatePassword(string username, string password)
         {
-            string query = "USP_UpdatePassword @user , @hashPass";
-            return DataProvider.Instance.ExecuteNoneQuery(query, new object[] { user, hashPass }) > 0;
+            string query = "USP_UpdatePassword @username , @password";
+            return DataProvider.Instance.ExecuteNoneQuery(query, new object[] { username, HashPass(password) }) > 0;
         }
-        internal DataTable Search(string @string, int phoneNumber)
+        public bool UpdateInfo(string username,string address, int phonenumber,string idCard)
         {
-            string query = "USP_SearchStaff @string , @int";
-            return DataProvider.Instance.ExecuteQuery(query, new object[] { @string, phoneNumber });
+            string query = "USP_UpdateInfo @username , @address , @phonenumber";
+            return DataProvider.Instance.ExecuteNoneQuery(query, new object[] { username, address, phonenumber,idCard }) > 0;
         }
-        #endregion
-
-
+        public Account GetStaffSetUp(int idBill)
+        {
+            string query = "USP_GetStaffSetUp @idBill";
+            Account account = new Account(DataProvider.Instance.ExecuteQuery(query, new object[] { idBill }).Rows[0]);
+            return account;
+        }
+        public static AccountDAO Instance {
+            get { if (instance == null) instance = new AccountDAO();return instance; }
+            private set => instance = value; }
+        private AccountDAO() { }
     }
 }
