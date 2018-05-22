@@ -700,7 +700,7 @@ GO
 ALTER TRIGGER UTG_InsertReport
 ON bill FOR INSERT
 AS
-BEGIN
+BEGIN s
 	DECLARE @month INT = 0
 	DECLARE @year INT = 0
 	DECLARE @id INT = 0
