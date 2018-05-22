@@ -11,19 +11,22 @@ namespace HotelManager.DTO
     {
         private int id;
         private string idCard;
-        private string name;
         private int idCustomerType;
+        private string customerName;
         private DateTime dateOfBirth;
         private string address;
         private int phoneNumber;
         private string sex;
         private string nationality;
-        public Customer(int id,string idCard, string name, int idcustomerType, string address, int phoneNumber, string sex, string nationality,DateTime dateOfBirth)
+        public Customer()
         {
-            this.Id = id;
+
+        }
+        public Customer(int id, string idCard, string customerName, int idCustomerType , string address, int phoneNumber, string sex, string nationality, DateTime dateOfBirth)
+        {
+            this.CustomerName = customerName;
+            this.IdCustomerType = idCustomerType;
             this.IdCard = idCard;
-            this.Name = name;
-            this.IdCustomerType = idcustomerType;
             this.DateOfBirth = dateOfBirth;
             this.Address = address;
             this.PhoneNumber = phoneNumber;
@@ -32,24 +35,46 @@ namespace HotelManager.DTO
         }
         public Customer(DataRow row)
         {
-            this.Id= (int)row["id"];
-            this.IdCard = row["idcard"].ToString();
-            this.Name = row["Name"].ToString();
-            this.IdCustomerType =(int)row["idcustomerType"];
+            this.Id = (int)row["id"];
+            this.IdCard = (string)row["IDCard"];
+            this.IdCustomerType = (int)row["IDCustomerType"];
+            this.CustomerName = row["Name"].ToString();
             this.DateOfBirth = (DateTime)row["DateOfBirth"];
-            this.Address = row["address"].ToString();
-            this.PhoneNumber = (int)row["phoneNumber"];
-            this.Sex = row["sex"].ToString();
+            this.Address = row["Address"].ToString();
+            this.PhoneNumber = (int)row["PhoneNumber"];
+            this.Sex = row["Sex"].ToString();
             this.Nationality = row["Nationality"].ToString();
         }
-       
+        public override bool Equals(object obj)
+        {
+            return this.Equals(obj as Customer);
+        }
+        public bool Equals(Customer customerPre)
+        {
+            if (customerPre == null)
+                return false;
+            if (this.idCard != customerPre.idCard) return false;
+            if (this.idCustomerType != customerPre.idCustomerType) return false;
+            if (this.customerName != customerPre.customerName) return false;
+            if (this.dateOfBirth != customerPre.dateOfBirth) return false;
+            if (this.address != customerPre.address) return false;
+            if (this.phoneNumber != customerPre.phoneNumber) return false;
+            if (this.sex != customerPre.sex) return false;
+            if (this.nationality != customerPre.nationality) return false;
+            return true;
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public string CustomerName { get => customerName; set => customerName = value; }
         public string Address { get => address; set => address = value; }
         public int PhoneNumber { get => phoneNumber; set => phoneNumber = value; }
         public string Sex { get => sex; set => sex = value; }
         public string Nationality { get => nationality; set => nationality = value; }
-        public DateTime DateOfBirth { get => dateOfBirth; set => dateOfBirth = value; }
         public string IdCard { get => idCard; set => idCard = value; }
-        public string Name { get => name; set => name = value; }
+        public DateTime DateOfBirth { get => dateOfBirth; set => dateOfBirth = value; }
         public int IdCustomerType { get => idCustomerType; set => idCustomerType = value; }
         public int Id { get => id; set => id = value; }
     }

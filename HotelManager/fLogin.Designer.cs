@@ -105,7 +105,7 @@
             this.txbUserName.Name = "txbUserName";
             this.txbUserName.Size = new System.Drawing.Size(370, 29);
             this.txbUserName.TabIndex = 0;
-            this.txbUserName.Text = "ndc07";
+            this.txbUserName.Text = "meomeo";
             this.txbUserName.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             // 
             // txbPassWord
@@ -123,7 +123,7 @@
             this.txbPassWord.Name = "txbPassWord";
             this.txbPassWord.Size = new System.Drawing.Size(370, 29);
             this.txbPassWord.TabIndex = 1;
-            this.txbPassWord.Text = "1";
+            this.txbPassWord.Text = "123456";
             this.txbPassWord.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             // 
             // bunifuCheckbox1
@@ -166,7 +166,7 @@
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
             this.pictureBox2.Location = new System.Drawing.Point(21, 2);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(236, 144);
+            this.pictureBox2.Size = new System.Drawing.Size(236, 146);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 14;
             this.pictureBox2.TabStop = false;

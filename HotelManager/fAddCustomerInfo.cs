@@ -14,75 +14,78 @@ namespace HotelManager
 {
     public partial class fAddCustomerInfo : Form
     {
-        private static List<int> listIdCustomer;
-
-        public static List<int> ListIdCustomer { get => listIdCustomer; set => listIdCustomer = value; }
-
+        public List<int> listIDCustomer;
+        public delegate void SendListIDCustomer(List<int> listIDCustomer);
+        public event SendListIDCustomer sendListIDCustomer;
         public fAddCustomerInfo()
         {
             InitializeComponent();
-            LoadCustomerType();
-            ListIdCustomer = new List<int>();
+            LoadListCustomerType();
+            listIDCustomer = new List<int>();
+            dpkDateOfBirth.Value = new DateTime(2000, 8, 20);
         }
-        public void LoadCustomerType()
+        public void LoadListCustomerType()
         {
-            cbCustomerType.DataSource = CustomerTypeDAO.Instance.LoadListCustomerType();
-            cbCustomerType.DisplayMember = "Name";
+            comboBoxCustomerType.DataSource = CustomerTypeDAO.Instance.LoadListCustomerType();
+            comboBoxCustomerType.DisplayMember = "Name";
         }
-        public bool IsIdCardExists(string idCard)
+       
+        public bool CheckIDCardExists(string idCard)
         {
-            return CustomerDAO.Instance.IsIdCardExists(idCard);
+            return CustomerDAO.Instance.CheckIDCardExists(idCard);
         }
-        public void InsertCustomer(string idCard, string name, int idCustomerType, DateTime dateofBirth, string address, int phonenumber, string sex, string nationality)
+        public bool InsertCustomer(string customerName, int idCustomerType, string idCard, string address, DateTime dateOfBirth, int phoneNumber, string sex, string nationality)
         {
-            CustomerDAO.Instance.InsertCustomer(idCard, name, idCustomerType, dateofBirth, address, phonenumber, sex, nationality);
+            return CustomerDAO.Instance.InsertCustomer(customerName, idCustomerType, idCard, address,dateOfBirth, phoneNumber, sex, nationality);
         }
-        public void GetInfoByIdCard(string idCard)
+        public Customer GetIDCustomer(string idCard)
         {
-            Customer customer = CustomerDAO.Instance.GetInfoByIdCard(idCard);
-            txbIDCard.Text = customer.IdCard.ToString();
-            txbFullName.Text = customer.Name;
-            txbAddress.Text = customer.Address;
-            dpkDateOfBirth.Value = customer.DateOfBirth;
-            cbSex.Text = customer.Sex;
-            txbPhoneNumber.Text = customer.PhoneNumber.ToString();
-            cbNationality.Text = customer.Nationality;
-            cbCustomerType.Text = CustomerTypeDAO.Instance.GetNameByIdCard(idCard);
+            Customer customer = CustomerDAO.Instance.GetIDCustomer(idCard);
+            return customer;
         }
-        public void ClearData()
+        
+
+        public bool UpdateCustomer1(int phoneNumber, string address, string idCard)
         {
-            txbIDCardSearch.Text = txbIDCard.Text = txbFullName.Text = txbAddress.Text = txbPhoneNumber.Text = cbNationality.Text = String.Empty;
+            return CustomerDAO.Instance.UpdateCustomer1(phoneNumber, address, idCard);
         }
-        public void AddIdCustomer(int idCustomer)
+        public void InsertCustomer()
         {
-            if(ListIdCustomer.Count!=0)
+            if (CheckIDCardExists(txbIDCard.Text) == false)
             {
-                bool check = false;
-                foreach (int item in ListIdCustomer)
-                {
-                    if (item == idCustomer)
-                    {
-                        check = true;
-                        break;
-                    }
-                }
-                if(!check) ListIdCustomer.Add(idCustomer);
+                int idCustomerType = (comboBoxCustomerType.SelectedItem as CustomerType).Id;
+                //InsertCustomer(txbFullName.Text, idCustomerType, txbIDCard.Text, txbAddress.Text,dpkDateOfBirth.Value, int.Parse(txbPhoneNumber.Text), comboBoxSex.SelectedItem.ToString(), txbNationality.Text);
             }
             else
-            ListIdCustomer.Add(idCustomer);
+            {
+                UpdateCustomer1(int.Parse(txbPhoneNumber.Text), txbAddress.Text, txbIDCard.Text);
+            }
+            Customer customer = GetIDCustomer(txbIDCard.Text);
+            //listIDCustomer.Add(customer.IdCard);
         }
         private void btnAddCustomer_Click(object sender, EventArgs e)
         {
-            if(txbFullName.Text!=string.Empty&&txbIDCard.Text!=string.Empty&&txbAddress.Text!=string.Empty&&cbNationality.Text!=string.Empty&&txbPhoneNumber.Text!=string.Empty)
+            if (txbFullName.Text == string.Empty || txbIDCard.Text == string.Empty || txbNationality.Text == string.Empty || txbPhoneNumber.Text == string.Empty || comboBoxSex.Text == string.Empty || txbAddress.Text == string.Empty)
+                MetroFramework.MetroMessageBox.Show(this, "Vui lòng nhập đầy đủ thông tin!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else
             {
-                if (!IsIdCardExists(txbIDCard.Text))
+                InsertCustomer();
+                if (MetroFramework.MetroMessageBox.Show(this, "Thêm khách hàng thành công!\nBạn có muốn tiếp tục?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.No)
                 {
-                    int idCustomerType = (cbCustomerType.SelectedItem as CustomerType).Id;
-                    InsertCustomer(txbIDCard.Text, txbFullName.Text, idCustomerType, dpkDateOfBirth.Value, txbAddress.Text, int.Parse(txbPhoneNumber.Text), cbSex.Text, cbNationality.Text);
+                    this.Close();
                 }
-                MetroFramework.MetroMessageBox.Show(this, "Thêm khách hàng thành công.", "Thông báo.", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                AddIdCustomer(CustomerDAO.Instance.GetInfoByIdCard(txbIDCard.Text).Id);
-                ClearData();
+                else
+                {
+                    comboBoxCustomerType.Text = string.Empty;
+                    txbFullName.Text = string.Empty;
+                    txbIDCard.Text = string.Empty;
+                    txbNationality.Text = string.Empty;
+                    txbPhoneNumber.Text = string.Empty;
+                    comboBoxSex.Text = string.Empty;
+                    txbAddress.Text = string.Empty;
+                    dpkDateOfBirth.Value = new DateTime(2000, 8, 20);
+                    txbFullName.Focus();
+                }
             }
         }
         private void btnClose_Click(object sender, EventArgs e)
@@ -90,33 +93,10 @@ namespace HotelManager
             Close();
         }
 
-        private void btnSearch_Click(object sender, EventArgs e)
+        private void fAddCustomerInfo_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (txbIDCardSearch.Text != String.Empty)
-            {
-                if (IsIdCardExists(txbIDCardSearch.Text))
-                    GetInfoByIdCard(txbIDCardSearch.Text);
-                else
-                    MetroFramework.MetroMessageBox.Show(this, "Thẻ căn cước/ CMND không tồn tại.\nVui lòng nhập lại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void txbIDCardSearch_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
-                e.Handled = true;
-        }
-
-        private void txbIDCard_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
-                e.Handled = true;
-        }
-
-        private void txbPhoneNumber_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
-                e.Handled = true;
+          if(sendListIDCustomer!=null)
+            sendListIDCustomer(listIDCustomer);
         }
     }
 }
