@@ -11,8 +11,9 @@ namespace HotelManager.DAO
     public class DataProvider
     {
         private static DataProvider instance;
+        //private string connectionStr = @"Data Source=meomeo.cvhksjgmf3vx.us-west-1.rds.amazonaws.com,1433;Initial Catalog=HotelManagement;User ID=thienlan; pwd=12782389";
         private string connectionStr = @"Data Source=THIEN-AI\THIENAI;Initial Catalog=HotelManagement;Integrated Security=True";
-        public DataTable ExecuteQuery(string query, object[] parameter=null)
+        public DataTable ExecuteQuery(string query, object[] parameter = null)
         {
             DataTable data = new DataTable();
             using (SqlConnection connection = new SqlConnection(connectionStr))

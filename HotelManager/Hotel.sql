@@ -269,7 +269,7 @@ go
 
 --Staff 
 --------------------------------------------------------------
-ALTER PROC USP_SearchStaff
+CREATE PROC USP_SearchStaff
 @string NVARCHAR(100), @int int
 AS
 BEGIN
@@ -291,7 +291,7 @@ BEGIN
     FROM dbo.Staff INNER JOIN  @table ON [@table].username = STAFF.UserName INNER JOIN dbo.StaffType ON StaffType.ID = Staff.IDStaffType
 end
 GO
-ALTER PROC USP_LoadFullStaff
+CREATE PROC USP_LoadFullStaff
 AS
 BEGIN
 	SELECT UserName, DisplayName, Name, IDCard,
@@ -346,7 +346,7 @@ GO
 
 --Service Type
 --------------------------------------------------------------
-ALTER PROC USP_SearchServiceType
+CREATE PROC USP_SearchServiceType
 @string NVARCHAR(100), @int INT
 AS
 BEGIN
@@ -384,7 +384,7 @@ GO
 --Service
 --------------------------------------------------------------
 GO
-ALTER PROC USP_SearchService
+CREATE PROC USP_SearchService
 @string NVARCHAR(100), @int int
 AS
 BEGIN
@@ -525,7 +525,7 @@ go
 --Customer
 --------------------------------------------------------------
 GO
-ALTER PROC USP_SearchCustomer
+CREATE PROC USP_SearchCustomer
 @string NVARCHAR(100), @int INT
 AS
 BEGIN
@@ -598,10 +598,176 @@ BEGIN
 END
 go
 --------------------------------------------------------------
-
 --Customer Type
 --------------------------------------------------------------
 
 CREATE PROC USP_LoadFullCustomerType
 AS
 SELECT * FROM dbo.CustomerType
+GO
+--------------------------------------------------------------
+--Function
+--------------------------------------------------------------
+CREATE FUNCTION [dbo].[ConvertString] ( @strInput NVARCHAR(4000) ) RETURNS NVARCHAR(4000) AS BEGIN IF @strInput IS NULL RETURN @strInput IF @strInput = '' RETURN @strInput DECLARE @RT NVARCHAR(4000) DECLARE @SIGN_CHARS NCHAR(136) DECLARE @UNSIGN_CHARS NCHAR (136) SET @SIGN_CHARS = N'ăâđêôơưàảãạáằẳẵặắầẩẫậấèẻẽẹéềểễệế ìỉĩịíòỏõọóồổỗộốờởỡợớùủũụúừửữựứỳỷỹỵý ĂÂĐÊÔƠƯÀẢÃẠÁẰẲẴẶẮẦẨẪẬẤÈẺẼẸÉỀỂỄỆẾÌỈĨỊÍ ÒỎÕỌÓỒỔỖỘỐỜỞỠỢỚÙỦŨỤÚỪỬỮỰỨỲỶỸỴÝ' +NCHAR(272)+ NCHAR(208) SET @UNSIGN_CHARS = N'aadeoouaaaaaaaaaaaaaaaeeeeeeeeee iiiiiooooooooooooooouuuuuuuuuuyyyyy AADEOOUAAAAAAAAAAAAAAAEEEEEEEEEEIIIII OOOOOOOOOOOOOOOUUUUUUUUUUYYYYYDD' DECLARE @COUNTER int DECLARE @COUNTER1 int SET @COUNTER = 1 WHILE (@COUNTER <=LEN(@strInput)) BEGIN SET @COUNTER1 = 1 WHILE (@COUNTER1 <=LEN(@SIGN_CHARS)+1) BEGIN IF UNICODE(SUBSTRING(@SIGN_CHARS, @COUNTER1,1)) = UNICODE(SUBSTRING(@strInput,@COUNTER ,1) ) BEGIN IF @COUNTER=1 SET @strInput = SUBSTRING(@UNSIGN_CHARS, @COUNTER1,1) + SUBSTRING(@strInput, @COUNTER+1,LEN(@strInput)-1) ELSE SET @strInput = SUBSTRING(@strInput, 1, @COUNTER-1) +SUBSTRING(@UNSIGN_CHARS, @COUNTER1,1) + SUBSTRING(@strInput, @COUNTER+1,LEN(@strInput)- @COUNTER) BREAK END SET @COUNTER1 = @COUNTER1 +1 END SET @COUNTER = @COUNTER +1 END SET @strInput = replace(@strInput,' ','-') RETURN @strInput END
+go
+INSERT INTO dbo.STAFFTYPE(name) VALUES( N'Quản lí')
+INSERT INTO stafftype(name) VALUEs(N'Lễ Tân')
+INSERT INTO stafftype(name) VALUEs (N'Khác')
+GO
+INSERT INTO statusroom(Name) VALUEs (N'Trống')
+INSERT INTO statusroom(Name) VALUES( N'Có người')
+INSERT INTO statusroom(Name) VALUES( N'Đang Sửa Chữa')
+INSERT INTO statusroom(Name) VALUES( N'Khác')
+GO
+INSERT INTO customertype(Name) VALUES( N'Vip')
+INSERT INTO customertype(Name) VALUES( N'Thường')
+INSERT INTO customertype(Name) VALUES (N'Vãng Lai')
+INSERT INTO customertype(Name) VALUES( N'Khác')
+GO
+INSERT INTO STAFF
+(
+    UserName,
+    DisplayName,
+    PassWord,
+    IDStaffType,
+    IDCard,
+    DateOfBirth,
+    Sex,
+    Address,
+    PhoneNumber,
+    StartDay
+)
+VALUES
+(   N'meomeo',       -- UserName - nvarchar(100)
+    N'4 Chân',       -- DisplayName - nvarchar(100)
+    N'e10adc3949ba59abbe56e057f20f883e',       -- PassWord - nvarchar(100)
+    1,         -- IDStaffType - int
+    N'M123456',       -- IDCard - nvarchar(100)
+    GETDATE(), -- DateOfBirth - date
+    N'Nam',       -- Sex - nvarchar(100)
+    N'Trên Núi',       -- Address - nvarchar(200)
+    047258369,         -- PhoneNumber - int
+    GETDATE()  -- StartDay - date
+    )
+
+GO
+INSERT INTO PARAMETER
+(
+    Name,
+    Value,
+    Describe
+)
+VALUES
+(   N'QĐ 1', -- Name - nvarchar(200)
+    1.5, -- Value - float
+    N'Meo Meo'  -- Describe - nvarchar(200)
+    )
+GO
+INSERT INTO PARAMETER
+(
+    Name,
+    Value,
+    Describe
+)
+VALUES
+(   N'QĐ 2', -- Name - nvarchar(200)
+    1.5, -- Value - float
+    N'Gâu Gâu'  -- Describe - nvarchar(200)
+    )
+go
+
+insert into Roomtype(Name, Price, LimitPerson) values ( N'Vip 1', 120000, 1)
+insert into Roomtype(Name, Price, LimitPerson) values ( N'Vip 2', 150000, 2)
+insert into Roomtype(Name, Price, LimitPerson) values ( N'Vip 3', 200000, 3)
+insert into Roomtype(Name, Price, LimitPerson) values ( N'Vip 4', 250000, 4)
+insert into Roomtype(Name, Price, LimitPerson) values ( N'Vip 5', 300000, 5)
+go
+CREATE TABLE REPORT
+(
+	idRoomType INT FOREIGN KEY REFERENCES ROOMTYPE(id) NOT NULL,
+	value INT NOT NULL DEFAULT 0,
+	rate FLOAT NOT NULL DEFAULT 0,
+	Month INT NOT NULL DEFAULT 1,
+	Year INT NOT NULL DEFAULT 1990,
+	constraint PK_Report PRIMARY KEY(idRoomType, Month, YEAR)
+)
+GO
+-- lấy id , ngày , tháng trong bill
+-- insert Report
+-- tồn tại trong report thì update
+-- không tồn tại thì insert
+
+ALTER TRIGGER UTG_InsertReport
+ON bill FOR INSERT
+AS
+BEGIN
+	DECLARE @month INT = 0
+	DECLARE @year INT = 0
+	DECLARE @id INT = 0
+	DECLARE @price INT = 0
+	SELECT @id = dbo.ROOM.IDRoomType, @month = MONTH(Inserted.DateOfCreate), @year = YEAR(Inserted.DateOfCreate), @price = Inserted.TotalPrice
+	FROM Inserted INNER JOIN dbo.RECEIVEROOM ON RECEIVEROOM.ID = Inserted.IDReceiveRoom 
+		INNER JOIN dbo.ROOM ON ROOM.ID = RECEIVEROOM.IDRoom
+	DECLARE @count INT = 0	
+	SELECT @count = COUNT(*) FROM report WHERE month = @month AND year = @year and idRoomType = @id
+	IF(@count>0)
+	BEGIN
+		UPDATE dbo.REPORT SET value = value + @price WHERE Year = @year AND Month = @month AND idRoomType = @id
+	END
+    ELSE
+    BEGIN
+		INSERT report(idRoomType, value, Month, Year) VALUES(@id, @price, @month, @year)
+	end
+END
+GO
+INSERT dbo.BILL
+(
+    IDReceiveRoom,
+    StaffSetUp,
+    DateOfCreate,
+    RoomPrice,
+    ServicePrice,
+    TotalPrice,
+    Discount,
+    IDStatusBill
+)
+VALUES
+(   5,                     -- IDReceiveRoom - int
+    N'meomeo',                   -- StaffSetUp - nvarchar(100)
+    '2018-05-22 11:18:39', -- DateOfCreate - smalldatetime
+    111,                     -- RoomPrice - int
+    111,                     -- ServicePrice - int
+    333,                     -- TotalPrice - int
+    0,                     -- Discount - int
+    1                      -- IDStatusBill - int
+    )
+
+GO
+-- tinh tong doanh thu
+-- tinh ti le cho tung phong
+CREATE TRIGGER UTG_UpdateRateReport
+ON dbo.REPORT FOR INSERT, UPDATE
+AS
+BEGIN
+	DECLARE @month INT = 0
+	DECLARE @year INT = 0
+	DECLARE @sum INT = 0
+	SELECT @month = MONTH, @year = YEAR FROM Inserted
+	SELECT @sum = SUM(dbo.REPORT.value)
+	FROM dbo.REPORT
+	WHERE Month = @month AND Year = @year
+	UPDATE dbo.REPORT
+	SET
+		rate = ROUND((value * 100.0 / @sum), 2)
+	WHERE Month = @month AND Year = @year
+END
+GO
+CREATE PROC USP_LoadFullReport
+@month INT, @year int
+AS
+BEGIN
+	SELECT name, value, rate FROM dbo.REPORT INNER JOIN dbo.ROOMTYPE ON ROOMTYPE.ID = REPORT.idRoomType
+	WHERE Month = @month AND Year = @year
+END
+GO
+

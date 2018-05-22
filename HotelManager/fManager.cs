@@ -118,5 +118,13 @@ namespace HotelManager
             parameter.ShowDialog();
             this.Show();
         }
+
+        private void title_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            fReport report = new fReport();
+            report.ShowDialog();
+            this.Show();
+        }
     }
 }

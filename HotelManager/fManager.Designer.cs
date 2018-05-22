@@ -212,6 +212,7 @@
             this.title.UseSelectable = true;
             this.title.UseStyleColors = true;
             this.title.UseTileImage = true;
+            this.title.Click += new System.EventHandler(this.title_Click);
             // 
             // titleManageRoom
             // 
