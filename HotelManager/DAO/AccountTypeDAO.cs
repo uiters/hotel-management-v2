@@ -1,22 +1,23 @@
-﻿using System.Data;
+﻿using HotelManager.DTO;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace HotelManager.DAO
 {
-    class AccountTypeDAO
+    public class AccountTypeDAO
     {
-        #region Constructor & properties
         private static AccountTypeDAO instance;
-        public static AccountTypeDAO Instance { get { if (instance == null) instance = new AccountTypeDAO(); return instance; } }
-        private AccountTypeDAO() { }
-        #endregion
-
-        #region Method
-        internal DataTable LoadFullStaffType()
+        public AccountType GetStaffTypeByUserName(string username)
         {
-            string query = "USP_LoadFullStaffType";
-            return DataProvider.Instance.ExecuteQuery(query);
+            string query = "USP_GetNameStaffTypeByUserName @username";
+            AccountType staffType = new AccountType(DataProvider.Instance.ExecuteQuery(query,new object[] { username }).Rows[0]);
+            return staffType;
         }
-
-        #endregion
+        public static AccountTypeDAO Instance {
+            get { if (instance == null) instance = new AccountTypeDAO(); return instance; }
+            private set => instance = value; }
     }
 }

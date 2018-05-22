@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace HotelManager
@@ -13,8 +16,8 @@ namespace HotelManager
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new fLogin());
-
+            Application.Run(new fPrintBill(1,19));
+            //Application.Run(new fLogin());
         }
     }
 }

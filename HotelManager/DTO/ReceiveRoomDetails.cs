@@ -11,17 +11,12 @@ namespace HotelManager.DTO
     {
         private int idReceiveRoom;
         private int idCustomerOther;
-        public ReceiveRoomDetails(int idReceiveRoom, int idCustomer)
-        {
-            this.IDReceiveRoom = idReceiveRoom;
-            this.IDCustomerOther = idCustomer;
-        }
         public ReceiveRoomDetails(DataRow row)
         {
-            this.IDReceiveRoom = (int)row["IDReceiveRoom"];
-            this.IDCustomerOther = (int)row["IDCustomerOther"];
+            IdReceiveRoom = (int)row["idReceiveRoom"];
+            IdCustomerOther = (int)row["idCustomerOther"];
         }
-        public int IDReceiveRoom { get => idReceiveRoom; set => idReceiveRoom = value; }
-        public int IDCustomerOther { get => idCustomerOther; set => idCustomerOther = value; }
+        public int IdReceiveRoom { get => idReceiveRoom; set => idReceiveRoom = value; }
+        public int IdCustomerOther { get => idCustomerOther; set => idCustomerOther = value; }
     }
 }
