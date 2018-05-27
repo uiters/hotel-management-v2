@@ -11,8 +11,9 @@ namespace HotelManager.DAO
     public class DataProvider
     {
         private static DataProvider instance;
-        //private string connectionStr = @"Data Source=meomeo.cvhksjgmf3vx.us-west-1.rds.amazonaws.com,1433;Initial Catalog=HotelManagement;User ID=thienlan; pwd=12782389";
-        private string connectionStr = @"Data Source=THIEN-AI\THIENAI;Initial Catalog=HotelManagement;Integrated Security=True";
+        //private string connectionStr = @"Data Source=ndc07;Initial Catalog=HotelManagement;Persist Security Info=True;User ID=sa;Pwd=123456";
+        private string connectionStr = @"Data Source=meomeo.cvhksjgmf3vx.us-west-1.rds.amazonaws.com,1433;Initial Catalog=HotelManagement;User ID=thienlan; pwd=12782389";
+        //private string connectionStr = @"Data Source=THIEN-AI\THIENAI;Initial Catalog=HotelManagement;Integrated Security=True";
         public DataTable ExecuteQuery(string query, object[] parameter = null)
         {
             DataTable data = new DataTable();
@@ -35,7 +36,7 @@ namespace HotelManager.DAO
                 connection.Open();
                 SqlCommand command = new SqlCommand(query, connection);
                 AddParameter(query, parameter, command);
-                data=command.ExecuteNonQuery();
+                data = command.ExecuteNonQuery();
                 connection.Close();
             }
             return data;
@@ -69,8 +70,11 @@ namespace HotelManager.DAO
                 }
             }
         }
-        public static DataProvider Instance { get { if (instance == null) instance = new DataProvider();return instance; }
-            private set => instance = value; }
+        public static DataProvider Instance
+        {
+            get { if (instance == null) instance = new DataProvider(); return instance; }
+            private set => instance = value;
+        }
         private DataProvider() { }
     }
 }

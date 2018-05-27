@@ -36,14 +36,14 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txbUserName = new Bunifu.Framework.UI.BunifuMetroTextbox();
             this.txbPassWord = new Bunifu.Framework.UI.BunifuMetroTextbox();
-            this.bunifuCheckbox1 = new Bunifu.Framework.UI.BunifuCheckbox();
-            this.label5 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.btnClose = new Bunifu.Framework.UI.BunifuImageButton();
             this.btnLogin = new Bunifu.Framework.UI.BunifuThinButton2();
             this.bunifuSeparator1 = new Bunifu.Framework.UI.BunifuSeparator();
+            this.btnExit_ = new Bunifu.Framework.UI.BunifuThinButton2();
+            this.bunifuSeparator2 = new Bunifu.Framework.UI.BunifuSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -84,7 +84,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.SeaGreen;
-            this.label4.Location = new System.Drawing.Point(328, 154);
+            this.label4.Location = new System.Drawing.Point(328, 147);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(73, 20);
             this.label4.TabIndex = 6;
@@ -105,7 +105,6 @@
             this.txbUserName.Name = "txbUserName";
             this.txbUserName.Size = new System.Drawing.Size(370, 29);
             this.txbUserName.TabIndex = 0;
-            this.txbUserName.Text = "meomeo";
             this.txbUserName.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             // 
             // txbPassWord
@@ -118,36 +117,13 @@
             this.txbPassWord.Font = new System.Drawing.Font("Century Gothic", 9.75F);
             this.txbPassWord.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.txbPassWord.isPassword = true;
-            this.txbPassWord.Location = new System.Drawing.Point(332, 179);
+            this.txbPassWord.Location = new System.Drawing.Point(332, 172);
             this.txbPassWord.Margin = new System.Windows.Forms.Padding(4);
             this.txbPassWord.Name = "txbPassWord";
             this.txbPassWord.Size = new System.Drawing.Size(370, 29);
             this.txbPassWord.TabIndex = 1;
-            this.txbPassWord.Text = "123456";
             this.txbPassWord.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            // 
-            // bunifuCheckbox1
-            // 
-            this.bunifuCheckbox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(135)))), ((int)(((byte)(140)))));
-            this.bunifuCheckbox1.ChechedOffColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(135)))), ((int)(((byte)(140)))));
-            this.bunifuCheckbox1.Checked = false;
-            this.bunifuCheckbox1.CheckedOnColor = System.Drawing.Color.SeaGreen;
-            this.bunifuCheckbox1.ForeColor = System.Drawing.Color.White;
-            this.bunifuCheckbox1.Location = new System.Drawing.Point(359, 240);
-            this.bunifuCheckbox1.Name = "bunifuCheckbox1";
-            this.bunifuCheckbox1.Size = new System.Drawing.Size(20, 20);
-            this.bunifuCheckbox1.TabIndex = 2;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.SeaGreen;
-            this.label5.Location = new System.Drawing.Point(385, 240);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(71, 20);
-            this.label5.TabIndex = 11;
-            this.label5.Text = "Ghi nhớ ?";
+            this.txbPassWord.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txbPassWord_KeyPress);
             // 
             // pictureBox1
             // 
@@ -166,7 +142,7 @@
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
             this.pictureBox2.Location = new System.Drawing.Point(21, 2);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(236, 146);
+            this.pictureBox2.Size = new System.Drawing.Size(236, 144);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 14;
             this.pictureBox2.TabStop = false;
@@ -214,7 +190,7 @@
             this.btnLogin.IdleFillColor = System.Drawing.Color.White;
             this.btnLogin.IdleForecolor = System.Drawing.Color.SeaGreen;
             this.btnLogin.IdleLineColor = System.Drawing.Color.SeaGreen;
-            this.btnLogin.Location = new System.Drawing.Point(332, 281);
+            this.btnLogin.Location = new System.Drawing.Point(332, 240);
             this.btnLogin.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(370, 40);
@@ -234,20 +210,58 @@
             this.bunifuSeparator1.Transparency = 255;
             this.bunifuSeparator1.Vertical = false;
             // 
+            // btnExit_
+            // 
+            this.btnExit_.ActiveBorderThickness = 1;
+            this.btnExit_.ActiveCornerRadius = 20;
+            this.btnExit_.ActiveFillColor = System.Drawing.Color.SeaGreen;
+            this.btnExit_.ActiveForecolor = System.Drawing.Color.White;
+            this.btnExit_.ActiveLineColor = System.Drawing.Color.SeaGreen;
+            this.btnExit_.BackColor = System.Drawing.Color.White;
+            this.btnExit_.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnExit_.BackgroundImage")));
+            this.btnExit_.ButtonText = "Thoát";
+            this.btnExit_.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnExit_.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExit_.ForeColor = System.Drawing.Color.SeaGreen;
+            this.btnExit_.IdleBorderThickness = 1;
+            this.btnExit_.IdleCornerRadius = 20;
+            this.btnExit_.IdleFillColor = System.Drawing.Color.White;
+            this.btnExit_.IdleForecolor = System.Drawing.Color.SeaGreen;
+            this.btnExit_.IdleLineColor = System.Drawing.Color.SeaGreen;
+            this.btnExit_.Location = new System.Drawing.Point(332, 294);
+            this.btnExit_.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnExit_.Name = "btnExit_";
+            this.btnExit_.Size = new System.Drawing.Size(370, 40);
+            this.btnExit_.TabIndex = 29;
+            this.btnExit_.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnExit_.Click += new System.EventHandler(this.btnExit__Click);
+            // 
+            // bunifuSeparator2
+            // 
+            this.bunifuSeparator2.BackColor = System.Drawing.Color.Transparent;
+            this.bunifuSeparator2.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.bunifuSeparator2.LineThickness = 1;
+            this.bunifuSeparator2.Location = new System.Drawing.Point(332, 220);
+            this.bunifuSeparator2.Name = "bunifuSeparator2";
+            this.bunifuSeparator2.Size = new System.Drawing.Size(370, 10);
+            this.bunifuSeparator2.TabIndex = 30;
+            this.bunifuSeparator2.Transparency = 255;
+            this.bunifuSeparator2.Vertical = false;
+            // 
             // fLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(755, 354);
+            this.Controls.Add(this.bunifuSeparator2);
+            this.Controls.Add(this.btnExit_);
             this.Controls.Add(this.bunifuSeparator1);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.bunifuCheckbox1);
             this.Controls.Add(this.txbPassWord);
             this.Controls.Add(this.txbUserName);
             this.Controls.Add(this.label4);
@@ -258,7 +272,6 @@
             this.Name = "fLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Đăng nhập";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.fLogin_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
@@ -275,14 +288,14 @@
         private System.Windows.Forms.Label label4;
         private Bunifu.Framework.UI.BunifuMetroTextbox txbUserName;
         private Bunifu.Framework.UI.BunifuMetroTextbox txbPassWord;
-        private Bunifu.Framework.UI.BunifuCheckbox bunifuCheckbox1;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox3;
         private Bunifu.Framework.UI.BunifuImageButton btnClose;
         private Bunifu.Framework.UI.BunifuThinButton2 btnLogin;
         private Bunifu.Framework.UI.BunifuSeparator bunifuSeparator1;
+        private Bunifu.Framework.UI.BunifuThinButton2 btnExit_;
+        private Bunifu.Framework.UI.BunifuSeparator bunifuSeparator2;
     }
 }
 

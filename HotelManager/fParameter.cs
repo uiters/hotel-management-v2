@@ -1,13 +1,7 @@
 ﻿using HotelManager.DAO;
 using HotelManager.DTO;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace HotelManager
@@ -20,6 +14,7 @@ namespace HotelManager
             InitializeComponent();
             LoadFullParameter(GetFullParameter());
             comboboxName.DisplayMember = "Name";
+            dataGridViewParameter.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9.75F);
         }
         #endregion
 

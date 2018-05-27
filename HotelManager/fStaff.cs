@@ -20,6 +20,7 @@ namespace HotelManager
             LoadFullStaff(GetFullStaff());
             txbSearch.KeyPress += TxbSearch_KeyPress;
             KeyPress += FStaff_KeyPress;
+            dataGridStaff.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9.75F);
         }
 
 

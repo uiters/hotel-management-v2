@@ -36,6 +36,7 @@ namespace HotelManager
             InitializeComponent();
             this.TableSerViceType = table;
             this.comboboxID.DisplayMember = "id";
+            dataGridViewServiceType.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9.75F);
         }
         #endregion
 

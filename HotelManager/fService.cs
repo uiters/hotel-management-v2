@@ -19,13 +19,14 @@ namespace HotelManager
         {
             this.DoubleBuffered = true;
             InitializeComponent();
-            LoadFullService(GetFullService());
             LoadFullServiceType();
+            LoadFullService(GetFullService());
             comboboxID.DisplayMember = "id";
             txbSearch.KeyPress += TxbSearch_KeyPress;
             btnCancel.Click += BtnCancel_Click;
             KeyPreview = true;
             KeyPress += FService_KeyPress;
+            dataGridViewService.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9.75F);
         }
 
 

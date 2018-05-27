@@ -39,6 +39,7 @@ namespace HotelManager
             InitializeComponent();
             TableRoomType = table;
             comboboxID.DisplayMember = "id";
+            dataGridViewRoomType.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9.75F);
         }
         #endregion
 
@@ -65,7 +66,6 @@ namespace HotelManager
             comboboxID.Text = "Tự Động";
             txbName.Text = string.Empty;
             txbPrice.Text = "0";
-            txbLimitPerson.Text = "0";
         }
         private void BtnUpdate_Click(object sender, EventArgs e)
         {

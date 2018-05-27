@@ -2,6 +2,7 @@
 using HotelManager.DTO;
 using System;
 using System.Data;
+using System.Drawing;
 using System.Windows.Forms;
 namespace HotelManager
 {
@@ -12,13 +13,15 @@ namespace HotelManager
         internal fCustomer()
         {
             InitializeComponent();
-            LoadFullCustomer(GetFullCustomer());
+            cbCustomerSearch.SelectedIndex = 3;
             LoadFullCustomerType();
+            LoadFullCustomer(GetFullCustomer());
             comboBoxSex.SelectedIndex = 0;
             SaveCustomer.OverwritePrompt = true;
             comboboxID.DisplayMember = "id";
             FormClosing += FCustomer_FormClosing;
             txbSearch.KeyPress += TxbSearch_KeyPress;
+            dataGridViewCustomer.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9.75F);
         }
 
         #endregion
@@ -43,15 +46,6 @@ namespace HotelManager
         #endregion
 
         #region Click
-        //private void BtnCustomerType_Click(object sender, EventArgs e)
-        //{
-        //    this.Hide();
-        //    customerType.ShowDialog();
-        //    comboBoxCustomerType.DataSource = customerType.Table;
-        //    comboBoxCustomerType.Refresh();
-        //    LoadFullCustomer(GetFullCustomer());
-        //    this.Show();
-        //}
 
         private void BtnClose_Click(object sender, EventArgs e)
         {
@@ -245,7 +239,9 @@ namespace HotelManager
         }
         private void Search()
         {
-            LoadFullCustomer(GetSearchCustomer());
+            string @string = txbSearch.Text;
+            int mode = cbCustomerSearch.SelectedIndex;
+            LoadFullCustomer(GetSearchCustomer(@string, mode));
         }
 
         #endregion
@@ -253,7 +249,7 @@ namespace HotelManager
         #region GetData
         private Customer GetCustomerNow()
         {
-            fStaff.Trim(new Bunifu.Framework.UI.BunifuMetroTextbox[] { txbAddress, txbFullName, txbIDCard, txbNationality });
+            fStaff.Trim(new Bunifu.Framework.UI.BunifuMetroTextbox[] { txbAddress, txbFullName, txbIDCard });
             Customer customer = new Customer();
             if (comboboxID.Text == string.Empty)
                 customer.Id = 0;
@@ -262,7 +258,7 @@ namespace HotelManager
             customer.IdCard = txbIDCard.Text;
             int id = comboBoxCustomerType.SelectedIndex;
             customer.IdCustomerType = (int)((DataTable) comboBoxCustomerType.DataSource).Rows[id]["id"];
-            customer.CustomerName = txbFullName.Text;
+            customer.Name = txbFullName.Text;
             customer.Sex = comboBoxSex.Text;
             customer.PhoneNumber = int.Parse(txbPhoneNumber.Text);
             customer.DateOfBirth = datepickerDateOfBirth.Value;
@@ -278,12 +274,19 @@ namespace HotelManager
         {
             return CustomerTypeDAO.Instance.LoadFullCustomerType();
         }
-        private DataTable GetSearchCustomer()
+        /// <summary>
+        /// --Mode is
+        //--- 0 --- find along id
+        //--- 1 --- find along name
+        //--- 2 --- find along idCard
+        //--- 3 --- find along NumberPhone
+        /// </summary>
+        /// <param name="string"></param>
+        /// <param name="mode"></param>
+        /// <returns></returns>
+        private DataTable GetSearchCustomer(string @string, int mode)
         {
-            if (int.TryParse(txbSearch.Text, out int phoneNumber))
-                return CustomerDAO.Instance.Search(txbSearch.Text, phoneNumber);
-            else
-                return CustomerDAO.Instance.Search(txbSearch.Text, -1);
+            return CustomerDAO.Instance.Search(@string, mode);
         }
 
         #endregion

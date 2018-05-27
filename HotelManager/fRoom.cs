@@ -17,11 +17,12 @@ namespace HotelManager
         public fRoom()
         {
             InitializeComponent();
-            LoadFullRoom(GetFullRoom());
             LoadFullRoomType();
             LoadFullStatusRoom();
+            LoadFullRoom(GetFullRoom());
             dataGridViewRoom.SelectionChanged += DataGridViewRoom_SelectionChanged;
             comboboxID.DisplayMember = "id";
+            dataGridViewRoom.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9.75F);
         }
 
         #endregion
@@ -267,7 +268,7 @@ namespace HotelManager
             else
                 room.Id = int.Parse(comboboxID.Text);
             fStaff.Trim(new Bunifu.Framework.UI.BunifuMetroTextbox[] { txbNameRoom });
-            room.RoomName = txbNameRoom.Text;
+            room.Name = txbNameRoom.Text;
             int index = comboBoxRoomType.SelectedIndex;
             room.IdRoomType = (int)((DataTable)comboBoxRoomType.DataSource).Rows[index]["id"];
             index = comboBoxStatusRoom.SelectedIndex;

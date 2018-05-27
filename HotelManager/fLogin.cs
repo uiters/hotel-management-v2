@@ -21,13 +21,6 @@ namespace HotelManager
         {
             return AccountDAO.Instance.Login(txbUserName.Text, txbPassWord.Text);
         }
-        private void fLogin_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if(MetroFramework.MetroMessageBox.Show(this,"Bạn có muốn thoát không?","Thông báo",MessageBoxButtons.YesNo,MessageBoxIcon.Question)==DialogResult.No)
-            {
-                e.Cancel = true;
-            }
-        }
         private void btnClose_Click(object sender, EventArgs e)
         {
             Close();
@@ -39,18 +32,29 @@ namespace HotelManager
             if (Login())
             {
                 this.Hide();
-                fManager f = new fManager();
+                fManagement f = new fManagement(txbUserName.Text);
                 f.ShowDialog();
-                this.Show();
-                txbUserName.Text = String.Empty;
-                txbPassWord.Text = String.Empty;
-                txbUserName.Focus();
+
+                //txbUserName.Text = String.Empty;
+                //txbPassWord.Text = String.Empty;
+                //txbUserName.Focus();
 
             }
             else
             {
                 MetroFramework.MetroMessageBox.Show(this, "Tên Đăng Nhập không tồn tại hoặc Mật Khẩu không đúng.\nVui lòng nhập lại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void btnExit__Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void txbPassWord_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+                btnLogin_Click_1(sender, null);
         }
     }
 }

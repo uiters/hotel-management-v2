@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Reflection;
 using System;
+using Microsoft.Office.Interop.Excel;
 
 namespace HotelManager.DAO
 {
@@ -55,25 +56,45 @@ namespace HotelManager.DAO
                 sheetExcel =(Excel.Worksheet) bookExcel.Worksheets[1];
 
                 int currentColumn = 0;
-                int currentRow = 1;
-                System.Collections.Generic.List<int> listColumn = new System.Collections.Generic.List<int>();
-                foreach (DataGridViewTextBoxColumn column in dataGridView.Columns)
-                {
-                    if (column.Visible == false) continue;
-                    listColumn.Add(column.DisplayIndex);
-                    sheetExcel.Cells[currentRow, ++currentColumn] = column.HeaderText != "" ? column.HeaderText : column.Name; // [1 , x] name table
-                }
-                
-                for (int i = 0; i < dataGridView.Rows.Count; i++)//row
+                int currentRow = 0;
+
+                for (int i = 0; i < dataGridView.RowCount; i++)
                 {
                     if (dataGridView.Rows[i].IsNewRow) continue;
-                    ++currentRow;
-                    currentColumn = 0;
-                    foreach (int j in listColumn)//column
+                    else
                     {
-                        sheetExcel.Cells[currentRow, ++currentColumn] = dataGridView[j, i].Value.ToString();
+                        currentColumn = 0;
+                        ++currentRow;
+                        for (int j = 0; j < dataGridView.ColumnCount; j++)
+                        {
+                            if (dataGridView.Columns[j].Visible == false) continue;
+                            else
+                                sheetExcel.Cells[currentRow, ++currentColumn] = dataGridView[j, i].Value.ToString();
+                        }
                     }
                 }
+                Range line = (Range)sheetExcel.Rows[1];
+                currentColumn = 0;
+                line.Insert();
+                for (int i = 0; i < dataGridView.ColumnCount; i++)
+                {
+                    if (dataGridView.Columns[i].Visible == false) continue;
+                    else
+                        sheetExcel.Cells[1, ++currentColumn] = dataGridView.Columns[i].HeaderText;
+                }
+
+
+                //Excel.ChartObjects chartObjects = (Excel.ChartObjects)sheetExcel.ChartObjects();
+                //Excel.ChartObject chart = (Excel.ChartObject)chartObjects.Add(400, 400, 400, 400);
+                //Excel.Chart chartPage = chart.Chart;
+
+                //Range range = sheetExcel.Range["A2,A3,A4,A5,C2,C3,C4,C5", Type.Missing];
+                //range.DataSeries
+
+                //chartPage.SetSourceData(range, Excel.XlRowCol.xlRows);
+                //chartPage.ChartStyle = Excel.XlChartType.xlDoughnut;
+                //chartPage.
+
                 sheetExcel.Columns.AutoFit();
                 sheetExcel.Columns.HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
                 sheetExcel.Rows[1].HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
@@ -112,7 +133,21 @@ namespace HotelManager.DAO
         private void ToExcel(Excel.Workbook bookExcel, string path, Excel.XlFileFormat fileFormat)
         {
             object misValue = Missing.Value;
-            bookExcel.SaveAs(path, fileFormat, misValue, misValue, false, false, Excel.XlSaveAsAccessMode.xlExclusive, Excel.XlSaveConflictResolution.xlLocalSessionChanges, misValue, misValue, misValue, misValue);
+            try
+            {
+                bookExcel.SaveAs(path, fileFormat, misValue, misValue, false, false, Excel.XlSaveAsAccessMode.xlExclusive, Excel.XlSaveConflictResolution.xlLocalSessionChanges, misValue, misValue, misValue, misValue);
+            }
+            catch
+            {
+                string[] vs = path.Split('.');
+                path = string.Empty;
+                for (int i = 0; i < vs.Length - 1; i++)
+                {
+                    path += vs[i];
+                }
+                path += " Mới ." +  vs[vs.Length - 1];
+                bookExcel.SaveAs(path, fileFormat, misValue, misValue, false, false, Excel.XlSaveAsAccessMode.xlExclusive, Excel.XlSaveConflictResolution.xlLocalSessionChanges, misValue, misValue, misValue, misValue);
+            }
             bookExcel.Close(true);
         }
         private void ToPDF(Excel.Workbook bookExcel, string path, Excel.XlFileFormat fileFormat)
