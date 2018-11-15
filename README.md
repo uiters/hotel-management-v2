@@ -1,6 +1,6 @@
 # Hotel Manager - NMCNPM - UIT
 
-🏩 The app Hotel Manager with C# 💖
+🏩 Đồ án quản lý khách sạn C# 💖
 
 ![](Page-57-Image-21.png)
 ![](Page-58-Image-22.png)
