@@ -93,7 +93,7 @@ Have a bug or an issue with this project? [Open a new issue](https://github.com/
 ## Authors
 
 * **Vi Chi Thien** - [yeutham212](https://github.com/yeutham212) 🐱
-* **Nguyen Duy Cuong** - [ndc07](https://github.com/ndc07) 💎
+* **Nguyen Duy Cuong** - [jade28](https://github.com/jade28) 💎
 * **Le Huu Thang** - [lhthang1998](https://github.com/lhthang1998) 🐷
 * **Tran Minh Triet** - [triet1213](https://github.com/triet1213) 🐶
 
