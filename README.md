@@ -12,7 +12,7 @@
 * [Documents](#documents)
 * [Bugs and Issues](#bugs-and-issues)
 * [Some screens](#some-screens)
-* [Authors](#authors)
+* [Team](#team)
 * [License](#license)
 
 ## Features
@@ -90,12 +90,11 @@ Have a bug or an issue with this project? [Open a new issue](https://github.com/
 
 **`And more screens ...`**
 
-## Authors
+## Team
 
-* **Vi Chi Thien** - [yeutham212](https://github.com/yeutham212) 🐱
-* **Nguyen Duy Cuong** - [jade28](https://github.com/jade28) 💎
-* **Le Huu Thang** - [lhthang1998](https://github.com/lhthang1998) 🐷
-* **Tran Minh Triet** - [triet1213](https://github.com/triet1213) 🐶
+| [![Cuong Duy Nguyen](https://github.com/cuongw.png?size=120)](https://github.com/cuongw) | [![Thien Chi Vi](https://github.com/tvc12.png?size=120)](https://github.com/tvc12) | [![Thang Huu Le](https://github.com/lhthang1998.png?size=120)](https://github.com/lhthang1998) |  [![Triet Minh Tran](https://github.com/triet1213.png?size=120)](https://github.com/triet1213) |
+| :---: | :---: | :---: | :---: |
+| [Cuong Duy Nguyen](https://github.com/cuongw) | [Thien Chi Vi](https://github.com/tvc12) | [Thang Huu Le](https://github.com/lhthang1998) |  [Triet Minh Tran](https://github.com/triet1213) |
 
 ## License
 
