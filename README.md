@@ -92,9 +92,7 @@ Have a bug or an issue with this project? [Open a new issue](https://github.com/
 
 ## Team
 
-| [![Cuong Duy Nguyen](https://github.com/cuongw.png?size=120)](https://github.com/cuongw) | [![Thien Chi Vi](https://github.com/tvc12.png?size=120)](https://github.com/tvc12) | [![Thang Huu Le](https://github.com/lhthang1998.png?size=120)](https://github.com/lhthang1998) |  [![Triet Minh Tran](https://github.com/triet1213.png?size=120)](https://github.com/triet1213) |
-| :---: | :---: | :---: | :---: |
-| [Cuong Duy Nguyen](https://github.com/cuongw) | [Thien Chi Vi](https://github.com/tvc12) | [Thang Huu Le](https://github.com/lhthang1998) |  [Triet Minh Tran](https://github.com/triet1213) |
+[![](https://sourcerer.io/fame/tvc12/uiters/hotel-management-v2/images/0)](https://sourcerer.io/fame/tvc12/uiters/hotel-management-v2/links/0)[![](https://sourcerer.io/fame/tvc12/uiters/hotel-management-v2/images/1)](https://sourcerer.io/fame/tvc12/uiters/hotel-management-v2/links/1)[![](https://sourcerer.io/fame/tvc12/uiters/hotel-management-v2/images/2)](https://sourcerer.io/fame/tvc12/uiters/hotel-management-v2/links/2)[![](https://sourcerer.io/fame/tvc12/uiters/hotel-management-v2/images/3)](https://sourcerer.io/fame/tvc12/uiters/hotel-management-v2/links/3)[![](https://sourcerer.io/fame/tvc12/uiters/hotel-management-v2/images/4)](https://sourcerer.io/fame/tvc12/uiters/hotel-management-v2/links/4)[![](https://sourcerer.io/fame/tvc12/uiters/hotel-management-v2/images/5)](https://sourcerer.io/fame/tvc12/uiters/hotel-management-v2/links/5)[![](https://sourcerer.io/fame/tvc12/uiters/hotel-management-v2/images/6)](https://sourcerer.io/fame/tvc12/uiters/hotel-management-v2/links/6)[![](https://sourcerer.io/fame/tvc12/uiters/hotel-management-v2/images/7)](https://sourcerer.io/fame/tvc12/uiters/hotel-management-v2/links/7)
 
 ## License
 
