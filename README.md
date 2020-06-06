@@ -1,6 +1,6 @@
 # Hotel Mangement
 
-🏨🚪🛌🛎️ Hotel Management App using C#.
+🏨 Hotel Management App.
 
 ![page-58-image-22](https://user-images.githubusercontent.com/34389409/48669982-2ec79200-eb42-11e8-8f1c-cd7d7b1eb5a2.png)
 
