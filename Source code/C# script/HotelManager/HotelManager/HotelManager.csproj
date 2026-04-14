@@ -35,6 +35,34 @@
     <Reference Include="Bunifu_UI_v1.52">
       <HintPath>..\..\..\UI for Visual Studio 2017\Bunifu_UI_v1.52.dll</HintPath>
     </Reference>
+    <Reference Include="C">
+      <HintPath>..\..\..\C</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="C">
+      <HintPath>..\..\..\C</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="C">
+      <HintPath>..\..\..\C</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="C">
+      <HintPath>..\..\..\C</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="C">
+      <HintPath>..\..\..\C</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="C">
+      <HintPath>..\..\..\C</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="C">
+      <HintPath>..\..\..\C</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="FlashControlV71, Version=1.0.3187.32366, Culture=neutral, PublicKeyToken=692fbea5521e1304">
       <HintPath>..\packages\CrystalReports.FlashControlV71.13.0.3501\lib\net20\FlashControlV71.dll</HintPath>
     </Reference>
